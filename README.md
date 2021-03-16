@@ -68,11 +68,11 @@ To calculate the geodesic distances from two source points to all other points o
 ```python
 distances, best_source = geoalg.geodesicDistances(np.array([25,100]))
 ```
-For more detail, a jupyter notebook is provided in the examples folder to show how to use `pygeodesic` to compute geodesic distances and paths.
+For more detail, a Jupyter notebook is provided in the examples folder to show how to use `pygeodesic` to compute geodesic distances and paths.
 
 ## Example using the Stanford Bunny
 
-An jupyter notebook is provided showing how to use `pygeodesic` to calculate the geodesic distance and path using the Stanford Bunny as an example.
+A Jupyter notebook is provided showing how to use `pygeodesic` to calculate the geodesic distance and path using the Stanford Bunny as an example.
 
 <img src="https://github.com/mhogg/pygeodesic/blob/main/images/stanford_bunny_geodesic_path.png?raw=true" height="400"/>
 
