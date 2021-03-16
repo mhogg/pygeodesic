@@ -2,7 +2,7 @@
 
 Python library to compute geodesic distance over a triangular based surface mesh.
 
-A cython wrapper of the C++ code by [Kirsanov](https://code.google.com/archive/p/geodesic/), which is an implementation of the exact geodesic algorithm for triangular mesh first described by Mitchell, Mount and Papadimitriou in 1987.
+A Cython wrapper of the C++ code by [Kirsanov](https://code.google.com/archive/p/geodesic/), which is an implementation of the exact geodesic algorithm for triangular mesh first described by Mitchell, Mount and Papadimitriou in 1987.
 
 `pygeodesic` is similar to other libraries on PyPi (such as [gdist](https://pypi.org/project/gdist/) and [tvb-gdist](https://pypi.org/project/tvb-gdist/)), but:
 * provides a wrapper of the GeodesicAlgorithmExact class
