@@ -1,0 +1,8 @@
+build/
+dist/
+.ipynb_checkpoints/
+pygeodesic.egg-info/
+*.pyc
+*.pyd
+*.bat
+pygeodesic.cpp

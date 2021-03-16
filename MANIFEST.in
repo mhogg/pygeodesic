@@ -1,0 +1,8 @@
+include *.in
+include *.txt
+include *.md
+recursive-include pygeodesic *.pyd
+recursive-include pygeodesic *.pyx
+recursive-include pygeodesic *.h
+recursive-include pygeodesic *.cpp
+recursive-include pygeodesic\examples *.*
