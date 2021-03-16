@@ -74,7 +74,7 @@ For more detail, a jupyter notebook is provided in the examples folder to show h
 
 An jupyter notebook is provided showing how to use `pygeodesic` to calculate the geodesic distance and path using the Stanford Bunny as an example.
 
-<img src="images/stanford_bunny_geodesic_path.png" height="400"/>
+<img src="https://github.com/mhogg/pygeodesic/blob/main/images/stanford_bunny_geodesic_path.png?raw=true" height="400"/>
 
 
 
