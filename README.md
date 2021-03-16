@@ -11,9 +11,14 @@ A cython wrapper of the C++ code by [Kirsanov](https://code.google.com/archive/p
 
 A good alternative to `pygeodesic` is [potpourri3d](https://pypi.org/project/potpourri3d/), which uses the *heat method* and *vector heat method* to compute geodesic distance over surfaces and point clouds. However, this library does not currently output the geodesic path on the surface.
 
-## Installation
+## Requirements
 
 A C++ compiler is required if you are not installing one of the precompiled wheels. Although `pygeodesic` is a Cython wrapper, Cython is not required as the cythonized C++ file is also provided.
+
+[VTK](https://pypi.org/project/vtk/) is used for visualisation in the example notebooks.
+
+
+## Installation
 
 Install from PyPi:
 ```
@@ -34,7 +39,7 @@ import pygeodesic.geodesic as geodesic
 
 To read the mesh files provided with the original C++ code:
 ```python
-filename = r'../data/flat_triangular_mesh.txt'
+filename = r'data/flat_triangular_mesh.txt'
 result = geodesic.read_mesh_from_file(filename)
 if result:
     points, faces = result
@@ -59,6 +64,17 @@ sourceIndex = 25
 distances, best_source = geoalg.geodesicDistances(np.array([sourceIndex,]))
 ```
 
-For more detail, a jupyter notebook is provided in examples to show how to use `pygeodesic` to compute geodesic distances and paths.
+To calculate the geodesic distances from two source points to all other points on the mesh:
+```python
+distances, best_source = geoalg.geodesicDistances(np.array([25,100]))
+```
+For more detail, a jupyter notebook is provided in the examples folder to show how to use `pygeodesic` to compute geodesic distances and paths.
+
+## Example using the Stanford Bunny
+
+An jupyter notebook is provided showing how to use `pygeodesic` to calculate the geodesic distance and path using the Stanford Bunny as an example.
+
+<img src="images/stanford_bunny_geodesic_path.png" height="400"/>
+
 
 

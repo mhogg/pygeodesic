@@ -1,6 +1,34 @@
 import vtk
 from vtkmodules.util import numpy_support as nps
+from vtkmodules.numpy_interface import dataset_adapter as dsa
 import numpy as np
+
+
+def getPointsAndCellsFromPolydata(polydata):
+    """
+    Extract points and cells from polydata object
+
+    Args:
+        polydata (vtk.vtkPolyData): polydata object representing mesh
+    
+    Returns:
+        ndarray: Array of points
+        ndarrdy: Array of cells
+    """    
+    
+    # Use numpy wrapper to easily extract points and cells
+    polydata = dsa.WrapDataObject(polydata) if isinstance(polydata, vtk.vtkPolyData) else polydata
+
+    # Get points
+    points = np.array(polydata.GetPoints(), dtype=np.float64)
+
+    # Get cells
+    polygons = np.array(polydata.GetPolygons(), dtype=np.int32)
+    n = polygons[0]+1
+    polygons = np.resize(polygons, (polygons.size//n, n))
+    polygons = polygons[:, 1:n]
+    
+    return points, polygons
 
 
 def polydataFromPointsAndCells(points, cells):
@@ -62,7 +90,7 @@ def createPolyLineActor(pointCoords, linewidth=3, color=(1,1,1)):
     
     Args:
         pointCoords (ndarray): array of point coordinates along line
-        linewidth (int): Value representing width of line actor (default=3)
+        linewidth (float): Value representing width of line actor (default=3)
         color (list[int]): RBG mesh color  
     
     Returns:
@@ -91,6 +119,32 @@ def createPolyLineActor(pointCoords, linewidth=3, color=(1,1,1)):
     actor.GetProperty().SetColor(color)
     actor.GetProperty().SetLineWidth(linewidth)
     return actor
+
+
+def createSphereActor(center, radius=1.5, color=(1,1,1), resolution=20):
+    """
+    Create and return a vtkActor based on vtkSphereSource
+    
+    Args:
+        center (ndarray): array of center coordinates
+        radius (float): value representing radius of the sphere
+        color (list[int]): RBG mesh color      
+        resolution (int): phi and theta mesh resolution of the sphere
+    
+    Returns:
+        vtk.vtkActor    
+    """
+    sphere = vtk.vtkSphereSource()
+    sphere.SetCenter(center)
+    sphere.SetRadius(radius)
+    sphere.SetPhiResolution(resolution)
+    sphere.SetThetaResolution(resolution)
+    sphereMapper = vtk.vtkPolyDataMapper()
+    sphereMapper.SetInputConnection(sphere.GetOutputPort())
+    sphereActor = vtk.vtkActor()
+    sphereActor.GetProperty().SetColor(color)  
+    sphereActor.SetMapper(sphereMapper)
+    return sphereActor
 
 
 class Viewer:
