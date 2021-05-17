@@ -631,11 +631,11 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "stdexcept"
 #include "typeinfo"
 #include <vector>
-#include "geodesic_mesh_elements.h"
-#include "geodesic_mesh.h"
-#include "geodesic_algorithm_exact.h"
-#include "geodesic_algorithm_base.h"
-#include "geodesic_constants_and_simple_functions.h"
+#include "geodesic_kirsanov/geodesic_mesh_elements.h"
+#include "geodesic_kirsanov/geodesic_mesh.h"
+#include "geodesic_kirsanov/geodesic_algorithm_exact.h"
+#include "geodesic_kirsanov/geodesic_algorithm_base.h"
+#include "geodesic_kirsanov/geodesic_constants_and_simple_functions.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
