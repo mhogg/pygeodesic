@@ -7,6 +7,7 @@
 #include <vector>
 #include <assert.h>
 #include <math.h>
+#include <memory>
 
 namespace geodesic{
 
