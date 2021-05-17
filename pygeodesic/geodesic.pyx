@@ -7,15 +7,15 @@ cimport numpy
 from libcpp.vector cimport vector
 
 
-cdef extern from "geodesic_mesh_elements.h" namespace "geodesic":
+cdef extern from "geodesic_kirsanov/geodesic_mesh_elements.h" namespace "geodesic":
     cdef cppclass Face:
         Face()
 
-cdef extern from "geodesic_mesh_elements.h" namespace "geodesic":
+cdef extern from "geodesic_kirsanov/geodesic_mesh_elements.h" namespace "geodesic":
     cdef cppclass Vertex:
         Vertex()
 
-cdef extern from "geodesic_mesh_elements.h" namespace "geodesic":
+cdef extern from "geodesic_kirsanov/geodesic_mesh_elements.h" namespace "geodesic":
     cdef cppclass SurfacePoint:
         SurfacePoint()
         SurfacePoint(Vertex*)
@@ -23,14 +23,14 @@ cdef extern from "geodesic_mesh_elements.h" namespace "geodesic":
         double& y()
         double& z()
 
-cdef extern from "geodesic_mesh.h" namespace "geodesic":
+cdef extern from "geodesic_kirsanov/geodesic_mesh.h" namespace "geodesic":
     cdef cppclass Mesh:
         Mesh()
         void initialize_mesh_data(vector[double]&, vector[unsigned]&)
         vector[Vertex]& vertices()
         vector[Face]& faces()
 
-cdef extern from "geodesic_algorithm_exact.h" namespace "geodesic":
+cdef extern from "geodesic_kirsanov/geodesic_algorithm_exact.h" namespace "geodesic":
     cdef cppclass GeodesicAlgorithmExact:
         GeodesicAlgorithmExact(Mesh*)
         void propagate(vector[SurfacePoint]&, double, vector[SurfacePoint]*)
@@ -38,10 +38,10 @@ cdef extern from "geodesic_algorithm_exact.h" namespace "geodesic":
         void trace_back(SurfacePoint&, vector[SurfacePoint]&)
         void geodesic(SurfacePoint&, SurfacePoint&, vector[SurfacePoint]&)
 
-cdef extern from "geodesic_algorithm_base.h" namespace "geodesic":        
+cdef extern from "geodesic_kirsanov/geodesic_algorithm_base.h" namespace "geodesic":        
     double length(vector[SurfacePoint]&)
 
-cdef extern from "geodesic_constants_and_simple_functions.h" namespace "geodesic":
+cdef extern from "geodesic_kirsanov/geodesic_constants_and_simple_functions.h" namespace "geodesic":
     double GEODESIC_INF
 
 
