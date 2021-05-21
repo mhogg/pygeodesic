@@ -48,7 +48,7 @@ if result:
 To calculate the geodesic distance and path between two points (the *source* and the *target*) on the mesh:
 ```python
 # Initialise the PyGeodesicAlgorithmExact class instance
-geoalg = geodesic.PyGeodesicAlgorithmExact(points,faces)
+geoalg = geodesic.PyGeodesicAlgorithmExact(points, faces)
 
 # Define the source and target point ids with respect to the points array
 sourceIndex = 25
@@ -60,14 +60,18 @@ distance, path = geoalg.geodesicDistance(sourceIndex, targetIndex)
 
 To calculate the geodesic distances from a single point (the source point) to all other points on the mesh:
 ```python
-sourceIndex = 25
-distances, best_source = geoalg.geodesicDistances(np.array([sourceIndex,]))
+source_indices = np.array([25])
+target_indices = None
+distances, best_source = geoalg.geodesicDistances(source_indices, target_indices)
 ```
 
-To calculate the geodesic distances from two source points to all other points on the mesh:
+To calculate the geodesic distances from two source points to 3 target points:
 ```python
-distances, best_source = geoalg.geodesicDistances(np.array([25,100]))
+source_indices = np.array([25,100]) 
+target_indices = np.array([0,10,50])
+distances, best_source = geoalg.geodesicDistances(source_indices, target_indices)
 ```
+
 For more detail, a Jupyter notebook is provided in the examples folder to show how to use `pygeodesic` to compute geodesic distances and paths.
 
 ## Example using the Stanford Bunny

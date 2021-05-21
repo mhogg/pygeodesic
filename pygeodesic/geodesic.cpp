@@ -1124,6 +1124,7 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 /*--- Type declarations ---*/
 struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact;
 struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance;
+struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances;
 
 /* "../.mediapipe/lib/site-packages/numpy/__init__.pxd":728
  * ctypedef npy_longdouble longdouble_t
@@ -1177,14 +1178,27 @@ struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact {
 };
 
 
-/* "pygeodesic/geodesic.pyx":85
+/* "pygeodesic/geodesic.pyx":97
  *         self.algorithm = new GeodesicAlgorithmExact(&self.mesh)
  * 
- *     def geodesicDistance(self, int sourceIndex, int targetIndex):             # <<<<<<<<<<<<<<
+ *     def geodesicDistance(self, sourceIndex, targetIndex):             # <<<<<<<<<<<<<<
  *         """
  *         Calculates the geodesic distance from the mesh vertex with index 'sourceIndex'
  */
 struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance {
+  PyObject_HEAD
+  struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self;
+};
+
+
+/* "pygeodesic/geodesic.pyx":142
+ *         return path_length, path_points
+ * 
+ *     def geodesicDistances(self, source_indices=None, target_indices=None, double max_distance = GEODESIC_INF):             # <<<<<<<<<<<<<<
+ *         """
+ *         Calculates the distance of each target vertex from the best (closest) source vertex
+ */
+struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances {
   PyObject_HEAD
   struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self;
 };
@@ -1276,32 +1290,84 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
-/* ArgTypeTest.proto */
-#define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
-    ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
-        __Pyx__ArgTypeTest(obj, type, name, exact))
-static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
+/* PyDictVersioning.proto */
+#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
+#define __PYX_DICT_VERSION_INIT  ((PY_UINT64_T) -1)
+#define __PYX_GET_DICT_VERSION(dict)  (((PyDictObject*)(dict))->ma_version_tag)
+#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)\
+    (version_var) = __PYX_GET_DICT_VERSION(dict);\
+    (cache_var) = (value);
+#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP) {\
+    static PY_UINT64_T __pyx_dict_version = 0;\
+    static PyObject *__pyx_dict_cached_value = NULL;\
+    if (likely(__PYX_GET_DICT_VERSION(DICT) == __pyx_dict_version)) {\
+        (VAR) = __pyx_dict_cached_value;\
+    } else {\
+        (VAR) = __pyx_dict_cached_value = (LOOKUP);\
+        __pyx_dict_version = __PYX_GET_DICT_VERSION(DICT);\
+    }\
+}
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj);
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj);
+static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version);
+#else
+#define __PYX_GET_DICT_VERSION(dict)  (0)
+#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)
+#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP)  (VAR) = (LOOKUP);
+#endif
 
-/* IsLittleEndian.proto */
-static CYTHON_INLINE int __Pyx_Is_Little_Endian(void);
+/* GetModuleGlobalName.proto */
+#if CYTHON_USE_DICT_VERSIONS
+#define __Pyx_GetModuleGlobalName(var, name)  {\
+    static PY_UINT64_T __pyx_dict_version = 0;\
+    static PyObject *__pyx_dict_cached_value = NULL;\
+    (var) = (likely(__pyx_dict_version == __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+        (likely(__pyx_dict_cached_value) ? __Pyx_NewRef(__pyx_dict_cached_value) : __Pyx_GetBuiltinName(name)) :\
+        __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
+}
+#define __Pyx_GetModuleGlobalNameUncached(var, name)  {\
+    PY_UINT64_T __pyx_dict_version;\
+    PyObject *__pyx_dict_cached_value;\
+    (var) = __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
+}
+static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value);
+#else
+#define __Pyx_GetModuleGlobalName(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
+#define __Pyx_GetModuleGlobalNameUncached(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
+static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
+#endif
 
-/* BufferFormatCheck.proto */
-static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const char* ts);
-static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
-                              __Pyx_BufFmt_StackElem* stack,
-                              __Pyx_TypeInfo* type);
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
+#endif
 
-/* BufferGetAndValidate.proto */
-#define __Pyx_GetBufferAndValidate(buf, obj, dtype, flags, nd, cast, stack)\
-    ((obj == Py_None || obj == NULL) ?\
-    (__Pyx_ZeroBuffer(buf), 0) :\
-    __Pyx__GetBufferAndValidate(buf, obj, dtype, flags, nd, cast, stack))
-static int  __Pyx__GetBufferAndValidate(Py_buffer* buf, PyObject* obj,
-    __Pyx_TypeInfo* dtype, int flags, int nd, int cast, __Pyx_BufFmt_StackElem* stack);
-static void __Pyx_ZeroBuffer(Py_buffer* buf);
-static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info);
-static Py_ssize_t __Pyx_minusones[] = { -1, -1, -1, -1, -1, -1, -1, -1 };
-static Py_ssize_t __Pyx_zeros[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+/* PyIntCompare.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, long intval, long inplace);
+
+/* GetItemInt.proto */
+#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
+    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
+               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
+#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
+    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
+    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
+    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              int wraparound, int boundscheck);
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
+                                                     int is_list, int wraparound, int boundscheck);
 
 /* PyFunctionFastCall.proto */
 #if CYTHON_FAST_PYCALL
@@ -1326,13 +1392,6 @@ static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, 
     (assert(__pyx_pyframe_localsplus_offset), (PyObject **)(((char *)(frame)) + __pyx_pyframe_localsplus_offset))
 #endif
 
-/* PyObjectCall.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
-#else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
-#endif
-
 /* PyObjectCallMethO.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
@@ -1355,6 +1414,19 @@ static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObje
 /* PyObjectCallOneArg.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
+/* PyIntBinop.proto */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
+#else
+#define __Pyx_PyInt_SubtractObjC(op1, op2, intval, inplace, zerodivision_check)\
+    (inplace ? PyNumber_InPlaceSubtract(op1, op2) : PyNumber_Subtract(op1, op2))
+#endif
+
+/* GetTopmostException.proto */
+#if CYTHON_USE_EXC_INFO_STACK
+static _PyErr_StackItem * __Pyx_PyErr_GetTopmostException(PyThreadState *tstate);
+#endif
+
 /* PyThreadStateGet.proto */
 #if CYTHON_FAST_THREAD_STATE
 #define __Pyx_PyThreadState_declare  PyThreadState *__pyx_tstate;
@@ -1364,6 +1436,55 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 #define __Pyx_PyThreadState_declare
 #define __Pyx_PyThreadState_assign
 #define __Pyx_PyErr_Occurred()  PyErr_Occurred()
+#endif
+
+/* SaveResetException.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_ExceptionSave(type, value, tb)  __Pyx__ExceptionSave(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#define __Pyx_ExceptionReset(type, value, tb)  __Pyx__ExceptionReset(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb);
+#else
+#define __Pyx_ExceptionSave(type, value, tb)   PyErr_GetExcInfo(type, value, tb)
+#define __Pyx_ExceptionReset(type, value, tb)  PyErr_SetExcInfo(type, value, tb)
+#endif
+
+/* PyErrExceptionMatches.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err);
+#else
+#define __Pyx_PyErr_ExceptionMatches(err)  PyErr_ExceptionMatches(err)
+#endif
+
+/* GetException.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_GetException(type, value, tb)  __Pyx__GetException(__pyx_tstate, type, value, tb)
+static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#else
+static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb);
+#endif
+
+/* PyObjectFormatSimple.proto */
+#if CYTHON_COMPILING_IN_PYPY
+    #define __Pyx_PyObject_FormatSimple(s, f) (\
+        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
+        PyObject_Format(s, f))
+#elif PY_MAJOR_VERSION < 3
+    #define __Pyx_PyObject_FormatSimple(s, f) (\
+        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
+        likely(PyString_CheckExact(s)) ? PyUnicode_FromEncodedObject(s, NULL, "strict") :\
+        PyObject_Format(s, f))
+#elif CYTHON_USE_TYPE_SLOTS
+    #define __Pyx_PyObject_FormatSimple(s, f) (\
+        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
+        likely(PyLong_CheckExact(s)) ? PyLong_Type.tp_str(s) :\
+        likely(PyFloat_CheckExact(s)) ? PyFloat_Type.tp_str(s) :\
+        PyObject_Format(s, f))
+#else
+    #define __Pyx_PyObject_FormatSimple(s, f) (\
+        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
+        PyObject_Format(s, f))
 #endif
 
 /* PyErrFetchRestore.proto */
@@ -1389,6 +1510,14 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 #define __Pyx_ErrFetchInState(tstate, type, value, tb)  PyErr_Fetch(type, value, tb)
 #define __Pyx_ErrRestore(type, value, tb)  PyErr_Restore(type, value, tb)
 #define __Pyx_ErrFetch(type, value, tb)  PyErr_Fetch(type, value, tb)
+#endif
+
+/* SwapException.proto */
+#if CYTHON_FAST_THREAD_STATE
+#define __Pyx_ExceptionSwap(type, value, tb)  __Pyx__ExceptionSwap(__pyx_tstate, type, value, tb)
+static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
+#else
+static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
 #endif
 
 /* None.proto */
@@ -1474,58 +1603,41 @@ static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
 #define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
-/* PyDictVersioning.proto */
-#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
-#define __PYX_DICT_VERSION_INIT  ((PY_UINT64_T) -1)
-#define __PYX_GET_DICT_VERSION(dict)  (((PyDictObject*)(dict))->ma_version_tag)
-#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)\
-    (version_var) = __PYX_GET_DICT_VERSION(dict);\
-    (cache_var) = (value);
-#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP) {\
-    static PY_UINT64_T __pyx_dict_version = 0;\
-    static PyObject *__pyx_dict_cached_value = NULL;\
-    if (likely(__PYX_GET_DICT_VERSION(DICT) == __pyx_dict_version)) {\
-        (VAR) = __pyx_dict_cached_value;\
-    } else {\
-        (VAR) = __pyx_dict_cached_value = (LOOKUP);\
-        __pyx_dict_version = __PYX_GET_DICT_VERSION(DICT);\
-    }\
-}
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj);
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj);
-static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version);
-#else
-#define __PYX_GET_DICT_VERSION(dict)  (0)
-#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)
-#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP)  (VAR) = (LOOKUP);
-#endif
-
-/* GetModuleGlobalName.proto */
-#if CYTHON_USE_DICT_VERSIONS
-#define __Pyx_GetModuleGlobalName(var, name)  {\
-    static PY_UINT64_T __pyx_dict_version = 0;\
-    static PyObject *__pyx_dict_cached_value = NULL;\
-    (var) = (likely(__pyx_dict_version == __PYX_GET_DICT_VERSION(__pyx_d))) ?\
-        (likely(__pyx_dict_cached_value) ? __Pyx_NewRef(__pyx_dict_cached_value) : __Pyx_GetBuiltinName(name)) :\
-        __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
-}
-#define __Pyx_GetModuleGlobalNameUncached(var, name)  {\
-    PY_UINT64_T __pyx_dict_version;\
-    PyObject *__pyx_dict_cached_value;\
-    (var) = __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
-}
-static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value);
-#else
-#define __Pyx_GetModuleGlobalName(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
-#define __Pyx_GetModuleGlobalNameUncached(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
-static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
-#endif
-
 /* PyObjectCall2Args.proto */
 static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
 
+/* PyObjectGetMethod.proto */
+static int __Pyx_PyObject_GetMethod(PyObject *obj, PyObject *name, PyObject **method);
+
+/* PyObjectCallMethod1.proto */
+static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
+
+/* append.proto */
+static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
+
 /* ExtTypeTest.proto */
 static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
+
+/* IsLittleEndian.proto */
+static CYTHON_INLINE int __Pyx_Is_Little_Endian(void);
+
+/* BufferFormatCheck.proto */
+static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const char* ts);
+static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
+                              __Pyx_BufFmt_StackElem* stack,
+                              __Pyx_TypeInfo* type);
+
+/* BufferGetAndValidate.proto */
+#define __Pyx_GetBufferAndValidate(buf, obj, dtype, flags, nd, cast, stack)\
+    ((obj == Py_None || obj == NULL) ?\
+    (__Pyx_ZeroBuffer(buf), 0) :\
+    __Pyx__GetBufferAndValidate(buf, obj, dtype, flags, nd, cast, stack))
+static int  __Pyx__GetBufferAndValidate(Py_buffer* buf, PyObject* obj,
+    __Pyx_TypeInfo* dtype, int flags, int nd, int cast, __Pyx_BufFmt_StackElem* stack);
+static void __Pyx_ZeroBuffer(Py_buffer* buf);
+static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info);
+static Py_ssize_t __Pyx_minusones[] = { -1, -1, -1, -1, -1, -1, -1, -1 };
+static Py_ssize_t __Pyx_zeros[] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 /* BufferFallbackError.proto */
 static void __Pyx_RaiseBufferFallbackError(void);
@@ -1595,77 +1707,6 @@ static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected);
 
 /* RaiseNeedMoreValuesToUnpack.proto */
 static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index);
-
-/* GetTopmostException.proto */
-#if CYTHON_USE_EXC_INFO_STACK
-static _PyErr_StackItem * __Pyx_PyErr_GetTopmostException(PyThreadState *tstate);
-#endif
-
-/* SaveResetException.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_ExceptionSave(type, value, tb)  __Pyx__ExceptionSave(__pyx_tstate, type, value, tb)
-static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
-#define __Pyx_ExceptionReset(type, value, tb)  __Pyx__ExceptionReset(__pyx_tstate, type, value, tb)
-static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb);
-#else
-#define __Pyx_ExceptionSave(type, value, tb)   PyErr_GetExcInfo(type, value, tb)
-#define __Pyx_ExceptionReset(type, value, tb)  PyErr_SetExcInfo(type, value, tb)
-#endif
-
-/* PyErrExceptionMatches.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_PyErr_ExceptionMatches(err) __Pyx_PyErr_ExceptionMatchesInState(__pyx_tstate, err)
-static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err);
-#else
-#define __Pyx_PyErr_ExceptionMatches(err)  PyErr_ExceptionMatches(err)
-#endif
-
-/* GetException.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_GetException(type, value, tb)  __Pyx__GetException(__pyx_tstate, type, value, tb)
-static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
-#else
-static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb);
-#endif
-
-/* PyObjectFormatSimple.proto */
-#if CYTHON_COMPILING_IN_PYPY
-    #define __Pyx_PyObject_FormatSimple(s, f) (\
-        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
-        PyObject_Format(s, f))
-#elif PY_MAJOR_VERSION < 3
-    #define __Pyx_PyObject_FormatSimple(s, f) (\
-        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
-        likely(PyString_CheckExact(s)) ? PyUnicode_FromEncodedObject(s, NULL, "strict") :\
-        PyObject_Format(s, f))
-#elif CYTHON_USE_TYPE_SLOTS
-    #define __Pyx_PyObject_FormatSimple(s, f) (\
-        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
-        likely(PyLong_CheckExact(s)) ? PyLong_Type.tp_str(s) :\
-        likely(PyFloat_CheckExact(s)) ? PyFloat_Type.tp_str(s) :\
-        PyObject_Format(s, f))
-#else
-    #define __Pyx_PyObject_FormatSimple(s, f) (\
-        likely(PyUnicode_CheckExact(s)) ? (Py_INCREF(s), s) :\
-        PyObject_Format(s, f))
-#endif
-
-/* SwapException.proto */
-#if CYTHON_FAST_THREAD_STATE
-#define __Pyx_ExceptionSwap(type, value, tb)  __Pyx__ExceptionSwap(__pyx_tstate, type, value, tb)
-static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb);
-#else
-static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
-#endif
-
-/* PyObjectGetMethod.proto */
-static int __Pyx_PyObject_GetMethod(PyObject *obj, PyObject *name, PyObject **method);
-
-/* PyObjectCallMethod1.proto */
-static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg);
-
-/* append.proto */
-static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x);
 
 /* IncludeStringH.proto */
 #include <string.h>
@@ -1901,23 +1942,23 @@ static void __Pyx_CppExn2PyErr() {
     #endif
 #endif
 
-/* CIntFromPy.proto */
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
-
-/* CIntFromPy.proto */
-static CYTHON_INLINE npy_int32 __Pyx_PyInt_As_npy_int32(PyObject *);
-
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
-
-/* CIntToPy.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
-
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 /* CIntFromPy.proto */
+static CYTHON_INLINE npy_int32 __Pyx_PyInt_As_npy_int32(PyObject *);
+
+/* CIntFromPy.proto */
+static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
+
+/* CIntToPy.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
+
+/* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
+
+/* CIntFromPy.proto */
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 /* FastTypeChecks.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
@@ -1972,29 +2013,30 @@ static PyTypeObject *__pyx_ptype_5numpy_ufunc = 0;
 /* Module declarations from 'pygeodesic.geodesic' */
 static PyTypeObject *__pyx_ptype_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact = 0;
 static PyTypeObject *__pyx_ptype_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance = 0;
+static PyTypeObject *__pyx_ptype_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances = 0;
 static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t = { "float64_t", NULL, sizeof(__pyx_t_5numpy_float64_t), { 0 }, 0, 'R', 0, 0 };
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t = { "int32_t", NULL, sizeof(__pyx_t_5numpy_int32_t), { 0 }, 0, IS_UNSIGNED(__pyx_t_5numpy_int32_t) ? 'U' : 'I', IS_UNSIGNED(__pyx_t_5numpy_int32_t), 0 };
 #define __Pyx_MODULE_NAME "pygeodesic.geodesic"
 extern int __pyx_module_is_main_pygeodesic__geodesic;
 int __pyx_module_is_main_pygeodesic__geodesic = 0;
 
 /* Implementation of 'pygeodesic.geodesic' */
+static PyObject *__pyx_builtin_print;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_open;
 static PyObject *__pyx_builtin_AssertionError;
-static PyObject *__pyx_builtin_print;
 static PyObject *__pyx_builtin_ImportError;
 static const char __pyx_k_e[] = "e";
 static const char __pyx_k_f[] = "f";
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_r[] = "r";
 static const char __pyx_k_v[] = "v";
-static const char __pyx_k__7[] = " ";
-static const char __pyx_k__8[] = "\t";
+static const char __pyx_k__9[] = " ";
+static const char __pyx_k__10[] = "\t";
 static const char __pyx_k_inf[] = "inf";
+static const char __pyx_k_max[] = "max";
+static const char __pyx_k_min[] = "min";
 static const char __pyx_k_exit[] = "__exit__";
-static const char __pyx_k_indx[] = "indx";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_open[] = "open";
@@ -2004,26 +2046,27 @@ static const char __pyx_k_array[] = "array";
 static const char __pyx_k_dtype[] = "dtype";
 static const char __pyx_k_enter[] = "__enter__";
 static const char __pyx_k_faces[] = "_faces";
+static const char __pyx_k_index[] = "index";
 static const char __pyx_k_int32[] = "int32";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
+static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_split[] = "split";
 static const char __pyx_k_strip[] = "strip";
 static const char __pyx_k_zeros[] = "zeros";
 static const char __pyx_k_append[] = "append";
-static const char __pyx_k_arange[] = "arange";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_points[] = "_points";
 static const char __pyx_k_reduce[] = "__reduce__";
+static const char __pyx_k_asarray[] = "asarray";
 static const char __pyx_k_faces_2[] = "faces";
 static const char __pyx_k_flatten[] = "flatten";
 static const char __pyx_k_float64[] = "float64";
+static const char __pyx_k_indices[] = "indices";
 static const char __pyx_k_replace[] = "replace";
 static const char __pyx_k_filename[] = "filename";
 static const char __pyx_k_getstate[] = "__getstate__";
-static const char __pyx_k_maxIndex[] = "maxIndex";
-static const char __pyx_k_minIndex[] = "minIndex";
 static const char __pyx_k_numfaces[] = "numfaces";
 static const char __pyx_k_points_2[] = "points";
 static const char __pyx_k_readline[] = "readline";
@@ -2047,26 +2090,46 @@ static const char __pyx_k_read_mesh_from_file[] = "read_mesh_from_file";
 static const char __pyx_k_Error_reading_header[] = "Error reading header: ";
 static const char __pyx_k_Error_reading_points[] = "Error reading points: ";
 static const char __pyx_k_Number_of_points_not_3[] = "Number of points not >= 3";
+static const char __pyx_k_checkIndexWithinLimits[] = "checkIndexWithinLimits";
 static const char __pyx_k_pygeodesic_geodesic_pyx[] = "pygeodesic\\geodesic.pyx";
 static const char __pyx_k_PyGeodesicAlgorithmExact[] = "PyGeodesicAlgorithmExact";
-static const char __pyx_k_resetIndicesToWithinLimits[] = "resetIndicesToWithinLimits";
+static const char __pyx_k_checkIndicesWithinLimits[] = "checkIndicesWithinLimits";
+static const char __pyx_k_faces_array_has_incorrect_shape[] = "'faces' array has incorrect shape";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
-static const char __pyx_k_geodesicDistance_locals_resetInd[] = "geodesicDistance.<locals>.resetIndicesToWithinLimits";
+static const char __pyx_k_points_array_has_incorrect_shap[] = "'points' array has incorrect shape";
+static const char __pyx_k_sourceIndex_is_outside_limits_o[] = "'sourceIndex' is outside limits of mesh";
+static const char __pyx_k_source_indices_array_has_incorr[] = "'source_indices' array has incorrect shape";
+static const char __pyx_k_source_indices_array_outside_li[] = "'source_indices' array outside limits of mesh";
+static const char __pyx_k_targetIndex_is_outside_limits_o[] = "'targetIndex' is outside limits of mesh";
+static const char __pyx_k_target_indices_array_outside_li[] = "'target_indices' array outside limits of mesh";
+static const char __pyx_k_Error_in_PyGeodesicAlgorithmExac[] = "Error in PyGeodesicAlgorithmExact.__cinit__: ";
+static const char __pyx_k_PyGeodesicAlgorithmExact_class_w[] = "PyGeodesicAlgorithmExact class was not initialized correctly";
+static const char __pyx_k_geodesicDistance_locals_checkInd[] = "geodesicDistance.<locals>.checkIndexWithinLimits";
+static const char __pyx_k_geodesicDistances_locals_checkIn[] = "geodesicDistances.<locals>.checkIndicesWithinLimits";
+static const char __pyx_k_mesh_vertices_are_not_numbered_s[] = "mesh vertices are not numbered sequentially from 0";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
+static const char __pyx_k_Error_in_PyGeodesicAlgorithmExac_2[] = "Error in PyGeodesicAlgorithmExact.geodesicDistance: ";
+static const char __pyx_k_Error_in_PyGeodesicAlgorithmExac_3[] = "Error in PyGeodesicAlgorithmExact.geodesicDistances: ";
 static PyObject *__pyx_n_s_AssertionError;
+static PyObject *__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac;
+static PyObject *__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac_2;
+static PyObject *__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac_3;
 static PyObject *__pyx_kp_u_Error_reading_faces;
 static PyObject *__pyx_kp_u_Error_reading_header;
 static PyObject *__pyx_kp_u_Error_reading_points;
 static PyObject *__pyx_n_s_ImportError;
 static PyObject *__pyx_kp_u_Number_of_points_not_3;
 static PyObject *__pyx_n_s_PyGeodesicAlgorithmExact;
+static PyObject *__pyx_kp_u_PyGeodesicAlgorithmExact_class_w;
 static PyObject *__pyx_n_s_TypeError;
-static PyObject *__pyx_kp_u__7;
-static PyObject *__pyx_kp_u__8;
+static PyObject *__pyx_kp_u__10;
+static PyObject *__pyx_kp_u__9;
 static PyObject *__pyx_n_s_append;
-static PyObject *__pyx_n_s_arange;
 static PyObject *__pyx_n_s_array;
+static PyObject *__pyx_n_s_asarray;
+static PyObject *__pyx_n_s_checkIndexWithinLimits;
+static PyObject *__pyx_n_s_checkIndicesWithinLimits;
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_e;
@@ -2075,20 +2138,24 @@ static PyObject *__pyx_n_s_exit;
 static PyObject *__pyx_n_s_f;
 static PyObject *__pyx_n_s_faces;
 static PyObject *__pyx_n_s_faces_2;
+static PyObject *__pyx_kp_u_faces_array_has_incorrect_shape;
 static PyObject *__pyx_n_s_filename;
 static PyObject *__pyx_n_s_flatten;
 static PyObject *__pyx_n_s_float64;
-static PyObject *__pyx_n_s_geodesicDistance_locals_resetInd;
+static PyObject *__pyx_n_s_geodesicDistance_locals_checkInd;
+static PyObject *__pyx_n_s_geodesicDistances_locals_checkIn;
 static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_import;
-static PyObject *__pyx_n_s_indx;
+static PyObject *__pyx_n_s_index;
+static PyObject *__pyx_n_s_indices;
 static PyObject *__pyx_n_s_inf;
 static PyObject *__pyx_n_s_int32;
 static PyObject *__pyx_n_s_main;
-static PyObject *__pyx_n_s_maxIndex;
+static PyObject *__pyx_n_s_max;
 static PyObject *__pyx_n_s_max_distance;
-static PyObject *__pyx_n_s_minIndex;
+static PyObject *__pyx_kp_u_mesh_vertices_are_not_numbered_s;
+static PyObject *__pyx_n_s_min;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
 static PyObject *__pyx_n_s_numfaces;
@@ -2099,6 +2166,7 @@ static PyObject *__pyx_kp_u_numpy_core_umath_failed_to_impor;
 static PyObject *__pyx_n_s_open;
 static PyObject *__pyx_n_s_points;
 static PyObject *__pyx_n_s_points_2;
+static PyObject *__pyx_kp_u_points_array_has_incorrect_shap;
 static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_pygeodesic_geodesic;
 static PyObject *__pyx_kp_s_pygeodesic_geodesic_pyx;
@@ -2110,58 +2178,68 @@ static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
 static PyObject *__pyx_n_s_replace;
-static PyObject *__pyx_n_s_resetIndicesToWithinLimits;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
+static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_sourceIndex;
+static PyObject *__pyx_kp_u_sourceIndex_is_outside_limits_o;
 static PyObject *__pyx_n_s_source_indices;
+static PyObject *__pyx_kp_u_source_indices_array_has_incorr;
+static PyObject *__pyx_kp_u_source_indices_array_outside_li;
 static PyObject *__pyx_n_s_split;
 static PyObject *__pyx_n_s_strip;
 static PyObject *__pyx_n_s_targetIndex;
+static PyObject *__pyx_kp_u_targetIndex_is_outside_limits_o;
 static PyObject *__pyx_n_s_target_indices;
+static PyObject *__pyx_kp_u_target_indices_array_outside_li;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_v;
 static PyObject *__pyx_n_s_vals;
 static PyObject *__pyx_n_s_zeros;
-static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyArrayObject *__pyx_v__points, PyArrayObject *__pyx_v__faces); /* proto */
-static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_resetIndicesToWithinLimits(PyObject *__pyx_self, int __pyx_v_indx); /* proto */
-static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geodesicDistance(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, int __pyx_v_sourceIndex, int __pyx_v_targetIndex); /* proto */
-static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geodesicDistances(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyArrayObject *__pyx_v_source_indices, PyArrayObject *__pyx_v_target_indices, double __pyx_v_max_distance); /* proto */
+static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyObject *__pyx_v__points, PyObject *__pyx_v__faces); /* proto */
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_checkIndexWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_index); /* proto */
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geodesicDistance(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyObject *__pyx_v_sourceIndex, PyObject *__pyx_v_targetIndex); /* proto */
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_checkIndicesWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_indices); /* proto */
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geodesicDistances(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyObject *__pyx_v_source_indices, PyObject *__pyx_v_target_indices, double __pyx_v_max_distance); /* proto */
 static void __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_6__dealloc__(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_8__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_10__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_filename); /* proto */
 static PyObject *__pyx_tp_new_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
+static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_3;
-static double __pyx_k__3;
+static double __pyx_k__4;
 static PyObject *__pyx_tuple_;
-static PyObject *__pyx_tuple__4;
+static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__5;
-static PyObject *__pyx_tuple__6;
-static PyObject *__pyx_tuple__9;
-static PyObject *__pyx_tuple__10;
+static PyObject *__pyx_tuple__7;
+static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__13;
+static PyObject *__pyx_tuple__14;
+static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_codeobj__2;
-static PyObject *__pyx_codeobj__14;
+static PyObject *__pyx_codeobj__6;
+static PyObject *__pyx_codeobj__16;
 /* Late includes */
 
 /* "pygeodesic/geodesic.pyx":66
  *     cdef vector[unsigned] faces
  * 
- *     def __cinit__(self, numpy.ndarray[numpy.float64_t, ndim=2] _points,             # <<<<<<<<<<<<<<
- *                         numpy.ndarray[numpy.int32_t, ndim=2] _faces):
+ *     def __cinit__(self, _points, _faces):             # <<<<<<<<<<<<<<
  *         """
+ *         Variables:
  */
 
 /* Python wrapper */
 static int __pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static int __pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyArrayObject *__pyx_v__points = 0;
-  PyArrayObject *__pyx_v__faces = 0;
+  PyObject *__pyx_v__points = 0;
+  PyObject *__pyx_v__faces = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2203,8 +2281,8 @@ static int __pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_1__cinit__
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v__points = ((PyArrayObject *)values[0]);
-    __pyx_v__faces = ((PyArrayObject *)values[1]);
+    __pyx_v__points = values[0];
+    __pyx_v__faces = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
@@ -2214,127 +2292,506 @@ static int __pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_1__cinit__
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v__points), __pyx_ptype_5numpy_ndarray, 1, "_points", 0))) __PYX_ERR(0, 66, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v__faces), __pyx_ptype_5numpy_ndarray, 1, "_faces", 0))) __PYX_ERR(0, 67, __pyx_L1_error)
   __pyx_r = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(((struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *)__pyx_v_self), __pyx_v__points, __pyx_v__faces);
 
   /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = -1;
-  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyArrayObject *__pyx_v__points, PyArrayObject *__pyx_v__faces) {
+static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyObject *__pyx_v__points, PyObject *__pyx_v__faces) {
+  PyObject *__pyx_v_e = NULL;
   __pyx_t_5numpy_float64_t __pyx_v_coord;
   __pyx_t_5numpy_int32_t __pyx_v_indx;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd__faces;
-  __Pyx_Buffer __pyx_pybuffer__faces;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd__points;
-  __Pyx_Buffer __pyx_pybuffer__points;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
-  Py_ssize_t __pyx_t_4;
-  PyObject *(*__pyx_t_5)(PyObject *);
-  __pyx_t_5numpy_float64_t __pyx_t_6;
-  __pyx_t_5numpy_int32_t __pyx_t_7;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  int __pyx_t_9;
+  Py_ssize_t __pyx_t_10;
+  int __pyx_t_11;
+  int __pyx_t_12;
+  int __pyx_t_13;
+  char const *__pyx_t_14;
+  PyObject *__pyx_t_15 = NULL;
+  PyObject *__pyx_t_16 = NULL;
+  PyObject *__pyx_t_17 = NULL;
+  PyObject *__pyx_t_18 = NULL;
+  PyObject *__pyx_t_19 = NULL;
+  PyObject *__pyx_t_20 = NULL;
+  int __pyx_t_21;
+  PyObject *(*__pyx_t_22)(PyObject *);
+  __pyx_t_5numpy_float64_t __pyx_t_23;
+  __pyx_t_5numpy_int32_t __pyx_t_24;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
-  __pyx_pybuffer__points.pybuffer.buf = NULL;
-  __pyx_pybuffer__points.refcount = 0;
-  __pyx_pybuffernd__points.data = NULL;
-  __pyx_pybuffernd__points.rcbuffer = &__pyx_pybuffer__points;
-  __pyx_pybuffer__faces.pybuffer.buf = NULL;
-  __pyx_pybuffer__faces.refcount = 0;
-  __pyx_pybuffernd__faces.data = NULL;
-  __pyx_pybuffernd__faces.rcbuffer = &__pyx_pybuffer__faces;
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd__points.rcbuffer->pybuffer, (PyObject*)__pyx_v__points, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 66, __pyx_L1_error)
-  }
-  __pyx_pybuffernd__points.diminfo[0].strides = __pyx_pybuffernd__points.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd__points.diminfo[0].shape = __pyx_pybuffernd__points.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd__points.diminfo[1].strides = __pyx_pybuffernd__points.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd__points.diminfo[1].shape = __pyx_pybuffernd__points.rcbuffer->pybuffer.shape[1];
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd__faces.rcbuffer->pybuffer, (PyObject*)__pyx_v__faces, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t, PyBUF_FORMAT| PyBUF_STRIDES, 2, 0, __pyx_stack) == -1)) __PYX_ERR(0, 66, __pyx_L1_error)
-  }
-  __pyx_pybuffernd__faces.diminfo[0].strides = __pyx_pybuffernd__faces.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd__faces.diminfo[0].shape = __pyx_pybuffernd__faces.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd__faces.diminfo[1].strides = __pyx_pybuffernd__faces.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd__faces.diminfo[1].shape = __pyx_pybuffernd__faces.rcbuffer->pybuffer.shape[1];
+  __Pyx_INCREF(__pyx_v__points);
+  __Pyx_INCREF(__pyx_v__faces);
 
   /* "pygeodesic/geodesic.pyx":75
+ *         # Points need to be 3D points, faces need to be triangles (3 vertices)
+ *         # If mesh vertices are not numbered sequentially, then there may be unattached (floating) vertices
+ *         try:             # <<<<<<<<<<<<<<
+ *             _points = numpy.asarray(_points, dtype=numpy.float64)
+ *             _faces  = numpy.asarray(_faces, dtype=numpy.int32)
+ */
+  {
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ExceptionSave(&__pyx_t_1, &__pyx_t_2, &__pyx_t_3);
+    __Pyx_XGOTREF(__pyx_t_1);
+    __Pyx_XGOTREF(__pyx_t_2);
+    __Pyx_XGOTREF(__pyx_t_3);
+    /*try:*/ {
+
+      /* "pygeodesic/geodesic.pyx":76
+ *         # If mesh vertices are not numbered sequentially, then there may be unattached (floating) vertices
+ *         try:
+ *             _points = numpy.asarray(_points, dtype=numpy.float64)             # <<<<<<<<<<<<<<
+ *             _faces  = numpy.asarray(_faces, dtype=numpy.int32)
+ *             assert len(_points.shape) == 2 and _points.shape[-1] == 3, "'points' array has incorrect shape"
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_numpy); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_v__points);
+      __Pyx_GIVEREF(__pyx_v__points);
+      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_v__points);
+      __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_numpy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 76, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF_SET(__pyx_v__points, __pyx_t_8);
+      __pyx_t_8 = 0;
+
+      /* "pygeodesic/geodesic.pyx":77
+ *         try:
+ *             _points = numpy.asarray(_points, dtype=numpy.float64)
+ *             _faces  = numpy.asarray(_faces, dtype=numpy.int32)             # <<<<<<<<<<<<<<
+ *             assert len(_points.shape) == 2 and _points.shape[-1] == 3, "'points' array has incorrect shape"
+ *             assert len(_faces.shape)  == 2 and _faces.shape[-1] == 3, "'faces' array has incorrect shape"
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_numpy); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_INCREF(__pyx_v__faces);
+      __Pyx_GIVEREF(__pyx_v__faces);
+      PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v__faces);
+      __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_8, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 77, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF_SET(__pyx_v__faces, __pyx_t_7);
+      __pyx_t_7 = 0;
+
+      /* "pygeodesic/geodesic.pyx":78
+ *             _points = numpy.asarray(_points, dtype=numpy.float64)
+ *             _faces  = numpy.asarray(_faces, dtype=numpy.int32)
+ *             assert len(_points.shape) == 2 and _points.shape[-1] == 3, "'points' array has incorrect shape"             # <<<<<<<<<<<<<<
+ *             assert len(_faces.shape)  == 2 and _faces.shape[-1] == 3, "'faces' array has incorrect shape"
+ *             assert _faces.min() == 0 and _faces.max() == _points.shape[0]-1, 'mesh vertices are not numbered sequentially from 0'
+ */
+      #ifndef CYTHON_WITHOUT_ASSERTIONS
+      if (unlikely(!Py_OptimizeFlag)) {
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v__points, __pyx_n_s_shape); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_10 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 78, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_11 = ((__pyx_t_10 == 2) != 0);
+        if (__pyx_t_11) {
+        } else {
+          __pyx_t_9 = __pyx_t_11;
+          goto __pyx_L9_bool_binop_done;
+        }
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v__points, __pyx_n_s_shape); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_7, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 78, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_4, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 78, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 78, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_9 = __pyx_t_11;
+        __pyx_L9_bool_binop_done:;
+        if (unlikely(!__pyx_t_9)) {
+          PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_points_array_has_incorrect_shap);
+          __PYX_ERR(0, 78, __pyx_L3_error)
+        }
+      }
+      #endif
+
+      /* "pygeodesic/geodesic.pyx":79
+ *             _faces  = numpy.asarray(_faces, dtype=numpy.int32)
+ *             assert len(_points.shape) == 2 and _points.shape[-1] == 3, "'points' array has incorrect shape"
+ *             assert len(_faces.shape)  == 2 and _faces.shape[-1] == 3, "'faces' array has incorrect shape"             # <<<<<<<<<<<<<<
+ *             assert _faces.min() == 0 and _faces.max() == _points.shape[0]-1, 'mesh vertices are not numbered sequentially from 0'
+ *         except Exception as e:
+ */
+      #ifndef CYTHON_WITHOUT_ASSERTIONS
+      if (unlikely(!Py_OptimizeFlag)) {
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v__faces, __pyx_n_s_shape); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_10 = PyObject_Length(__pyx_t_7); if (unlikely(__pyx_t_10 == ((Py_ssize_t)-1))) __PYX_ERR(0, 79, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_11 = ((__pyx_t_10 == 2) != 0);
+        if (__pyx_t_11) {
+        } else {
+          __pyx_t_9 = __pyx_t_11;
+          goto __pyx_L11_bool_binop_done;
+        }
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v__faces, __pyx_n_s_shape); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_7, -1L, long, 1, __Pyx_PyInt_From_long, 0, 1, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyInt_EqObjC(__pyx_t_4, __pyx_int_3, 3, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 79, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_7); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 79, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_9 = __pyx_t_11;
+        __pyx_L11_bool_binop_done:;
+        if (unlikely(!__pyx_t_9)) {
+          PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_faces_array_has_incorrect_shape);
+          __PYX_ERR(0, 79, __pyx_L3_error)
+        }
+      }
+      #endif
+
+      /* "pygeodesic/geodesic.pyx":80
+ *             assert len(_points.shape) == 2 and _points.shape[-1] == 3, "'points' array has incorrect shape"
+ *             assert len(_faces.shape)  == 2 and _faces.shape[-1] == 3, "'faces' array has incorrect shape"
+ *             assert _faces.min() == 0 and _faces.max() == _points.shape[0]-1, 'mesh vertices are not numbered sequentially from 0'             # <<<<<<<<<<<<<<
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.__cinit__: {e}')
+ */
+      #ifndef CYTHON_WITHOUT_ASSERTIONS
+      if (unlikely(!Py_OptimizeFlag)) {
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v__faces, __pyx_n_s_min); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_8 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_8)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_8);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+          }
+        }
+        __pyx_t_7 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_t_7, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (__pyx_t_11) {
+        } else {
+          __pyx_t_9 = __pyx_t_11;
+          goto __pyx_L13_bool_binop_done;
+        }
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v__faces, __pyx_n_s_max); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_8 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
+          __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
+          if (likely(__pyx_t_8)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+            __Pyx_INCREF(__pyx_t_8);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_7, function);
+          }
+        }
+        __pyx_t_4 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_7);
+        __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+        if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v__points, __pyx_n_s_shape); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_8 = __Pyx_GetItemInt(__pyx_t_7, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_7 = __Pyx_PyInt_SubtractObjC(__pyx_t_8, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_t_8 = PyObject_RichCompare(__pyx_t_4, __pyx_t_7, Py_EQ); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __pyx_t_11 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_11 < 0)) __PYX_ERR(0, 80, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_t_9 = __pyx_t_11;
+        __pyx_L13_bool_binop_done:;
+        if (unlikely(!__pyx_t_9)) {
+          PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_mesh_vertices_are_not_numbered_s);
+          __PYX_ERR(0, 80, __pyx_L3_error)
+        }
+      }
+      #endif
+
+      /* "pygeodesic/geodesic.pyx":75
+ *         # Points need to be 3D points, faces need to be triangles (3 vertices)
+ *         # If mesh vertices are not numbered sequentially, then there may be unattached (floating) vertices
+ *         try:             # <<<<<<<<<<<<<<
+ *             _points = numpy.asarray(_points, dtype=numpy.float64)
+ *             _faces  = numpy.asarray(_faces, dtype=numpy.int32)
+ */
+    }
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    goto __pyx_L8_try_end;
+    __pyx_L3_error:;
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+    /* "pygeodesic/geodesic.pyx":81
+ *             assert len(_faces.shape)  == 2 and _faces.shape[-1] == 3, "'faces' array has incorrect shape"
+ *             assert _faces.min() == 0 and _faces.max() == _points.shape[0]-1, 'mesh vertices are not numbered sequentially from 0'
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(f'Error in PyGeodesicAlgorithmExact.__cinit__: {e}')
+ *             self.algorithm = NULL
+ */
+    __pyx_t_12 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+    if (__pyx_t_12) {
+      __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_4) < 0) __PYX_ERR(0, 81, __pyx_L5_except_error)
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_7);
+      __pyx_v_e = __pyx_t_7;
+      /*try:*/ {
+
+        /* "pygeodesic/geodesic.pyx":82
+ *             assert _faces.min() == 0 and _faces.max() == _points.shape[0]-1, 'mesh vertices are not numbered sequentially from 0'
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.__cinit__: {e}')             # <<<<<<<<<<<<<<
+ *             self.algorithm = NULL
+ *             return
+ */
+        __pyx_t_6 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L20_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_5 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 82, __pyx_L20_error)
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_5); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 82, __pyx_L20_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+        /* "pygeodesic/geodesic.pyx":83
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.__cinit__: {e}')
+ *             self.algorithm = NULL             # <<<<<<<<<<<<<<
+ *             return
+ * 
+ */
+        __pyx_v_self->algorithm = NULL;
+
+        /* "pygeodesic/geodesic.pyx":84
+ *             print(f'Error in PyGeodesicAlgorithmExact.__cinit__: {e}')
+ *             self.algorithm = NULL
+ *             return             # <<<<<<<<<<<<<<
+ * 
+ *         cdef numpy.float64_t coord
+ */
+        __pyx_r = 0;
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        goto __pyx_L19_return;
+      }
+
+      /* "pygeodesic/geodesic.pyx":81
+ *             assert len(_faces.shape)  == 2 and _faces.shape[-1] == 3, "'faces' array has incorrect shape"
+ *             assert _faces.min() == 0 and _faces.max() == _points.shape[0]-1, 'mesh vertices are not numbered sequentially from 0'
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(f'Error in PyGeodesicAlgorithmExact.__cinit__: {e}')
+ *             self.algorithm = NULL
+ */
+      /*finally:*/ {
+        __pyx_L20_error:;
+        /*exception exit:*/{
+          __Pyx_PyThreadState_declare
+          __Pyx_PyThreadState_assign
+          __pyx_t_15 = 0; __pyx_t_16 = 0; __pyx_t_17 = 0; __pyx_t_18 = 0; __pyx_t_19 = 0; __pyx_t_20 = 0;
+          __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+          if (PY_MAJOR_VERSION >= 3) __Pyx_ExceptionSwap(&__pyx_t_18, &__pyx_t_19, &__pyx_t_20);
+          if ((PY_MAJOR_VERSION < 3) || unlikely(__Pyx_GetException(&__pyx_t_15, &__pyx_t_16, &__pyx_t_17) < 0)) __Pyx_ErrFetch(&__pyx_t_15, &__pyx_t_16, &__pyx_t_17);
+          __Pyx_XGOTREF(__pyx_t_15);
+          __Pyx_XGOTREF(__pyx_t_16);
+          __Pyx_XGOTREF(__pyx_t_17);
+          __Pyx_XGOTREF(__pyx_t_18);
+          __Pyx_XGOTREF(__pyx_t_19);
+          __Pyx_XGOTREF(__pyx_t_20);
+          __pyx_t_12 = __pyx_lineno; __pyx_t_13 = __pyx_clineno; __pyx_t_14 = __pyx_filename;
+          {
+            __Pyx_DECREF(__pyx_v_e);
+            __pyx_v_e = NULL;
+          }
+          if (PY_MAJOR_VERSION >= 3) {
+            __Pyx_XGIVEREF(__pyx_t_18);
+            __Pyx_XGIVEREF(__pyx_t_19);
+            __Pyx_XGIVEREF(__pyx_t_20);
+            __Pyx_ExceptionReset(__pyx_t_18, __pyx_t_19, __pyx_t_20);
+          }
+          __Pyx_XGIVEREF(__pyx_t_15);
+          __Pyx_XGIVEREF(__pyx_t_16);
+          __Pyx_XGIVEREF(__pyx_t_17);
+          __Pyx_ErrRestore(__pyx_t_15, __pyx_t_16, __pyx_t_17);
+          __pyx_t_15 = 0; __pyx_t_16 = 0; __pyx_t_17 = 0; __pyx_t_18 = 0; __pyx_t_19 = 0; __pyx_t_20 = 0;
+          __pyx_lineno = __pyx_t_12; __pyx_clineno = __pyx_t_13; __pyx_filename = __pyx_t_14;
+          goto __pyx_L5_except_error;
+        }
+        __pyx_L19_return: {
+          __pyx_t_21 = __pyx_r;
+          __Pyx_DECREF(__pyx_v_e);
+          __pyx_v_e = NULL;
+          __pyx_r = __pyx_t_21;
+          goto __pyx_L6_except_return;
+        }
+      }
+    }
+    goto __pyx_L5_except_error;
+    __pyx_L5_except_error:;
+
+    /* "pygeodesic/geodesic.pyx":75
+ *         # Points need to be 3D points, faces need to be triangles (3 vertices)
+ *         # If mesh vertices are not numbered sequentially, then there may be unattached (floating) vertices
+ *         try:             # <<<<<<<<<<<<<<
+ *             _points = numpy.asarray(_points, dtype=numpy.float64)
+ *             _faces  = numpy.asarray(_faces, dtype=numpy.int32)
+ */
+    __Pyx_XGIVEREF(__pyx_t_1);
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
+    goto __pyx_L1_error;
+    __pyx_L6_except_return:;
+    __Pyx_XGIVEREF(__pyx_t_1);
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_ExceptionReset(__pyx_t_1, __pyx_t_2, __pyx_t_3);
+    goto __pyx_L0;
+    __pyx_L8_try_end:;
+  }
+
+  /* "pygeodesic/geodesic.pyx":87
  * 
  *         cdef numpy.float64_t coord
  *         for coord in _points.flatten():             # <<<<<<<<<<<<<<
  *             self.points.push_back(coord)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v__points), __pyx_n_s_flatten); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_v__points, __pyx_n_s_flatten); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_8 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_7);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+      __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __Pyx_DECREF_SET(__pyx_t_7, function);
     }
   }
-  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
-    __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
-    __pyx_t_5 = NULL;
+  __pyx_t_4 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
+    __pyx_t_7 = __pyx_t_4; __Pyx_INCREF(__pyx_t_7); __pyx_t_10 = 0;
+    __pyx_t_22 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 75, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 75, __pyx_L1_error)
+    __pyx_t_10 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_22 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 87, __pyx_L1_error)
   }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   for (;;) {
-    if (likely(!__pyx_t_5)) {
-      if (likely(PyList_CheckExact(__pyx_t_2))) {
-        if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
+    if (likely(!__pyx_t_22)) {
+      if (likely(PyList_CheckExact(__pyx_t_7))) {
+        if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_10); __Pyx_INCREF(__pyx_t_4); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 87, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_7, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
         #endif
       } else {
-        if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+        if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 75, __pyx_L1_error)
+        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_10); __Pyx_INCREF(__pyx_t_4); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 87, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_4 = PySequence_ITEM(__pyx_t_7, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 87, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
         #endif
       }
     } else {
-      __pyx_t_1 = __pyx_t_5(__pyx_t_2);
-      if (unlikely(!__pyx_t_1)) {
+      __pyx_t_4 = __pyx_t_22(__pyx_t_7);
+      if (unlikely(!__pyx_t_4)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 75, __pyx_L1_error)
+          else __PYX_ERR(0, 87, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_GOTREF(__pyx_t_4);
     }
-    __pyx_t_6 = __pyx_PyFloat_AsDouble(__pyx_t_1); if (unlikely((__pyx_t_6 == ((npy_float64)-1)) && PyErr_Occurred())) __PYX_ERR(0, 75, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_v_coord = __pyx_t_6;
+    __pyx_t_23 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_23 == ((npy_float64)-1)) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_v_coord = __pyx_t_23;
 
-    /* "pygeodesic/geodesic.pyx":76
+    /* "pygeodesic/geodesic.pyx":88
  *         cdef numpy.float64_t coord
  *         for coord in _points.flatten():
  *             self.points.push_back(coord)             # <<<<<<<<<<<<<<
@@ -2345,10 +2802,10 @@ static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(
       __pyx_v_self->points.push_back(__pyx_v_coord);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 76, __pyx_L1_error)
+      __PYX_ERR(0, 88, __pyx_L1_error)
     }
 
-    /* "pygeodesic/geodesic.pyx":75
+    /* "pygeodesic/geodesic.pyx":87
  * 
  *         cdef numpy.float64_t coord
  *         for coord in _points.flatten():             # <<<<<<<<<<<<<<
@@ -2356,77 +2813,77 @@ static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(
  * 
  */
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pygeodesic/geodesic.pyx":79
+  /* "pygeodesic/geodesic.pyx":91
  * 
  *         cdef numpy.int32_t indx
  *         for indx in _faces.flatten():             # <<<<<<<<<<<<<<
  *             self.faces.push_back(indx)
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v__faces), __pyx_n_s_flatten); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_3);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v__faces, __pyx_n_s_flatten); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_8 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_8 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_8)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_8);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
     }
   }
-  __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (likely(PyList_CheckExact(__pyx_t_2)) || PyTuple_CheckExact(__pyx_t_2)) {
-    __pyx_t_1 = __pyx_t_2; __Pyx_INCREF(__pyx_t_1); __pyx_t_4 = 0;
-    __pyx_t_5 = NULL;
+  __pyx_t_7 = (__pyx_t_8) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_8) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (likely(PyList_CheckExact(__pyx_t_7)) || PyTuple_CheckExact(__pyx_t_7)) {
+    __pyx_t_4 = __pyx_t_7; __Pyx_INCREF(__pyx_t_4); __pyx_t_10 = 0;
+    __pyx_t_22 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_5 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
+    __pyx_t_10 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 91, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_22 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 91, __pyx_L1_error)
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   for (;;) {
-    if (likely(!__pyx_t_5)) {
-      if (likely(PyList_CheckExact(__pyx_t_1))) {
-        if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_1)) break;
+    if (likely(!__pyx_t_22)) {
+      if (likely(PyList_CheckExact(__pyx_t_4))) {
+        if (__pyx_t_10 >= PyList_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_2); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 79, __pyx_L1_error)
+        __pyx_t_7 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_7); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
         #endif
       } else {
-        if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
+        if (__pyx_t_10 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_4); __Pyx_INCREF(__pyx_t_2); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 79, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_10); __Pyx_INCREF(__pyx_t_7); __pyx_t_10++; if (unlikely(0 < 0)) __PYX_ERR(0, 91, __pyx_L1_error)
         #else
-        __pyx_t_2 = PySequence_ITEM(__pyx_t_1, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
+        __pyx_t_7 = PySequence_ITEM(__pyx_t_4, __pyx_t_10); __pyx_t_10++; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
         #endif
       }
     } else {
-      __pyx_t_2 = __pyx_t_5(__pyx_t_1);
-      if (unlikely(!__pyx_t_2)) {
+      __pyx_t_7 = __pyx_t_22(__pyx_t_4);
+      if (unlikely(!__pyx_t_7)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 79, __pyx_L1_error)
+          else __PYX_ERR(0, 91, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_GOTREF(__pyx_t_7);
     }
-    __pyx_t_7 = __Pyx_PyInt_As_npy_int32(__pyx_t_2); if (unlikely((__pyx_t_7 == ((npy_int32)-1)) && PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_v_indx = __pyx_t_7;
+    __pyx_t_24 = __Pyx_PyInt_As_npy_int32(__pyx_t_7); if (unlikely((__pyx_t_24 == ((npy_int32)-1)) && PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_v_indx = __pyx_t_24;
 
-    /* "pygeodesic/geodesic.pyx":80
+    /* "pygeodesic/geodesic.pyx":92
  *         cdef numpy.int32_t indx
  *         for indx in _faces.flatten():
  *             self.faces.push_back(indx)             # <<<<<<<<<<<<<<
@@ -2437,10 +2894,10 @@ static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(
       __pyx_v_self->faces.push_back(__pyx_v_indx);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 80, __pyx_L1_error)
+      __PYX_ERR(0, 92, __pyx_L1_error)
     }
 
-    /* "pygeodesic/geodesic.pyx":79
+    /* "pygeodesic/geodesic.pyx":91
  * 
  *         cdef numpy.int32_t indx
  *         for indx in _faces.flatten():             # <<<<<<<<<<<<<<
@@ -2448,9 +2905,9 @@ static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(
  * 
  */
   }
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pygeodesic/geodesic.pyx":82
+  /* "pygeodesic/geodesic.pyx":94
  *             self.faces.push_back(indx)
  * 
  *         self.mesh.initialize_mesh_data(self.points, self.faces)             # <<<<<<<<<<<<<<
@@ -2459,62 +2916,56 @@ static int __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact___cinit__(
  */
   __pyx_v_self->mesh.initialize_mesh_data(__pyx_v_self->points, __pyx_v_self->faces);
 
-  /* "pygeodesic/geodesic.pyx":83
+  /* "pygeodesic/geodesic.pyx":95
  * 
  *         self.mesh.initialize_mesh_data(self.points, self.faces)
  *         self.algorithm = new GeodesicAlgorithmExact(&self.mesh)             # <<<<<<<<<<<<<<
  * 
- *     def geodesicDistance(self, int sourceIndex, int targetIndex):
+ *     def geodesicDistance(self, sourceIndex, targetIndex):
  */
   __pyx_v_self->algorithm = new geodesic::GeodesicAlgorithmExact((&__pyx_v_self->mesh));
 
   /* "pygeodesic/geodesic.pyx":66
  *     cdef vector[unsigned] faces
  * 
- *     def __cinit__(self, numpy.ndarray[numpy.float64_t, ndim=2] _points,             # <<<<<<<<<<<<<<
- *                         numpy.ndarray[numpy.int32_t, ndim=2] _faces):
+ *     def __cinit__(self, _points, _faces):             # <<<<<<<<<<<<<<
  *         """
+ *         Variables:
  */
 
   /* function exit code */
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
-    __Pyx_PyThreadState_declare
-    __Pyx_PyThreadState_assign
-    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd__faces.rcbuffer->pybuffer);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd__points.rcbuffer->pybuffer);
-  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
   __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
-  goto __pyx_L2;
   __pyx_L0:;
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd__faces.rcbuffer->pybuffer);
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd__points.rcbuffer->pybuffer);
-  __pyx_L2:;
+  __Pyx_XDECREF(__pyx_v_e);
+  __Pyx_XDECREF(__pyx_v__points);
+  __Pyx_XDECREF(__pyx_v__faces);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pygeodesic/geodesic.pyx":85
+/* "pygeodesic/geodesic.pyx":97
  *         self.algorithm = new GeodesicAlgorithmExact(&self.mesh)
  * 
- *     def geodesicDistance(self, int sourceIndex, int targetIndex):             # <<<<<<<<<<<<<<
+ *     def geodesicDistance(self, sourceIndex, targetIndex):             # <<<<<<<<<<<<<<
  *         """
  *         Calculates the geodesic distance from the mesh vertex with index 'sourceIndex'
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_3geodesicDistance(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geodesicDistance[] = "\n        Calculates the geodesic distance from the mesh vertex with index 'sourceIndex'\n        to the mesh vertex with index 'targetIndex'.\n\n        Variables:\n          sourceIndex (int): index of source vertex in mesh points array\n          targetIndex (int): index of target vertex in mesh points array\n          \n        Returns:\n          path_length (double): the geodesic distance from the source vertex to the target vertex\n          path_points (ndarray): the coordinates of the points that make up the path\n        ";
+static char __pyx_doc_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geodesicDistance[] = "\n        Calculates the geodesic distance from the mesh vertex with index 'sourceIndex'\n        to the mesh vertex with index 'targetIndex'.\n\n        Variables:\n          sourceIndex (int): index of source vertex in mesh points array\n          targetIndex (int): index of target vertex in mesh points array\n\n        Returns:\n          path_length (double): the geodesic distance from the source vertex to the target vertex\n          path_points (ndarray): the coordinates of the points that make up the path\n        ";
 static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_3geodesicDistance(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  int __pyx_v_sourceIndex;
-  int __pyx_v_targetIndex;
+  PyObject *__pyx_v_sourceIndex = 0;
+  PyObject *__pyx_v_targetIndex = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2544,11 +2995,11 @@ static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_3geo
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_targetIndex)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("geodesicDistance", 1, 2, 2, 1); __PYX_ERR(0, 85, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("geodesicDistance", 1, 2, 2, 1); __PYX_ERR(0, 97, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "geodesicDistance") < 0)) __PYX_ERR(0, 85, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "geodesicDistance") < 0)) __PYX_ERR(0, 97, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -2556,12 +3007,12 @@ static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_3geo
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_sourceIndex = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_sourceIndex == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L3_error)
-    __pyx_v_targetIndex = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_targetIndex == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L3_error)
+    __pyx_v_sourceIndex = values[0];
+    __pyx_v_targetIndex = values[1];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("geodesicDistance", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 85, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("geodesicDistance", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 97, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistance", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2574,182 +3025,139 @@ static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_3geo
   return __pyx_r;
 }
 
-/* "pygeodesic/geodesic.pyx":103
+/* "pygeodesic/geodesic.pyx":114
+ *         cdef vector[SurfacePoint] path
  * 
- *         # Reset source, target indices to within limits
- *         def resetIndicesToWithinLimits(int indx):             # <<<<<<<<<<<<<<
- *             cdef minIndex = 0
- *             cdef maxIndex = self.mesh.vertices().size()-1
+ *         def checkIndexWithinLimits(index):             # <<<<<<<<<<<<<<
+ *             return index >=0 and index <= self.mesh.vertices().size()-1
+ * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1resetIndicesToWithinLimits(PyObject *__pyx_self, PyObject *__pyx_arg_indx); /*proto*/
-static PyMethodDef __pyx_mdef_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1resetIndicesToWithinLimits = {"resetIndicesToWithinLimits", (PyCFunction)__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1resetIndicesToWithinLimits, METH_O, 0};
-static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1resetIndicesToWithinLimits(PyObject *__pyx_self, PyObject *__pyx_arg_indx) {
-  int __pyx_v_indx;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
+static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1checkIndexWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_index); /*proto*/
+static PyMethodDef __pyx_mdef_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1checkIndexWithinLimits = {"checkIndexWithinLimits", (PyCFunction)__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1checkIndexWithinLimits, METH_O, 0};
+static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1checkIndexWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_index) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("resetIndicesToWithinLimits (wrapper)", 0);
-  assert(__pyx_arg_indx); {
-    __pyx_v_indx = __Pyx_PyInt_As_int(__pyx_arg_indx); if (unlikely((__pyx_v_indx == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 103, __pyx_L3_error)
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistance.resetIndicesToWithinLimits", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_resetIndicesToWithinLimits(__pyx_self, ((int)__pyx_v_indx));
+  __Pyx_RefNannySetupContext("checkIndexWithinLimits (wrapper)", 0);
+  __pyx_r = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_checkIndexWithinLimits(__pyx_self, ((PyObject *)__pyx_v_index));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_resetIndicesToWithinLimits(PyObject *__pyx_self, int __pyx_v_indx) {
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_checkIndexWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_index) {
   struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance *__pyx_cur_scope;
   struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance *__pyx_outer_scope;
-  PyObject *__pyx_v_minIndex = 0;
-  PyObject *__pyx_v_maxIndex = 0;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   int __pyx_t_3;
-  int __pyx_t_4;
+  PyObject *__pyx_t_4 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("resetIndicesToWithinLimits", 0);
+  __Pyx_RefNannySetupContext("checkIndexWithinLimits", 0);
   __pyx_outer_scope = (struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance *) __Pyx_CyFunction_GetClosure(__pyx_self);
   __pyx_cur_scope = __pyx_outer_scope;
 
-  /* "pygeodesic/geodesic.pyx":104
- *         # Reset source, target indices to within limits
- *         def resetIndicesToWithinLimits(int indx):
- *             cdef minIndex = 0             # <<<<<<<<<<<<<<
- *             cdef maxIndex = self.mesh.vertices().size()-1
- *             if indx < minIndex: indx = minIndex
- */
-  __Pyx_INCREF(__pyx_int_0);
-  __pyx_v_minIndex = __pyx_int_0;
-
-  /* "pygeodesic/geodesic.pyx":105
- *         def resetIndicesToWithinLimits(int indx):
- *             cdef minIndex = 0
- *             cdef maxIndex = self.mesh.vertices().size()-1             # <<<<<<<<<<<<<<
- *             if indx < minIndex: indx = minIndex
- *             if indx > maxIndex: indx = maxIndex
- */
-  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 105, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyInt_FromSize_t((__pyx_cur_scope->__pyx_v_self->mesh.vertices().size() - 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_maxIndex = __pyx_t_1;
-  __pyx_t_1 = 0;
-
-  /* "pygeodesic/geodesic.pyx":106
- *             cdef minIndex = 0
- *             cdef maxIndex = self.mesh.vertices().size()-1
- *             if indx < minIndex: indx = minIndex             # <<<<<<<<<<<<<<
- *             if indx > maxIndex: indx = maxIndex
- *             return indx
- */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_indx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_t_1, __pyx_v_minIndex, Py_LT); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 106, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 106, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (__pyx_t_3) {
-    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_v_minIndex); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L1_error)
-    __pyx_v_indx = __pyx_t_4;
-  }
-
-  /* "pygeodesic/geodesic.pyx":107
- *             cdef maxIndex = self.mesh.vertices().size()-1
- *             if indx < minIndex: indx = minIndex
- *             if indx > maxIndex: indx = maxIndex             # <<<<<<<<<<<<<<
- *             return indx
+  /* "pygeodesic/geodesic.pyx":115
  * 
- */
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_indx); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 107, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyObject_RichCompare(__pyx_t_2, __pyx_v_maxIndex, Py_GT); __Pyx_XGOTREF(__pyx_t_1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 107, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (__pyx_t_3) {
-    __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_v_maxIndex); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 107, __pyx_L1_error)
-    __pyx_v_indx = __pyx_t_4;
-  }
-
-  /* "pygeodesic/geodesic.pyx":108
- *             if indx < minIndex: indx = minIndex
- *             if indx > maxIndex: indx = maxIndex
- *             return indx             # <<<<<<<<<<<<<<
+ *         def checkIndexWithinLimits(index):
+ *             return index >=0 and index <= self.mesh.vertices().size()-1             # <<<<<<<<<<<<<<
  * 
- *         sourceIndex = resetIndicesToWithinLimits(sourceIndex)
+ *         # Check input variables
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_indx); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_RichCompare(__pyx_v_index, __pyx_int_0, Py_GE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
+  if (__pyx_t_3) {
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  } else {
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_t_1 = __pyx_t_2;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    goto __pyx_L3_bool_binop_done;
+  }
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 115, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t((__pyx_cur_scope->__pyx_v_self->mesh.vertices().size() - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = PyObject_RichCompare(__pyx_v_index, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 115, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_INCREF(__pyx_t_4);
+  __pyx_t_1 = __pyx_t_4;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_L3_bool_binop_done:;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pygeodesic/geodesic.pyx":103
+  /* "pygeodesic/geodesic.pyx":114
+ *         cdef vector[SurfacePoint] path
  * 
- *         # Reset source, target indices to within limits
- *         def resetIndicesToWithinLimits(int indx):             # <<<<<<<<<<<<<<
- *             cdef minIndex = 0
- *             cdef maxIndex = self.mesh.vertices().size()-1
+ *         def checkIndexWithinLimits(index):             # <<<<<<<<<<<<<<
+ *             return index >=0 and index <= self.mesh.vertices().size()-1
+ * 
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistance.resetIndicesToWithinLimits", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistance.checkIndexWithinLimits", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_minIndex);
-  __Pyx_XDECREF(__pyx_v_maxIndex);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pygeodesic/geodesic.pyx":85
+/* "pygeodesic/geodesic.pyx":97
  *         self.algorithm = new GeodesicAlgorithmExact(&self.mesh)
  * 
- *     def geodesicDistance(self, int sourceIndex, int targetIndex):             # <<<<<<<<<<<<<<
+ *     def geodesicDistance(self, sourceIndex, targetIndex):             # <<<<<<<<<<<<<<
  *         """
  *         Calculates the geodesic distance from the mesh vertex with index 'sourceIndex'
  */
 
-static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geodesicDistance(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, int __pyx_v_sourceIndex, int __pyx_v_targetIndex) {
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geodesicDistance(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyObject *__pyx_v_sourceIndex, PyObject *__pyx_v_targetIndex) {
   struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance *__pyx_cur_scope;
   Py_ssize_t __pyx_v_i;
   std::vector<geodesic::SurfacePoint>  __pyx_v_path;
-  PyObject *__pyx_v_resetIndicesToWithinLimits = 0;
+  PyObject *__pyx_v_checkIndexWithinLimits = 0;
+  PyObject *__pyx_v_e = NULL;
   geodesic::SurfacePoint __pyx_v_source;
   geodesic::SurfacePoint __pyx_v_target;
-  PyObject *__pyx_v_path_points = 0;
+  PyObject *__pyx_v_path_points = NULL;
   double __pyx_v_path_length;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  int __pyx_t_2;
-  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_3;
-  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_4;
-  Py_ssize_t __pyx_t_5;
-  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
+  int __pyx_t_6;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
+  PyObject *__pyx_t_9 = NULL;
+  PyObject *__pyx_t_10 = NULL;
+  int __pyx_t_11;
+  char const *__pyx_t_12;
+  PyObject *__pyx_t_13 = NULL;
+  PyObject *__pyx_t_14 = NULL;
+  PyObject *__pyx_t_15 = NULL;
+  PyObject *__pyx_t_16 = NULL;
+  PyObject *__pyx_t_17 = NULL;
+  PyObject *__pyx_t_18 = NULL;
+  std::vector<geodesic::Vertex> ::size_type __pyx_t_19;
+  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_20;
+  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_21;
+  Py_ssize_t __pyx_t_22;
+  int __pyx_t_23;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2758,186 +3166,413 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geo
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 85, __pyx_L1_error)
+    __PYX_ERR(0, 97, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
   __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_INCREF(__pyx_v_sourceIndex);
+  __Pyx_INCREF(__pyx_v_targetIndex);
 
-  /* "pygeodesic/geodesic.pyx":103
+  /* "pygeodesic/geodesic.pyx":114
+ *         cdef vector[SurfacePoint] path
  * 
- *         # Reset source, target indices to within limits
- *         def resetIndicesToWithinLimits(int indx):             # <<<<<<<<<<<<<<
- *             cdef minIndex = 0
- *             cdef maxIndex = self.mesh.vertices().size()-1
+ *         def checkIndexWithinLimits(index):             # <<<<<<<<<<<<<<
+ *             return index >=0 and index <= self.mesh.vertices().size()-1
+ * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1resetIndicesToWithinLimits, 0, __pyx_n_s_geodesicDistance_locals_resetInd, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pygeodesic_geodesic, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_1checkIndexWithinLimits, 0, __pyx_n_s_geodesicDistance_locals_checkInd, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pygeodesic_geodesic, __pyx_d, ((PyObject *)__pyx_codeobj__2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_resetIndicesToWithinLimits = __pyx_t_1;
+  __pyx_v_checkIndexWithinLimits = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pygeodesic/geodesic.pyx":110
- *             return indx
- * 
- *         sourceIndex = resetIndicesToWithinLimits(sourceIndex)             # <<<<<<<<<<<<<<
- *         targetIndex = resetIndicesToWithinLimits(targetIndex)
+  /* "pygeodesic/geodesic.pyx":119
+ *         # Check input variables
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:             # <<<<<<<<<<<<<<
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             sourceIndex = int(sourceIndex)
+ */
+  {
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ExceptionSave(&__pyx_t_2, &__pyx_t_3, &__pyx_t_4);
+    __Pyx_XGOTREF(__pyx_t_2);
+    __Pyx_XGOTREF(__pyx_t_3);
+    __Pyx_XGOTREF(__pyx_t_4);
+    /*try:*/ {
+
+      /* "pygeodesic/geodesic.pyx":120
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"             # <<<<<<<<<<<<<<
+ *             sourceIndex = int(sourceIndex)
+ *             targetIndex = int(targetIndex)
+ */
+      #ifndef CYTHON_WITHOUT_ASSERTIONS
+      if (unlikely(!Py_OptimizeFlag)) {
+        if (unlikely(!((__pyx_cur_scope->__pyx_v_self->algorithm != NULL) != 0))) {
+          PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_PyGeodesicAlgorithmExact_class_w);
+          __PYX_ERR(0, 120, __pyx_L3_error)
+        }
+      }
+      #endif
+
+      /* "pygeodesic/geodesic.pyx":121
+ *         try:
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             sourceIndex = int(sourceIndex)             # <<<<<<<<<<<<<<
+ *             targetIndex = int(targetIndex)
+ *             assert checkIndexWithinLimits(sourceIndex), "'sourceIndex' is outside limits of mesh"
+ */
+      __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_sourceIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF_SET(__pyx_v_sourceIndex, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "pygeodesic/geodesic.pyx":122
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             sourceIndex = int(sourceIndex)
+ *             targetIndex = int(targetIndex)             # <<<<<<<<<<<<<<
+ *             assert checkIndexWithinLimits(sourceIndex), "'sourceIndex' is outside limits of mesh"
+ *             assert checkIndexWithinLimits(targetIndex), "'targetIndex' is outside limits of mesh"
+ */
+      __pyx_t_1 = __Pyx_PyNumber_Int(__pyx_v_targetIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L3_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_DECREF_SET(__pyx_v_targetIndex, __pyx_t_1);
+      __pyx_t_1 = 0;
+
+      /* "pygeodesic/geodesic.pyx":123
+ *             sourceIndex = int(sourceIndex)
+ *             targetIndex = int(targetIndex)
+ *             assert checkIndexWithinLimits(sourceIndex), "'sourceIndex' is outside limits of mesh"             # <<<<<<<<<<<<<<
+ *             assert checkIndexWithinLimits(targetIndex), "'targetIndex' is outside limits of mesh"
+ *         except Exception as e:
+ */
+      #ifndef CYTHON_WITHOUT_ASSERTIONS
+      if (unlikely(!Py_OptimizeFlag)) {
+        __pyx_t_1 = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_checkIndexWithinLimits(__pyx_v_checkIndexWithinLimits, __pyx_v_sourceIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 123, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (unlikely(!__pyx_t_5)) {
+          PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_sourceIndex_is_outside_limits_o);
+          __PYX_ERR(0, 123, __pyx_L3_error)
+        }
+      }
+      #endif
+
+      /* "pygeodesic/geodesic.pyx":124
+ *             targetIndex = int(targetIndex)
+ *             assert checkIndexWithinLimits(sourceIndex), "'sourceIndex' is outside limits of mesh"
+ *             assert checkIndexWithinLimits(targetIndex), "'targetIndex' is outside limits of mesh"             # <<<<<<<<<<<<<<
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistance: {e}')
+ */
+      #ifndef CYTHON_WITHOUT_ASSERTIONS
+      if (unlikely(!Py_OptimizeFlag)) {
+        __pyx_t_1 = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_checkIndexWithinLimits(__pyx_v_checkIndexWithinLimits, __pyx_v_targetIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 124, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        if (unlikely(!__pyx_t_5)) {
+          PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_targetIndex_is_outside_limits_o);
+          __PYX_ERR(0, 124, __pyx_L3_error)
+        }
+      }
+      #endif
+
+      /* "pygeodesic/geodesic.pyx":119
+ *         # Check input variables
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:             # <<<<<<<<<<<<<<
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             sourceIndex = int(sourceIndex)
+ */
+    }
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    goto __pyx_L8_try_end;
+    __pyx_L3_error:;
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "pygeodesic/geodesic.pyx":125
+ *             assert checkIndexWithinLimits(sourceIndex), "'sourceIndex' is outside limits of mesh"
+ *             assert checkIndexWithinLimits(targetIndex), "'targetIndex' is outside limits of mesh"
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistance: {e}')
+ *             return None, None
+ */
+    __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+    if (__pyx_t_6) {
+      __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistance", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      if (__Pyx_GetException(&__pyx_t_1, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(0, 125, __pyx_L5_except_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_GOTREF(__pyx_t_7);
+      __Pyx_GOTREF(__pyx_t_8);
+      __Pyx_INCREF(__pyx_t_7);
+      __pyx_v_e = __pyx_t_7;
+      /*try:*/ {
+
+        /* "pygeodesic/geodesic.pyx":126
+ *             assert checkIndexWithinLimits(targetIndex), "'targetIndex' is outside limits of mesh"
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistance: {e}')             # <<<<<<<<<<<<<<
+ *             return None, None
  * 
  */
-  __pyx_t_1 = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_resetIndicesToWithinLimits(__pyx_v_resetIndicesToWithinLimits, __pyx_v_sourceIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 110, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 110, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_sourceIndex = __pyx_t_2;
+        __pyx_t_9 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 126, __pyx_L14_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __pyx_t_10 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac_2, __pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 126, __pyx_L14_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_10); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 126, __pyx_L14_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "pygeodesic/geodesic.pyx":111
- * 
- *         sourceIndex = resetIndicesToWithinLimits(sourceIndex)
- *         targetIndex = resetIndicesToWithinLimits(targetIndex)             # <<<<<<<<<<<<<<
+        /* "pygeodesic/geodesic.pyx":127
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistance: {e}')
+ *             return None, None             # <<<<<<<<<<<<<<
  * 
  *         cdef SurfacePoint source = SurfacePoint(&self.mesh.vertices()[sourceIndex])
  */
-  __pyx_t_1 = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_16geodesicDistance_resetIndicesToWithinLimits(__pyx_v_resetIndicesToWithinLimits, __pyx_v_targetIndex); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 111, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v_targetIndex = __pyx_t_2;
+        __Pyx_XDECREF(__pyx_r);
+        __Pyx_INCREF(__pyx_tuple__3);
+        __pyx_r = __pyx_tuple__3;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        goto __pyx_L13_return;
+      }
 
-  /* "pygeodesic/geodesic.pyx":113
- *         targetIndex = resetIndicesToWithinLimits(targetIndex)
+      /* "pygeodesic/geodesic.pyx":125
+ *             assert checkIndexWithinLimits(sourceIndex), "'sourceIndex' is outside limits of mesh"
+ *             assert checkIndexWithinLimits(targetIndex), "'targetIndex' is outside limits of mesh"
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistance: {e}')
+ *             return None, None
+ */
+      /*finally:*/ {
+        __pyx_L14_error:;
+        /*exception exit:*/{
+          __Pyx_PyThreadState_declare
+          __Pyx_PyThreadState_assign
+          __pyx_t_13 = 0; __pyx_t_14 = 0; __pyx_t_15 = 0; __pyx_t_16 = 0; __pyx_t_17 = 0; __pyx_t_18 = 0;
+          __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+          __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+          if (PY_MAJOR_VERSION >= 3) __Pyx_ExceptionSwap(&__pyx_t_16, &__pyx_t_17, &__pyx_t_18);
+          if ((PY_MAJOR_VERSION < 3) || unlikely(__Pyx_GetException(&__pyx_t_13, &__pyx_t_14, &__pyx_t_15) < 0)) __Pyx_ErrFetch(&__pyx_t_13, &__pyx_t_14, &__pyx_t_15);
+          __Pyx_XGOTREF(__pyx_t_13);
+          __Pyx_XGOTREF(__pyx_t_14);
+          __Pyx_XGOTREF(__pyx_t_15);
+          __Pyx_XGOTREF(__pyx_t_16);
+          __Pyx_XGOTREF(__pyx_t_17);
+          __Pyx_XGOTREF(__pyx_t_18);
+          __pyx_t_6 = __pyx_lineno; __pyx_t_11 = __pyx_clineno; __pyx_t_12 = __pyx_filename;
+          {
+            __Pyx_DECREF(__pyx_v_e);
+            __pyx_v_e = NULL;
+          }
+          if (PY_MAJOR_VERSION >= 3) {
+            __Pyx_XGIVEREF(__pyx_t_16);
+            __Pyx_XGIVEREF(__pyx_t_17);
+            __Pyx_XGIVEREF(__pyx_t_18);
+            __Pyx_ExceptionReset(__pyx_t_16, __pyx_t_17, __pyx_t_18);
+          }
+          __Pyx_XGIVEREF(__pyx_t_13);
+          __Pyx_XGIVEREF(__pyx_t_14);
+          __Pyx_XGIVEREF(__pyx_t_15);
+          __Pyx_ErrRestore(__pyx_t_13, __pyx_t_14, __pyx_t_15);
+          __pyx_t_13 = 0; __pyx_t_14 = 0; __pyx_t_15 = 0; __pyx_t_16 = 0; __pyx_t_17 = 0; __pyx_t_18 = 0;
+          __pyx_lineno = __pyx_t_6; __pyx_clineno = __pyx_t_11; __pyx_filename = __pyx_t_12;
+          goto __pyx_L5_except_error;
+        }
+        __pyx_L13_return: {
+          __pyx_t_18 = __pyx_r;
+          __pyx_r = 0;
+          __Pyx_DECREF(__pyx_v_e);
+          __pyx_v_e = NULL;
+          __pyx_r = __pyx_t_18;
+          __pyx_t_18 = 0;
+          goto __pyx_L6_except_return;
+        }
+      }
+    }
+    goto __pyx_L5_except_error;
+    __pyx_L5_except_error:;
+
+    /* "pygeodesic/geodesic.pyx":119
+ *         # Check input variables
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:             # <<<<<<<<<<<<<<
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             sourceIndex = int(sourceIndex)
+ */
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_XGIVEREF(__pyx_t_4);
+    __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+    goto __pyx_L1_error;
+    __pyx_L6_except_return:;
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_XGIVEREF(__pyx_t_4);
+    __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+    goto __pyx_L0;
+    __pyx_L8_try_end:;
+  }
+
+  /* "pygeodesic/geodesic.pyx":129
+ *             return None, None
  * 
  *         cdef SurfacePoint source = SurfacePoint(&self.mesh.vertices()[sourceIndex])             # <<<<<<<<<<<<<<
  *         cdef SurfacePoint target = SurfacePoint(&self.mesh.vertices()[targetIndex])
  *         self.algorithm.geodesic(source, target, path)
  */
-  __pyx_v_source = geodesic::SurfacePoint((&(__pyx_cur_scope->__pyx_v_self->mesh.vertices()[__pyx_v_sourceIndex])));
+  __pyx_t_19 = __Pyx_PyInt_As_size_t(__pyx_v_sourceIndex); if (unlikely((__pyx_t_19 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_v_source = geodesic::SurfacePoint((&(__pyx_cur_scope->__pyx_v_self->mesh.vertices()[__pyx_t_19])));
 
-  /* "pygeodesic/geodesic.pyx":114
+  /* "pygeodesic/geodesic.pyx":130
  * 
  *         cdef SurfacePoint source = SurfacePoint(&self.mesh.vertices()[sourceIndex])
  *         cdef SurfacePoint target = SurfacePoint(&self.mesh.vertices()[targetIndex])             # <<<<<<<<<<<<<<
  *         self.algorithm.geodesic(source, target, path)
  * 
  */
-  __pyx_v_target = geodesic::SurfacePoint((&(__pyx_cur_scope->__pyx_v_self->mesh.vertices()[__pyx_v_targetIndex])));
+  __pyx_t_19 = __Pyx_PyInt_As_size_t(__pyx_v_targetIndex); if (unlikely((__pyx_t_19 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_v_target = geodesic::SurfacePoint((&(__pyx_cur_scope->__pyx_v_self->mesh.vertices()[__pyx_t_19])));
 
-  /* "pygeodesic/geodesic.pyx":115
+  /* "pygeodesic/geodesic.pyx":131
  *         cdef SurfacePoint source = SurfacePoint(&self.mesh.vertices()[sourceIndex])
  *         cdef SurfacePoint target = SurfacePoint(&self.mesh.vertices()[targetIndex])
  *         self.algorithm.geodesic(source, target, path)             # <<<<<<<<<<<<<<
  * 
- *         cdef list path_points = []
+ *         path_points = []
  */
   __pyx_cur_scope->__pyx_v_self->algorithm->geodesic(__pyx_v_source, __pyx_v_target, __pyx_v_path);
 
-  /* "pygeodesic/geodesic.pyx":117
+  /* "pygeodesic/geodesic.pyx":133
  *         self.algorithm.geodesic(source, target, path)
  * 
- *         cdef list path_points = []             # <<<<<<<<<<<<<<
+ *         path_points = []             # <<<<<<<<<<<<<<
  *         for i in range(path.size()):
  *             path_points.append([path[i].x(), path[i].y(), path[i].z()])
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_path_points = ((PyObject*)__pyx_t_1);
-  __pyx_t_1 = 0;
+  __pyx_t_8 = PyList_New(0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_v_path_points = __pyx_t_8;
+  __pyx_t_8 = 0;
 
-  /* "pygeodesic/geodesic.pyx":118
+  /* "pygeodesic/geodesic.pyx":134
  * 
- *         cdef list path_points = []
+ *         path_points = []
  *         for i in range(path.size()):             # <<<<<<<<<<<<<<
  *             path_points.append([path[i].x(), path[i].y(), path[i].z()])
  * 
  */
-  __pyx_t_3 = __pyx_v_path.size();
-  __pyx_t_4 = __pyx_t_3;
-  for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
-    __pyx_v_i = __pyx_t_5;
+  __pyx_t_20 = __pyx_v_path.size();
+  __pyx_t_21 = __pyx_t_20;
+  for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
+    __pyx_v_i = __pyx_t_22;
 
-    /* "pygeodesic/geodesic.pyx":119
- *         cdef list path_points = []
+    /* "pygeodesic/geodesic.pyx":135
+ *         path_points = []
  *         for i in range(path.size()):
  *             path_points.append([path[i].x(), path[i].y(), path[i].z()])             # <<<<<<<<<<<<<<
  * 
- *         cdef double path_length = length(path)
+ *         path_length = length(path)
  */
-    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_path[__pyx_v_i]).x()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_6 = PyFloat_FromDouble((__pyx_v_path[__pyx_v_i]).y()); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 119, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_path[__pyx_v_i]).z()); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 119, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = PyList_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_8 = PyFloat_FromDouble((__pyx_v_path[__pyx_v_i]).x()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 135, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_GIVEREF(__pyx_t_1);
-    PyList_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
-    __Pyx_GIVEREF(__pyx_t_6);
-    PyList_SET_ITEM(__pyx_t_8, 1, __pyx_t_6);
+    __pyx_t_7 = PyFloat_FromDouble((__pyx_v_path[__pyx_v_i]).y()); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_1 = PyFloat_FromDouble((__pyx_v_path[__pyx_v_i]).z()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_9 = PyList_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_GIVEREF(__pyx_t_8);
+    PyList_SET_ITEM(__pyx_t_9, 0, __pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_7);
-    PyList_SET_ITEM(__pyx_t_8, 2, __pyx_t_7);
-    __pyx_t_1 = 0;
-    __pyx_t_6 = 0;
+    PyList_SET_ITEM(__pyx_t_9, 1, __pyx_t_7);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyList_SET_ITEM(__pyx_t_9, 2, __pyx_t_1);
+    __pyx_t_8 = 0;
     __pyx_t_7 = 0;
-    __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_path_points, __pyx_t_8); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 119, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __pyx_t_1 = 0;
+    __pyx_t_23 = __Pyx_PyObject_Append(__pyx_v_path_points, __pyx_t_9); if (unlikely(__pyx_t_23 == ((int)-1))) __PYX_ERR(0, 135, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   }
 
-  /* "pygeodesic/geodesic.pyx":121
+  /* "pygeodesic/geodesic.pyx":137
  *             path_points.append([path[i].x(), path[i].y(), path[i].z()])
  * 
- *         cdef double path_length = length(path)             # <<<<<<<<<<<<<<
+ *         path_length = length(path)             # <<<<<<<<<<<<<<
+ *         path_points = numpy.array(path_points)
  * 
- *         return path_length, numpy.array(path_points)
  */
   __pyx_v_path_length = geodesic::length(__pyx_v_path);
 
-  /* "pygeodesic/geodesic.pyx":123
- *         cdef double path_length = length(path)
+  /* "pygeodesic/geodesic.pyx":138
  * 
- *         return path_length, numpy.array(path_points)             # <<<<<<<<<<<<<<
+ *         path_length = length(path)
+ *         path_points = numpy.array(path_points)             # <<<<<<<<<<<<<<
  * 
- *     def geodesicDistances(self, numpy.ndarray[numpy.int32_t, ndim=1] source_indices=None,
+ *         return path_length, path_points
  */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_8 = PyFloat_FromDouble(__pyx_v_path_length); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 123, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_numpy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 123, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
-    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_1);
-    if (likely(__pyx_t_6)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_1);
-      __Pyx_INCREF(__pyx_t_6);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_1, function);
-    }
-  }
-  __pyx_t_7 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_6, __pyx_v_path_points) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_path_points);
-  __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 123, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_array); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 138, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_8);
-  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_8);
-  __Pyx_GIVEREF(__pyx_t_7);
-  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_7);
-  __pyx_t_8 = 0;
+  __pyx_t_1 = NULL;
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_7);
+    if (likely(__pyx_t_1)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+      __Pyx_INCREF(__pyx_t_1);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_7, function);
+    }
+  }
+  __pyx_t_9 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_1, __pyx_v_path_points) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_v_path_points);
+  __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 138, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF_SET(__pyx_v_path_points, __pyx_t_9);
+  __pyx_t_9 = 0;
+
+  /* "pygeodesic/geodesic.pyx":140
+ *         path_points = numpy.array(path_points)
+ * 
+ *         return path_length, path_points             # <<<<<<<<<<<<<<
+ * 
+ *     def geodesicDistances(self, source_indices=None, target_indices=None, double max_distance = GEODESIC_INF):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_9 = PyFloat_FromDouble(__pyx_v_path_length); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_9);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9);
+  __Pyx_INCREF(__pyx_v_path_points);
+  __Pyx_GIVEREF(__pyx_v_path_points);
+  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_v_path_points);
+  __pyx_t_9 = 0;
+  __pyx_r = __pyx_t_7;
   __pyx_t_7 = 0;
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pygeodesic/geodesic.pyx":85
+  /* "pygeodesic/geodesic.pyx":97
  *         self.algorithm = new GeodesicAlgorithmExact(&self.mesh)
  * 
- *     def geodesicDistance(self, int sourceIndex, int targetIndex):             # <<<<<<<<<<<<<<
+ *     def geodesicDistance(self, sourceIndex, targetIndex):             # <<<<<<<<<<<<<<
  *         """
  *         Calculates the geodesic distance from the mesh vertex with index 'sourceIndex'
  */
@@ -2945,34 +3580,38 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_2geo
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_10);
   __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistance", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_resetIndicesToWithinLimits);
+  __Pyx_XDECREF(__pyx_v_checkIndexWithinLimits);
+  __Pyx_XDECREF(__pyx_v_e);
   __Pyx_XDECREF(__pyx_v_path_points);
+  __Pyx_XDECREF(__pyx_v_sourceIndex);
+  __Pyx_XDECREF(__pyx_v_targetIndex);
   __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pygeodesic/geodesic.pyx":125
- *         return path_length, numpy.array(path_points)
+/* "pygeodesic/geodesic.pyx":142
+ *         return path_length, path_points
  * 
- *     def geodesicDistances(self, numpy.ndarray[numpy.int32_t, ndim=1] source_indices=None,             # <<<<<<<<<<<<<<
- *                           numpy.ndarray[numpy.int32_t, ndim=1] target_indices=None,
- *                           double max_distance = GEODESIC_INF):
+ *     def geodesicDistances(self, source_indices=None, target_indices=None, double max_distance = GEODESIC_INF):             # <<<<<<<<<<<<<<
+ *         """
+ *         Calculates the distance of each target vertex from the best (closest) source vertex
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_5geodesicDistances(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geodesicDistances[] = "\n        Calculates the distance of each target vertex from the best (closest) source vertex\n\n        Variables:\n          - source_indices (ndarray, type int32): array containing the indices of all the source vertices in the mesh\n          - target_indices (ndarray, type int32): array containing the indices of all the target vertices in the mesh\n        \n        Returns:\n          distances (ndarray): the geodesic distance of the target vertex to the closest source\n          best_sources (ndarray): the index of the closest source with respect to source_indices       \n        ";
+static char __pyx_doc_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geodesicDistances[] = "\n        Calculates the distance of each target vertex from the best (closest) source vertex\n\n        Variables:\n          - source_indices (list like, int): array containing the indices of all the source vertices in the mesh\n          - target_indices (list like, int): array containing the indices of all the target vertices in the mesh\n\n        Returns:\n          distances (ndarray): the geodesic distance of the target vertex to the closest source\n          best_sources (ndarray): the index of the closest source with respect to source_indices\n        ";
 static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_5geodesicDistances(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyArrayObject *__pyx_v_source_indices = 0;
-  PyArrayObject *__pyx_v_target_indices = 0;
+  PyObject *__pyx_v_source_indices = 0;
+  PyObject *__pyx_v_target_indices = 0;
   double __pyx_v_max_distance;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2983,16 +3622,8 @@ static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_5geo
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_source_indices,&__pyx_n_s_target_indices,&__pyx_n_s_max_distance,0};
     PyObject* values[3] = {0,0,0};
-    values[0] = (PyObject *)((PyArrayObject *)Py_None);
-
-    /* "pygeodesic/geodesic.pyx":126
- * 
- *     def geodesicDistances(self, numpy.ndarray[numpy.int32_t, ndim=1] source_indices=None,
- *                           numpy.ndarray[numpy.int32_t, ndim=1] target_indices=None,             # <<<<<<<<<<<<<<
- *                           double max_distance = GEODESIC_INF):
- * 
- */
-    values[1] = (PyObject *)((PyArrayObject *)Py_None);
+    values[0] = ((PyObject *)Py_None);
+    values[1] = ((PyObject *)Py_None);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
@@ -3027,7 +3658,7 @@ static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_5geo
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "geodesicDistances") < 0)) __PYX_ERR(0, 125, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "geodesicDistances") < 0)) __PYX_ERR(0, 142, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3041,272 +3672,766 @@ static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_5geo
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_source_indices = ((PyArrayObject *)values[0]);
-    __pyx_v_target_indices = ((PyArrayObject *)values[1]);
+    __pyx_v_source_indices = values[0];
+    __pyx_v_target_indices = values[1];
     if (values[2]) {
-      __pyx_v_max_distance = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_max_distance == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 127, __pyx_L3_error)
+      __pyx_v_max_distance = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_max_distance == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 142, __pyx_L3_error)
     } else {
-      __pyx_v_max_distance = __pyx_k__3;
+      __pyx_v_max_distance = __pyx_k__4;
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("geodesicDistances", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 125, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("geodesicDistances", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 142, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistances", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_source_indices), __pyx_ptype_5numpy_ndarray, 1, "source_indices", 0))) __PYX_ERR(0, 125, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_target_indices), __pyx_ptype_5numpy_ndarray, 1, "target_indices", 0))) __PYX_ERR(0, 126, __pyx_L1_error)
   __pyx_r = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geodesicDistances(((struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *)__pyx_v_self), __pyx_v_source_indices, __pyx_v_target_indices, __pyx_v_max_distance);
 
-  /* "pygeodesic/geodesic.pyx":125
- *         return path_length, numpy.array(path_points)
- * 
- *     def geodesicDistances(self, numpy.ndarray[numpy.int32_t, ndim=1] source_indices=None,             # <<<<<<<<<<<<<<
- *                           numpy.ndarray[numpy.int32_t, ndim=1] target_indices=None,
- *                           double max_distance = GEODESIC_INF):
- */
-
   /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geodesicDistances(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyArrayObject *__pyx_v_source_indices, PyArrayObject *__pyx_v_target_indices, double __pyx_v_max_distance) {
+/* "pygeodesic/geodesic.pyx":161
+ *         cdef numpy.ndarray[numpy.float64_t, ndim=1] distances
+ * 
+ *         def checkIndicesWithinLimits(indices):             # <<<<<<<<<<<<<<
+ *             return indices.min() >=0 and indices.max() <= self.mesh.vertices().size()-1
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_1checkIndicesWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_indices); /*proto*/
+static PyMethodDef __pyx_mdef_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_1checkIndicesWithinLimits = {"checkIndicesWithinLimits", (PyCFunction)__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_1checkIndicesWithinLimits, METH_O, 0};
+static PyObject *__pyx_pw_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_1checkIndicesWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_indices) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("checkIndicesWithinLimits (wrapper)", 0);
+  __pyx_r = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_checkIndicesWithinLimits(__pyx_self, ((PyObject *)__pyx_v_indices));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_checkIndicesWithinLimits(PyObject *__pyx_self, PyObject *__pyx_v_indices) {
+  struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *__pyx_cur_scope;
+  struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *__pyx_outer_scope;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("checkIndicesWithinLimits", 0);
+  __pyx_outer_scope = (struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *) __Pyx_CyFunction_GetClosure(__pyx_self);
+  __pyx_cur_scope = __pyx_outer_scope;
+
+  /* "pygeodesic/geodesic.pyx":162
+ * 
+ *         def checkIndicesWithinLimits(indices):
+ *             return indices.min() >=0 and indices.max() <= self.mesh.vertices().size()-1             # <<<<<<<<<<<<<<
+ * 
+ *         # Check input variables
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_min); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PyObject_RichCompare(__pyx_t_2, __pyx_int_0, Py_GE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 162, __pyx_L1_error)
+  if (__pyx_t_5) {
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else {
+    __Pyx_INCREF(__pyx_t_3);
+    __pyx_t_1 = __pyx_t_3;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    goto __pyx_L3_bool_binop_done;
+  }
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_indices, __pyx_n_s_max); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (unlikely(!__pyx_cur_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 162, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t((__pyx_cur_scope->__pyx_v_self->mesh.vertices().size() - 1)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = PyObject_RichCompare(__pyx_t_3, __pyx_t_2, Py_LE); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_INCREF(__pyx_t_4);
+  __pyx_t_1 = __pyx_t_4;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_L3_bool_binop_done:;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "pygeodesic/geodesic.pyx":161
+ *         cdef numpy.ndarray[numpy.float64_t, ndim=1] distances
+ * 
+ *         def checkIndicesWithinLimits(indices):             # <<<<<<<<<<<<<<
+ *             return indices.min() >=0 and indices.max() <= self.mesh.vertices().size()-1
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistances.checkIndicesWithinLimits", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pygeodesic/geodesic.pyx":142
+ *         return path_length, path_points
+ * 
+ *     def geodesicDistances(self, source_indices=None, target_indices=None, double max_distance = GEODESIC_INF):             # <<<<<<<<<<<<<<
+ *         """
+ *         Calculates the distance of each target vertex from the best (closest) source vertex
+ */
+
+static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geodesicDistances(struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *__pyx_v_self, PyObject *__pyx_v_source_indices, PyObject *__pyx_v_target_indices, double __pyx_v_max_distance) {
+  struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *__pyx_cur_scope;
   Py_ssize_t __pyx_v_i;
+  __pyx_t_5numpy_int32_t __pyx_v_indx;
   std::vector<geodesic::SurfacePoint>  __pyx_v_all_sources;
   std::vector<geodesic::SurfacePoint>  __pyx_v_stop_points;
   PyArrayObject *__pyx_v_distances = 0;
+  PyObject *__pyx_v_checkIndicesWithinLimits = 0;
+  PyObject *__pyx_v_e = NULL;
   PyObject *__pyx_v_best_source = NULL;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_distances;
   __Pyx_Buffer __pyx_pybuffer_distances;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd_source_indices;
-  __Pyx_Buffer __pyx_pybuffer_source_indices;
-  __Pyx_LocalBuf_ND __pyx_pybuffernd_target_indices;
-  __Pyx_Buffer __pyx_pybuffer_target_indices;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
-  int __pyx_t_2;
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
-  PyArrayObject *__pyx_t_7 = NULL;
-  int __pyx_t_8;
+  int __pyx_t_5;
+  int __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
   PyObject *__pyx_t_9 = NULL;
   PyObject *__pyx_t_10 = NULL;
-  PyObject *__pyx_t_11 = NULL;
-  Py_ssize_t __pyx_t_12;
-  PyObject *(*__pyx_t_13)(PyObject *);
-  Py_ssize_t __pyx_t_14;
-  std::vector<geodesic::Vertex> ::size_type __pyx_t_15;
-  std::vector<geodesic::Vertex> ::size_type __pyx_t_16;
+  Py_ssize_t __pyx_t_11;
+  int __pyx_t_12;
+  int __pyx_t_13;
+  char const *__pyx_t_14;
+  PyObject *__pyx_t_15 = NULL;
+  PyObject *__pyx_t_16 = NULL;
   PyObject *__pyx_t_17 = NULL;
-  PyArrayObject *__pyx_t_18 = NULL;
-  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_19;
-  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_20;
-  Py_ssize_t __pyx_t_21;
+  PyObject *__pyx_t_18 = NULL;
+  PyObject *__pyx_t_19 = NULL;
+  PyObject *__pyx_t_20 = NULL;
+  PyObject *(*__pyx_t_21)(PyObject *);
+  Py_ssize_t __pyx_t_22;
+  std::vector<geodesic::Vertex> ::size_type __pyx_t_23;
+  std::vector<geodesic::Vertex> ::size_type __pyx_t_24;
+  __pyx_t_5numpy_int32_t __pyx_t_25;
+  PyArrayObject *__pyx_t_26 = NULL;
+  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_27;
+  std::vector<geodesic::SurfacePoint> ::size_type __pyx_t_28;
+  Py_ssize_t __pyx_t_29;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("geodesicDistances", 0);
-  __Pyx_INCREF((PyObject *)__pyx_v_source_indices);
+  __pyx_cur_scope = (struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *)__pyx_tp_new_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances(__pyx_ptype_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances, __pyx_empty_tuple, NULL);
+  if (unlikely(!__pyx_cur_scope)) {
+    __pyx_cur_scope = ((struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *)Py_None);
+    __Pyx_INCREF(Py_None);
+    __PYX_ERR(0, 142, __pyx_L1_error)
+  } else {
+    __Pyx_GOTREF(__pyx_cur_scope);
+  }
+  __pyx_cur_scope->__pyx_v_self = __pyx_v_self;
+  __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
+  __Pyx_INCREF(__pyx_v_source_indices);
+  __Pyx_INCREF(__pyx_v_target_indices);
   __pyx_pybuffer_distances.pybuffer.buf = NULL;
   __pyx_pybuffer_distances.refcount = 0;
   __pyx_pybuffernd_distances.data = NULL;
   __pyx_pybuffernd_distances.rcbuffer = &__pyx_pybuffer_distances;
-  __pyx_pybuffer_source_indices.pybuffer.buf = NULL;
-  __pyx_pybuffer_source_indices.refcount = 0;
-  __pyx_pybuffernd_source_indices.data = NULL;
-  __pyx_pybuffernd_source_indices.rcbuffer = &__pyx_pybuffer_source_indices;
-  __pyx_pybuffer_target_indices.pybuffer.buf = NULL;
-  __pyx_pybuffer_target_indices.refcount = 0;
-  __pyx_pybuffernd_target_indices.data = NULL;
-  __pyx_pybuffernd_target_indices.rcbuffer = &__pyx_pybuffer_target_indices;
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_source_indices.rcbuffer->pybuffer, (PyObject*)__pyx_v_source_indices, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 125, __pyx_L1_error)
-  }
-  __pyx_pybuffernd_source_indices.diminfo[0].strides = __pyx_pybuffernd_source_indices.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_source_indices.diminfo[0].shape = __pyx_pybuffernd_source_indices.rcbuffer->pybuffer.shape[0];
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_target_indices.rcbuffer->pybuffer, (PyObject*)__pyx_v_target_indices, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 125, __pyx_L1_error)
-  }
-  __pyx_pybuffernd_target_indices.diminfo[0].strides = __pyx_pybuffernd_target_indices.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_target_indices.diminfo[0].shape = __pyx_pybuffernd_target_indices.rcbuffer->pybuffer.shape[0];
 
-  /* "pygeodesic/geodesic.pyx":147
+  /* "pygeodesic/geodesic.pyx":161
+ *         cdef numpy.ndarray[numpy.float64_t, ndim=1] distances
+ * 
+ *         def checkIndicesWithinLimits(indices):             # <<<<<<<<<<<<<<
+ *             return indices.min() >=0 and indices.max() <= self.mesh.vertices().size()-1
+ * 
+ */
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_1checkIndicesWithinLimits, 0, __pyx_n_s_geodesicDistances_locals_checkIn, ((PyObject*)__pyx_cur_scope), __pyx_n_s_pygeodesic_geodesic, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v_checkIndicesWithinLimits = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "pygeodesic/geodesic.pyx":166
+ *         # Check input variables
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:             # <<<<<<<<<<<<<<
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             if source_indices is not None:
+ */
+  {
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    __Pyx_ExceptionSave(&__pyx_t_2, &__pyx_t_3, &__pyx_t_4);
+    __Pyx_XGOTREF(__pyx_t_2);
+    __Pyx_XGOTREF(__pyx_t_3);
+    __Pyx_XGOTREF(__pyx_t_4);
+    /*try:*/ {
+
+      /* "pygeodesic/geodesic.pyx":167
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"             # <<<<<<<<<<<<<<
+ *             if source_indices is not None:
+ *                 source_indices = numpy.asarray(source_indices, dtype=numpy.int32)
+ */
+      #ifndef CYTHON_WITHOUT_ASSERTIONS
+      if (unlikely(!Py_OptimizeFlag)) {
+        if (unlikely(!((__pyx_cur_scope->__pyx_v_self->algorithm != NULL) != 0))) {
+          PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_PyGeodesicAlgorithmExact_class_w);
+          __PYX_ERR(0, 167, __pyx_L3_error)
+        }
+      }
+      #endif
+
+      /* "pygeodesic/geodesic.pyx":168
+ *         try:
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             if source_indices is not None:             # <<<<<<<<<<<<<<
+ *                 source_indices = numpy.asarray(source_indices, dtype=numpy.int32)
+ *                 assert len(source_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ */
+      __pyx_t_5 = (__pyx_v_source_indices != Py_None);
+      __pyx_t_6 = (__pyx_t_5 != 0);
+      if (__pyx_t_6) {
+
+        /* "pygeodesic/geodesic.pyx":169
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             if source_indices is not None:
+ *                 source_indices = numpy.asarray(source_indices, dtype=numpy.int32)             # <<<<<<<<<<<<<<
+ *                 assert len(source_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(source_indices), "'source_indices' array outside limits of mesh"
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_INCREF(__pyx_v_source_indices);
+        __Pyx_GIVEREF(__pyx_v_source_indices);
+        PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_source_indices);
+        __pyx_t_8 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_numpy); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_int32); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_10) < 0) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_1, __pyx_t_8); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 169, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_DECREF_SET(__pyx_v_source_indices, __pyx_t_10);
+        __pyx_t_10 = 0;
+
+        /* "pygeodesic/geodesic.pyx":170
+ *             if source_indices is not None:
+ *                 source_indices = numpy.asarray(source_indices, dtype=numpy.int32)
+ *                 assert len(source_indices.shape) == 1, "'source_indices' array has incorrect shape"             # <<<<<<<<<<<<<<
+ *                 assert checkIndicesWithinLimits(source_indices), "'source_indices' array outside limits of mesh"
+ *             if target_indices is not None:
+ */
+        #ifndef CYTHON_WITHOUT_ASSERTIONS
+        if (unlikely(!Py_OptimizeFlag)) {
+          __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_source_indices, __pyx_n_s_shape); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 170, __pyx_L3_error)
+          __Pyx_GOTREF(__pyx_t_10);
+          __pyx_t_11 = PyObject_Length(__pyx_t_10); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 170, __pyx_L3_error)
+          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+          if (unlikely(!((__pyx_t_11 == 1) != 0))) {
+            PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_source_indices_array_has_incorr);
+            __PYX_ERR(0, 170, __pyx_L3_error)
+          }
+        }
+        #endif
+
+        /* "pygeodesic/geodesic.pyx":171
+ *                 source_indices = numpy.asarray(source_indices, dtype=numpy.int32)
+ *                 assert len(source_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(source_indices), "'source_indices' array outside limits of mesh"             # <<<<<<<<<<<<<<
+ *             if target_indices is not None:
+ *                 target_indices = numpy.asarray(target_indices, dtype=numpy.int32)
+ */
+        #ifndef CYTHON_WITHOUT_ASSERTIONS
+        if (unlikely(!Py_OptimizeFlag)) {
+          __pyx_t_10 = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_checkIndicesWithinLimits(__pyx_v_checkIndicesWithinLimits, __pyx_v_source_indices); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 171, __pyx_L3_error)
+          __Pyx_GOTREF(__pyx_t_10);
+          __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 171, __pyx_L3_error)
+          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+          if (unlikely(!__pyx_t_6)) {
+            PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_source_indices_array_outside_li);
+            __PYX_ERR(0, 171, __pyx_L3_error)
+          }
+        }
+        #endif
+
+        /* "pygeodesic/geodesic.pyx":168
+ *         try:
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             if source_indices is not None:             # <<<<<<<<<<<<<<
+ *                 source_indices = numpy.asarray(source_indices, dtype=numpy.int32)
+ *                 assert len(source_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ */
+      }
+
+      /* "pygeodesic/geodesic.pyx":172
+ *                 assert len(source_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(source_indices), "'source_indices' array outside limits of mesh"
+ *             if target_indices is not None:             # <<<<<<<<<<<<<<
+ *                 target_indices = numpy.asarray(target_indices, dtype=numpy.int32)
+ *                 assert len(target_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ */
+      __pyx_t_6 = (__pyx_v_target_indices != Py_None);
+      __pyx_t_5 = (__pyx_t_6 != 0);
+      if (__pyx_t_5) {
+
+        /* "pygeodesic/geodesic.pyx":173
+ *                 assert checkIndicesWithinLimits(source_indices), "'source_indices' array outside limits of mesh"
+ *             if target_indices is not None:
+ *                 target_indices = numpy.asarray(target_indices, dtype=numpy.int32)             # <<<<<<<<<<<<<<
+ *                 assert len(target_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(target_indices), "'target_indices' array outside limits of mesh"
+ */
+        __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_numpy); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_INCREF(__pyx_v_target_indices);
+        __Pyx_GIVEREF(__pyx_v_target_indices);
+        PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_target_indices);
+        __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_numpy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int32); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_9) < 0) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_10, __pyx_t_1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 173, __pyx_L3_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF_SET(__pyx_v_target_indices, __pyx_t_9);
+        __pyx_t_9 = 0;
+
+        /* "pygeodesic/geodesic.pyx":174
+ *             if target_indices is not None:
+ *                 target_indices = numpy.asarray(target_indices, dtype=numpy.int32)
+ *                 assert len(target_indices.shape) == 1, "'source_indices' array has incorrect shape"             # <<<<<<<<<<<<<<
+ *                 assert checkIndicesWithinLimits(target_indices), "'target_indices' array outside limits of mesh"
+ *         except Exception as e:
+ */
+        #ifndef CYTHON_WITHOUT_ASSERTIONS
+        if (unlikely(!Py_OptimizeFlag)) {
+          __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_target_indices, __pyx_n_s_shape); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 174, __pyx_L3_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __pyx_t_11 = PyObject_Length(__pyx_t_9); if (unlikely(__pyx_t_11 == ((Py_ssize_t)-1))) __PYX_ERR(0, 174, __pyx_L3_error)
+          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+          if (unlikely(!((__pyx_t_11 == 1) != 0))) {
+            PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_source_indices_array_has_incorr);
+            __PYX_ERR(0, 174, __pyx_L3_error)
+          }
+        }
+        #endif
+
+        /* "pygeodesic/geodesic.pyx":175
+ *                 target_indices = numpy.asarray(target_indices, dtype=numpy.int32)
+ *                 assert len(target_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(target_indices), "'target_indices' array outside limits of mesh"             # <<<<<<<<<<<<<<
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistances: {e}')
+ */
+        #ifndef CYTHON_WITHOUT_ASSERTIONS
+        if (unlikely(!Py_OptimizeFlag)) {
+          __pyx_t_9 = __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_17geodesicDistances_checkIndicesWithinLimits(__pyx_v_checkIndicesWithinLimits, __pyx_v_target_indices); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 175, __pyx_L3_error)
+          __Pyx_GOTREF(__pyx_t_9);
+          __pyx_t_5 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 175, __pyx_L3_error)
+          __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+          if (unlikely(!__pyx_t_5)) {
+            PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_target_indices_array_outside_li);
+            __PYX_ERR(0, 175, __pyx_L3_error)
+          }
+        }
+        #endif
+
+        /* "pygeodesic/geodesic.pyx":172
+ *                 assert len(source_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(source_indices), "'source_indices' array outside limits of mesh"
+ *             if target_indices is not None:             # <<<<<<<<<<<<<<
+ *                 target_indices = numpy.asarray(target_indices, dtype=numpy.int32)
+ *                 assert len(target_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ */
+      }
+
+      /* "pygeodesic/geodesic.pyx":166
+ *         # Check input variables
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:             # <<<<<<<<<<<<<<
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             if source_indices is not None:
+ */
+    }
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    goto __pyx_L8_try_end;
+    __pyx_L3_error:;
+    __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+
+    /* "pygeodesic/geodesic.pyx":176
+ *                 assert len(target_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(target_indices), "'target_indices' array outside limits of mesh"
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistances: {e}')
+ *             return None, None
+ */
+    __pyx_t_12 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
+    if (__pyx_t_12) {
+      __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistances", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      if (__Pyx_GetException(&__pyx_t_9, &__pyx_t_1, &__pyx_t_10) < 0) __PYX_ERR(0, 176, __pyx_L5_except_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __Pyx_GOTREF(__pyx_t_1);
+      __Pyx_GOTREF(__pyx_t_10);
+      __Pyx_INCREF(__pyx_t_1);
+      __pyx_v_e = __pyx_t_1;
+      /*try:*/ {
+
+        /* "pygeodesic/geodesic.pyx":177
+ *                 assert checkIndicesWithinLimits(target_indices), "'target_indices' array outside limits of mesh"
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistances: {e}')             # <<<<<<<<<<<<<<
+ *             return None, None
+ * 
+ */
+        __pyx_t_8 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 177, __pyx_L16_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __pyx_t_7 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac_3, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 177, __pyx_L16_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+        __pyx_t_8 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 177, __pyx_L16_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+        /* "pygeodesic/geodesic.pyx":178
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistances: {e}')
+ *             return None, None             # <<<<<<<<<<<<<<
+ * 
+ *         # Setup sources. Defaults to single vertex with index = 0 if None provided
+ */
+        __Pyx_XDECREF(__pyx_r);
+        __Pyx_INCREF(__pyx_tuple__3);
+        __pyx_r = __pyx_tuple__3;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        goto __pyx_L15_return;
+      }
+
+      /* "pygeodesic/geodesic.pyx":176
+ *                 assert len(target_indices.shape) == 1, "'source_indices' array has incorrect shape"
+ *                 assert checkIndicesWithinLimits(target_indices), "'target_indices' array outside limits of mesh"
+ *         except Exception as e:             # <<<<<<<<<<<<<<
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistances: {e}')
+ *             return None, None
+ */
+      /*finally:*/ {
+        __pyx_L16_error:;
+        /*exception exit:*/{
+          __Pyx_PyThreadState_declare
+          __Pyx_PyThreadState_assign
+          __pyx_t_15 = 0; __pyx_t_16 = 0; __pyx_t_17 = 0; __pyx_t_18 = 0; __pyx_t_19 = 0; __pyx_t_20 = 0;
+          __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+          __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+          if (PY_MAJOR_VERSION >= 3) __Pyx_ExceptionSwap(&__pyx_t_18, &__pyx_t_19, &__pyx_t_20);
+          if ((PY_MAJOR_VERSION < 3) || unlikely(__Pyx_GetException(&__pyx_t_15, &__pyx_t_16, &__pyx_t_17) < 0)) __Pyx_ErrFetch(&__pyx_t_15, &__pyx_t_16, &__pyx_t_17);
+          __Pyx_XGOTREF(__pyx_t_15);
+          __Pyx_XGOTREF(__pyx_t_16);
+          __Pyx_XGOTREF(__pyx_t_17);
+          __Pyx_XGOTREF(__pyx_t_18);
+          __Pyx_XGOTREF(__pyx_t_19);
+          __Pyx_XGOTREF(__pyx_t_20);
+          __pyx_t_12 = __pyx_lineno; __pyx_t_13 = __pyx_clineno; __pyx_t_14 = __pyx_filename;
+          {
+            __Pyx_DECREF(__pyx_v_e);
+            __pyx_v_e = NULL;
+          }
+          if (PY_MAJOR_VERSION >= 3) {
+            __Pyx_XGIVEREF(__pyx_t_18);
+            __Pyx_XGIVEREF(__pyx_t_19);
+            __Pyx_XGIVEREF(__pyx_t_20);
+            __Pyx_ExceptionReset(__pyx_t_18, __pyx_t_19, __pyx_t_20);
+          }
+          __Pyx_XGIVEREF(__pyx_t_15);
+          __Pyx_XGIVEREF(__pyx_t_16);
+          __Pyx_XGIVEREF(__pyx_t_17);
+          __Pyx_ErrRestore(__pyx_t_15, __pyx_t_16, __pyx_t_17);
+          __pyx_t_15 = 0; __pyx_t_16 = 0; __pyx_t_17 = 0; __pyx_t_18 = 0; __pyx_t_19 = 0; __pyx_t_20 = 0;
+          __pyx_lineno = __pyx_t_12; __pyx_clineno = __pyx_t_13; __pyx_filename = __pyx_t_14;
+          goto __pyx_L5_except_error;
+        }
+        __pyx_L15_return: {
+          __pyx_t_20 = __pyx_r;
+          __pyx_r = 0;
+          __Pyx_DECREF(__pyx_v_e);
+          __pyx_v_e = NULL;
+          __pyx_r = __pyx_t_20;
+          __pyx_t_20 = 0;
+          goto __pyx_L6_except_return;
+        }
+      }
+    }
+    goto __pyx_L5_except_error;
+    __pyx_L5_except_error:;
+
+    /* "pygeodesic/geodesic.pyx":166
+ *         # Check input variables
+ *         # Source and target indices should be integers within the range of mesh vertex indices
+ *         try:             # <<<<<<<<<<<<<<
+ *             assert self.algorithm != NULL, "PyGeodesicAlgorithmExact class was not initialized correctly"
+ *             if source_indices is not None:
+ */
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_XGIVEREF(__pyx_t_4);
+    __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+    goto __pyx_L1_error;
+    __pyx_L6_except_return:;
+    __Pyx_XGIVEREF(__pyx_t_2);
+    __Pyx_XGIVEREF(__pyx_t_3);
+    __Pyx_XGIVEREF(__pyx_t_4);
+    __Pyx_ExceptionReset(__pyx_t_2, __pyx_t_3, __pyx_t_4);
+    goto __pyx_L0;
+    __pyx_L8_try_end:;
+  }
+
+  /* "pygeodesic/geodesic.pyx":181
  * 
  *         # Setup sources. Defaults to single vertex with index = 0 if None provided
  *         if source_indices is None:             # <<<<<<<<<<<<<<
- *             source_indices = numpy.arange(0, dtype=numpy.int32)
+ *             source_indices = numpy.array([0], dtype=numpy.int32)
  *         for i in source_indices:
  */
-  __pyx_t_1 = (((PyObject *)__pyx_v_source_indices) == Py_None);
-  __pyx_t_2 = (__pyx_t_1 != 0);
-  if (__pyx_t_2) {
+  __pyx_t_5 = (__pyx_v_source_indices == Py_None);
+  __pyx_t_6 = (__pyx_t_5 != 0);
+  if (__pyx_t_6) {
 
-    /* "pygeodesic/geodesic.pyx":148
+    /* "pygeodesic/geodesic.pyx":182
  *         # Setup sources. Defaults to single vertex with index = 0 if None provided
  *         if source_indices is None:
- *             source_indices = numpy.arange(0, dtype=numpy.int32)             # <<<<<<<<<<<<<<
+ *             source_indices = numpy.array([0], dtype=numpy.int32)             # <<<<<<<<<<<<<<
  *         for i in source_indices:
  *             all_sources.push_back(SurfacePoint(&self.mesh.vertices()[i]))
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_arange); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_int32); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_6) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__4, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 148, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (!(likely(((__pyx_t_6) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_6, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 148, __pyx_L1_error)
-    __pyx_t_7 = ((PyArrayObject *)__pyx_t_6);
-    {
-      __Pyx_BufFmt_StackElem __pyx_stack[1];
-      __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_source_indices.rcbuffer->pybuffer);
-      __pyx_t_8 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_source_indices.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
-      if (unlikely(__pyx_t_8 < 0)) {
-        PyErr_Fetch(&__pyx_t_9, &__pyx_t_10, &__pyx_t_11);
-        if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_source_indices.rcbuffer->pybuffer, (PyObject*)__pyx_v_source_indices, &__Pyx_TypeInfo_nn___pyx_t_5numpy_int32_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-          Py_XDECREF(__pyx_t_9); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_11);
-          __Pyx_RaiseBufferFallbackError();
-        } else {
-          PyErr_Restore(__pyx_t_9, __pyx_t_10, __pyx_t_11);
-        }
-        __pyx_t_9 = __pyx_t_10 = __pyx_t_11 = 0;
-      }
-      __pyx_pybuffernd_source_indices.diminfo[0].strides = __pyx_pybuffernd_source_indices.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_source_indices.diminfo[0].shape = __pyx_pybuffernd_source_indices.rcbuffer->pybuffer.shape[0];
-      if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 148, __pyx_L1_error)
-    }
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_numpy); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_t_10 = PyList_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_GIVEREF(__pyx_int_0);
+    PyList_SET_ITEM(__pyx_t_10, 0, __pyx_int_0);
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
+    __Pyx_GIVEREF(__pyx_t_10);
+    PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
+    __pyx_t_10 = 0;
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_10);
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_numpy); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 182, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __Pyx_DECREF_SET(__pyx_v_source_indices, __pyx_t_7);
     __pyx_t_7 = 0;
-    __Pyx_DECREF_SET(__pyx_v_source_indices, ((PyArrayObject *)__pyx_t_6));
-    __pyx_t_6 = 0;
 
-    /* "pygeodesic/geodesic.pyx":147
+    /* "pygeodesic/geodesic.pyx":181
  * 
  *         # Setup sources. Defaults to single vertex with index = 0 if None provided
  *         if source_indices is None:             # <<<<<<<<<<<<<<
- *             source_indices = numpy.arange(0, dtype=numpy.int32)
+ *             source_indices = numpy.array([0], dtype=numpy.int32)
  *         for i in source_indices:
  */
   }
 
-  /* "pygeodesic/geodesic.pyx":149
+  /* "pygeodesic/geodesic.pyx":183
  *         if source_indices is None:
- *             source_indices = numpy.arange(0, dtype=numpy.int32)
+ *             source_indices = numpy.array([0], dtype=numpy.int32)
  *         for i in source_indices:             # <<<<<<<<<<<<<<
  *             all_sources.push_back(SurfacePoint(&self.mesh.vertices()[i]))
  * 
  */
-  if (likely(PyList_CheckExact(((PyObject *)__pyx_v_source_indices))) || PyTuple_CheckExact(((PyObject *)__pyx_v_source_indices))) {
-    __pyx_t_6 = ((PyObject *)__pyx_v_source_indices); __Pyx_INCREF(__pyx_t_6); __pyx_t_12 = 0;
-    __pyx_t_13 = NULL;
+  if (likely(PyList_CheckExact(__pyx_v_source_indices)) || PyTuple_CheckExact(__pyx_v_source_indices)) {
+    __pyx_t_7 = __pyx_v_source_indices; __Pyx_INCREF(__pyx_t_7); __pyx_t_11 = 0;
+    __pyx_t_21 = NULL;
   } else {
-    __pyx_t_12 = -1; __pyx_t_6 = PyObject_GetIter(((PyObject *)__pyx_v_source_indices)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 149, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_13 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 149, __pyx_L1_error)
+    __pyx_t_11 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_v_source_indices); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 183, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_21 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 183, __pyx_L1_error)
   }
   for (;;) {
-    if (likely(!__pyx_t_13)) {
-      if (likely(PyList_CheckExact(__pyx_t_6))) {
-        if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_6)) break;
+    if (likely(!__pyx_t_21)) {
+      if (likely(PyList_CheckExact(__pyx_t_7))) {
+        if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_3); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_10 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_10); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 183, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 183, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
         #endif
       } else {
-        if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
+        if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_3); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 149, __pyx_L1_error)
+        __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_10); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 183, __pyx_L1_error)
         #else
-        __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 149, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
+        __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 183, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
         #endif
       }
     } else {
-      __pyx_t_3 = __pyx_t_13(__pyx_t_6);
-      if (unlikely(!__pyx_t_3)) {
+      __pyx_t_10 = __pyx_t_21(__pyx_t_7);
+      if (unlikely(!__pyx_t_10)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 149, __pyx_L1_error)
+          else __PYX_ERR(0, 183, __pyx_L1_error)
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_3);
+      __Pyx_GOTREF(__pyx_t_10);
     }
-    __pyx_t_14 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_14 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 149, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_v_i = __pyx_t_14;
+    __pyx_t_22 = __Pyx_PyIndex_AsSsize_t(__pyx_t_10); if (unlikely((__pyx_t_22 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 183, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+    __pyx_v_i = __pyx_t_22;
 
-    /* "pygeodesic/geodesic.pyx":150
- *             source_indices = numpy.arange(0, dtype=numpy.int32)
+    /* "pygeodesic/geodesic.pyx":184
+ *             source_indices = numpy.array([0], dtype=numpy.int32)
  *         for i in source_indices:
  *             all_sources.push_back(SurfacePoint(&self.mesh.vertices()[i]))             # <<<<<<<<<<<<<<
  * 
  *         # Setup targets. Defaults to all vertices if None provided
  */
     try {
-      __pyx_v_all_sources.push_back(geodesic::SurfacePoint((&(__pyx_v_self->mesh.vertices()[__pyx_v_i]))));
+      __pyx_v_all_sources.push_back(geodesic::SurfacePoint((&(__pyx_cur_scope->__pyx_v_self->mesh.vertices()[__pyx_v_i]))));
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 150, __pyx_L1_error)
+      __PYX_ERR(0, 184, __pyx_L1_error)
     }
 
-    /* "pygeodesic/geodesic.pyx":149
+    /* "pygeodesic/geodesic.pyx":183
  *         if source_indices is None:
- *             source_indices = numpy.arange(0, dtype=numpy.int32)
+ *             source_indices = numpy.array([0], dtype=numpy.int32)
  *         for i in source_indices:             # <<<<<<<<<<<<<<
  *             all_sources.push_back(SurfacePoint(&self.mesh.vertices()[i]))
  * 
  */
   }
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pygeodesic/geodesic.pyx":153
+  /* "pygeodesic/geodesic.pyx":187
  * 
  *         # Setup targets. Defaults to all vertices if None provided
  *         if target_indices is None:             # <<<<<<<<<<<<<<
  *             for i in range(self.mesh.vertices().size()):
  *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))
  */
-  __pyx_t_2 = (((PyObject *)__pyx_v_target_indices) == Py_None);
-  __pyx_t_1 = (__pyx_t_2 != 0);
-  if (__pyx_t_1) {
+  __pyx_t_6 = (__pyx_v_target_indices == Py_None);
+  __pyx_t_5 = (__pyx_t_6 != 0);
+  if (__pyx_t_5) {
 
-    /* "pygeodesic/geodesic.pyx":154
+    /* "pygeodesic/geodesic.pyx":188
  *         # Setup targets. Defaults to all vertices if None provided
  *         if target_indices is None:
  *             for i in range(self.mesh.vertices().size()):             # <<<<<<<<<<<<<<
  *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))
  *             self.algorithm.propagate(all_sources, max_distance, NULL)
  */
-    __pyx_t_15 = __pyx_v_self->mesh.vertices().size();
-    __pyx_t_16 = __pyx_t_15;
-    for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_16; __pyx_t_12+=1) {
-      __pyx_v_i = __pyx_t_12;
+    __pyx_t_23 = __pyx_cur_scope->__pyx_v_self->mesh.vertices().size();
+    __pyx_t_24 = __pyx_t_23;
+    for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_24; __pyx_t_11+=1) {
+      __pyx_v_i = __pyx_t_11;
 
-      /* "pygeodesic/geodesic.pyx":155
+      /* "pygeodesic/geodesic.pyx":189
  *         if target_indices is None:
  *             for i in range(self.mesh.vertices().size()):
  *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))             # <<<<<<<<<<<<<<
@@ -3314,276 +4439,276 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geo
  *         else:
  */
       try {
-        __pyx_v_stop_points.push_back(geodesic::SurfacePoint((&(__pyx_v_self->mesh.vertices()[__pyx_v_i]))));
+        __pyx_v_stop_points.push_back(geodesic::SurfacePoint((&(__pyx_cur_scope->__pyx_v_self->mesh.vertices()[__pyx_v_i]))));
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        __PYX_ERR(0, 155, __pyx_L1_error)
+        __PYX_ERR(0, 189, __pyx_L1_error)
       }
     }
 
-    /* "pygeodesic/geodesic.pyx":156
+    /* "pygeodesic/geodesic.pyx":190
  *             for i in range(self.mesh.vertices().size()):
  *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))
  *             self.algorithm.propagate(all_sources, max_distance, NULL)             # <<<<<<<<<<<<<<
  *         else:
- *             for i in target_indices:
+ *             for indx in target_indices:
  */
-    __pyx_v_self->algorithm->propagate(__pyx_v_all_sources, __pyx_v_max_distance, NULL);
+    __pyx_cur_scope->__pyx_v_self->algorithm->propagate(__pyx_v_all_sources, __pyx_v_max_distance, NULL);
 
-    /* "pygeodesic/geodesic.pyx":153
+    /* "pygeodesic/geodesic.pyx":187
  * 
  *         # Setup targets. Defaults to all vertices if None provided
  *         if target_indices is None:             # <<<<<<<<<<<<<<
  *             for i in range(self.mesh.vertices().size()):
  *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))
  */
-    goto __pyx_L6;
+    goto __pyx_L25;
   }
 
-  /* "pygeodesic/geodesic.pyx":158
+  /* "pygeodesic/geodesic.pyx":192
  *             self.algorithm.propagate(all_sources, max_distance, NULL)
  *         else:
- *             for i in target_indices:             # <<<<<<<<<<<<<<
- *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))
+ *             for indx in target_indices:             # <<<<<<<<<<<<<<
+ *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[indx]))
  *             self.algorithm.propagate(all_sources, max_distance, &stop_points)
  */
   /*else*/ {
-    if (likely(PyList_CheckExact(((PyObject *)__pyx_v_target_indices))) || PyTuple_CheckExact(((PyObject *)__pyx_v_target_indices))) {
-      __pyx_t_6 = ((PyObject *)__pyx_v_target_indices); __Pyx_INCREF(__pyx_t_6); __pyx_t_12 = 0;
-      __pyx_t_13 = NULL;
+    if (likely(PyList_CheckExact(__pyx_v_target_indices)) || PyTuple_CheckExact(__pyx_v_target_indices)) {
+      __pyx_t_7 = __pyx_v_target_indices; __Pyx_INCREF(__pyx_t_7); __pyx_t_11 = 0;
+      __pyx_t_21 = NULL;
     } else {
-      __pyx_t_12 = -1; __pyx_t_6 = PyObject_GetIter(((PyObject *)__pyx_v_target_indices)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_13 = Py_TYPE(__pyx_t_6)->tp_iternext; if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 158, __pyx_L1_error)
+      __pyx_t_11 = -1; __pyx_t_7 = PyObject_GetIter(__pyx_v_target_indices); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 192, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_21 = Py_TYPE(__pyx_t_7)->tp_iternext; if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 192, __pyx_L1_error)
     }
     for (;;) {
-      if (likely(!__pyx_t_13)) {
-        if (likely(PyList_CheckExact(__pyx_t_6))) {
-          if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_6)) break;
+      if (likely(!__pyx_t_21)) {
+        if (likely(PyList_CheckExact(__pyx_t_7))) {
+          if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyList_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_3); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
+          __pyx_t_10 = PyList_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_10); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 192, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_10);
           #endif
         } else {
-          if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_6)) break;
+          if (__pyx_t_11 >= PyTuple_GET_SIZE(__pyx_t_7)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_3 = PyTuple_GET_ITEM(__pyx_t_6, __pyx_t_12); __Pyx_INCREF(__pyx_t_3); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 158, __pyx_L1_error)
+          __pyx_t_10 = PyTuple_GET_ITEM(__pyx_t_7, __pyx_t_11); __Pyx_INCREF(__pyx_t_10); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 192, __pyx_L1_error)
           #else
-          __pyx_t_3 = PySequence_ITEM(__pyx_t_6, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 158, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_3);
+          __pyx_t_10 = PySequence_ITEM(__pyx_t_7, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 192, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_10);
           #endif
         }
       } else {
-        __pyx_t_3 = __pyx_t_13(__pyx_t_6);
-        if (unlikely(!__pyx_t_3)) {
+        __pyx_t_10 = __pyx_t_21(__pyx_t_7);
+        if (unlikely(!__pyx_t_10)) {
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 158, __pyx_L1_error)
+            else __PYX_ERR(0, 192, __pyx_L1_error)
           }
           break;
         }
-        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_GOTREF(__pyx_t_10);
       }
-      __pyx_t_14 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_14 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 158, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_v_i = __pyx_t_14;
+      __pyx_t_25 = __Pyx_PyInt_As_npy_int32(__pyx_t_10); if (unlikely((__pyx_t_25 == ((npy_int32)-1)) && PyErr_Occurred())) __PYX_ERR(0, 192, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+      __pyx_v_indx = __pyx_t_25;
 
-      /* "pygeodesic/geodesic.pyx":159
+      /* "pygeodesic/geodesic.pyx":193
  *         else:
- *             for i in target_indices:
- *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))             # <<<<<<<<<<<<<<
+ *             for indx in target_indices:
+ *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[indx]))             # <<<<<<<<<<<<<<
  *             self.algorithm.propagate(all_sources, max_distance, &stop_points)
  * 
  */
       try {
-        __pyx_v_stop_points.push_back(geodesic::SurfacePoint((&(__pyx_v_self->mesh.vertices()[__pyx_v_i]))));
+        __pyx_v_stop_points.push_back(geodesic::SurfacePoint((&(__pyx_cur_scope->__pyx_v_self->mesh.vertices()[__pyx_v_indx]))));
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        __PYX_ERR(0, 159, __pyx_L1_error)
+        __PYX_ERR(0, 193, __pyx_L1_error)
       }
 
-      /* "pygeodesic/geodesic.pyx":158
+      /* "pygeodesic/geodesic.pyx":192
  *             self.algorithm.propagate(all_sources, max_distance, NULL)
  *         else:
- *             for i in target_indices:             # <<<<<<<<<<<<<<
- *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))
+ *             for indx in target_indices:             # <<<<<<<<<<<<<<
+ *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[indx]))
  *             self.algorithm.propagate(all_sources, max_distance, &stop_points)
  */
     }
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-    /* "pygeodesic/geodesic.pyx":160
- *             for i in target_indices:
- *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[i]))
+    /* "pygeodesic/geodesic.pyx":194
+ *             for indx in target_indices:
+ *                 stop_points.push_back(SurfacePoint(&self.mesh.vertices()[indx]))
  *             self.algorithm.propagate(all_sources, max_distance, &stop_points)             # <<<<<<<<<<<<<<
  * 
  *         # Calculate distance of each target from the best (closest) source
  */
-    __pyx_v_self->algorithm->propagate(__pyx_v_all_sources, __pyx_v_max_distance, (&__pyx_v_stop_points));
+    __pyx_cur_scope->__pyx_v_self->algorithm->propagate(__pyx_v_all_sources, __pyx_v_max_distance, (&__pyx_v_stop_points));
   }
-  __pyx_L6:;
+  __pyx_L25:;
 
-  /* "pygeodesic/geodesic.pyx":163
+  /* "pygeodesic/geodesic.pyx":197
  * 
  *         # Calculate distance of each target from the best (closest) source
  *         distances   = numpy.zeros((stop_points.size(), ), dtype=numpy.float64)             # <<<<<<<<<<<<<<
  *         best_source = numpy.zeros((stop_points.size(), ), dtype=numpy.int32)
  *         for i in range(stop_points.size()):
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_numpy); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyInt_FromSize_t(__pyx_v_stop_points.size()); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6);
-  __pyx_t_6 = 0;
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
-  __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_17 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_17);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_17) < 0) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-  __pyx_t_17 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 163, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_17);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_17) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_17, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 163, __pyx_L1_error)
-  __pyx_t_18 = ((PyArrayObject *)__pyx_t_17);
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_numpy); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_PyInt_FromSize_t(__pyx_v_stop_points.size()); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_GIVEREF(__pyx_t_7);
+  PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
+  __pyx_t_7 = 0;
+  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_9);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_9);
+  __pyx_t_9 = 0;
+  __pyx_t_9 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (PyDict_SetItem(__pyx_t_9, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_7, __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_26 = ((PyArrayObject *)__pyx_t_8);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_distances.rcbuffer->pybuffer);
-    __pyx_t_8 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_distances.rcbuffer->pybuffer, (PyObject*)__pyx_t_18, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
-    if (unlikely(__pyx_t_8 < 0)) {
-      PyErr_Fetch(&__pyx_t_11, &__pyx_t_10, &__pyx_t_9);
+    __pyx_t_13 = __Pyx_GetBufferAndValidate(&__pyx_pybuffernd_distances.rcbuffer->pybuffer, (PyObject*)__pyx_t_26, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack);
+    if (unlikely(__pyx_t_13 < 0)) {
+      PyErr_Fetch(&__pyx_t_4, &__pyx_t_3, &__pyx_t_2);
       if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_distances.rcbuffer->pybuffer, (PyObject*)__pyx_v_distances, &__Pyx_TypeInfo_nn___pyx_t_5numpy_float64_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
-        Py_XDECREF(__pyx_t_11); Py_XDECREF(__pyx_t_10); Py_XDECREF(__pyx_t_9);
+        Py_XDECREF(__pyx_t_4); Py_XDECREF(__pyx_t_3); Py_XDECREF(__pyx_t_2);
         __Pyx_RaiseBufferFallbackError();
       } else {
-        PyErr_Restore(__pyx_t_11, __pyx_t_10, __pyx_t_9);
+        PyErr_Restore(__pyx_t_4, __pyx_t_3, __pyx_t_2);
       }
-      __pyx_t_11 = __pyx_t_10 = __pyx_t_9 = 0;
+      __pyx_t_4 = __pyx_t_3 = __pyx_t_2 = 0;
     }
     __pyx_pybuffernd_distances.diminfo[0].strides = __pyx_pybuffernd_distances.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_distances.diminfo[0].shape = __pyx_pybuffernd_distances.rcbuffer->pybuffer.shape[0];
-    if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 163, __pyx_L1_error)
+    if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 197, __pyx_L1_error)
   }
-  __pyx_t_18 = 0;
-  __pyx_v_distances = ((PyArrayObject *)__pyx_t_17);
-  __pyx_t_17 = 0;
+  __pyx_t_26 = 0;
+  __pyx_v_distances = ((PyArrayObject *)__pyx_t_8);
+  __pyx_t_8 = 0;
 
-  /* "pygeodesic/geodesic.pyx":164
+  /* "pygeodesic/geodesic.pyx":198
  *         # Calculate distance of each target from the best (closest) source
  *         distances   = numpy.zeros((stop_points.size(), ), dtype=numpy.float64)
  *         best_source = numpy.zeros((stop_points.size(), ), dtype=numpy.int32)             # <<<<<<<<<<<<<<
  *         for i in range(stop_points.size()):
  *             best_source[i] = self.algorithm.best_source(stop_points[i], distances[i])
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_17, __pyx_n_s_numpy); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_17, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-  __pyx_t_17 = __Pyx_PyInt_FromSize_t(__pyx_v_stop_points.size()); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_17);
-  __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_17);
-  PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_17);
-  __pyx_t_17 = 0;
-  __pyx_t_17 = PyTuple_New(1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_17);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_6);
-  __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_int32); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_5) < 0) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_17, __pyx_t_6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 164, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_v_best_source = __pyx_t_5;
-  __pyx_t_5 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_numpy); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_zeros); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __pyx_t_8 = __Pyx_PyInt_FromSize_t(__pyx_v_stop_points.size()); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_7 = PyTuple_New(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_8);
+  __pyx_t_8 = 0;
+  __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_8);
+  __Pyx_GIVEREF(__pyx_t_7);
+  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7);
+  __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_numpy); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_int32); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_1) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_9, __pyx_t_8, __pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_v_best_source = __pyx_t_1;
+  __pyx_t_1 = 0;
 
-  /* "pygeodesic/geodesic.pyx":165
+  /* "pygeodesic/geodesic.pyx":199
  *         distances   = numpy.zeros((stop_points.size(), ), dtype=numpy.float64)
  *         best_source = numpy.zeros((stop_points.size(), ), dtype=numpy.int32)
  *         for i in range(stop_points.size()):             # <<<<<<<<<<<<<<
  *             best_source[i] = self.algorithm.best_source(stop_points[i], distances[i])
  *         distances[distances==GEODESIC_INF] = numpy.inf
  */
-  __pyx_t_19 = __pyx_v_stop_points.size();
-  __pyx_t_20 = __pyx_t_19;
-  for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_20; __pyx_t_12+=1) {
-    __pyx_v_i = __pyx_t_12;
+  __pyx_t_27 = __pyx_v_stop_points.size();
+  __pyx_t_28 = __pyx_t_27;
+  for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_28; __pyx_t_11+=1) {
+    __pyx_v_i = __pyx_t_11;
 
-    /* "pygeodesic/geodesic.pyx":166
+    /* "pygeodesic/geodesic.pyx":200
  *         best_source = numpy.zeros((stop_points.size(), ), dtype=numpy.int32)
  *         for i in range(stop_points.size()):
  *             best_source[i] = self.algorithm.best_source(stop_points[i], distances[i])             # <<<<<<<<<<<<<<
  *         distances[distances==GEODESIC_INF] = numpy.inf
  * 
  */
-    __pyx_t_21 = __pyx_v_i;
-    __pyx_t_8 = -1;
-    if (__pyx_t_21 < 0) {
-      __pyx_t_21 += __pyx_pybuffernd_distances.diminfo[0].shape;
-      if (unlikely(__pyx_t_21 < 0)) __pyx_t_8 = 0;
-    } else if (unlikely(__pyx_t_21 >= __pyx_pybuffernd_distances.diminfo[0].shape)) __pyx_t_8 = 0;
-    if (unlikely(__pyx_t_8 != -1)) {
-      __Pyx_RaiseBufferIndexError(__pyx_t_8);
-      __PYX_ERR(0, 166, __pyx_L1_error)
+    __pyx_t_29 = __pyx_v_i;
+    __pyx_t_13 = -1;
+    if (__pyx_t_29 < 0) {
+      __pyx_t_29 += __pyx_pybuffernd_distances.diminfo[0].shape;
+      if (unlikely(__pyx_t_29 < 0)) __pyx_t_13 = 0;
+    } else if (unlikely(__pyx_t_29 >= __pyx_pybuffernd_distances.diminfo[0].shape)) __pyx_t_13 = 0;
+    if (unlikely(__pyx_t_13 != -1)) {
+      __Pyx_RaiseBufferIndexError(__pyx_t_13);
+      __PYX_ERR(0, 200, __pyx_L1_error)
     }
-    __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_self->algorithm->best_source((__pyx_v_stop_points[__pyx_v_i]), (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_distances.rcbuffer->pybuffer.buf, __pyx_t_21, __pyx_pybuffernd_distances.diminfo[0].strides)))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 166, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    if (unlikely(__Pyx_SetItemInt(__pyx_v_best_source, __pyx_v_i, __pyx_t_5, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1) < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_1 = __Pyx_PyInt_From_unsigned_int(__pyx_cur_scope->__pyx_v_self->algorithm->best_source((__pyx_v_stop_points[__pyx_v_i]), (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_distances.rcbuffer->pybuffer.buf, __pyx_t_29, __pyx_pybuffernd_distances.diminfo[0].strides)))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (unlikely(__Pyx_SetItemInt(__pyx_v_best_source, __pyx_v_i, __pyx_t_1, Py_ssize_t, 1, PyInt_FromSsize_t, 0, 1, 1) < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pygeodesic/geodesic.pyx":167
+  /* "pygeodesic/geodesic.pyx":201
  *         for i in range(stop_points.size()):
  *             best_source[i] = self.algorithm.best_source(stop_points[i], distances[i])
  *         distances[distances==GEODESIC_INF] = numpy.inf             # <<<<<<<<<<<<<<
  * 
  *         return distances, best_source
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_inf); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyFloat_FromDouble(geodesic::GEODESIC_INF); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_17 = PyObject_RichCompare(((PyObject *)__pyx_v_distances), __pyx_t_5, Py_EQ); __Pyx_XGOTREF(__pyx_t_17); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_distances), __pyx_t_17, __pyx_t_6) < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_inf); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = PyFloat_FromDouble(geodesic::GEODESIC_INF); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_8 = PyObject_RichCompare(((PyObject *)__pyx_v_distances), __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_8); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  if (unlikely(PyObject_SetItem(((PyObject *)__pyx_v_distances), __pyx_t_8, __pyx_t_7) < 0)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "pygeodesic/geodesic.pyx":169
+  /* "pygeodesic/geodesic.pyx":203
  *         distances[distances==GEODESIC_INF] = numpy.inf
  * 
  *         return distances, best_source             # <<<<<<<<<<<<<<
@@ -3591,58 +4716,58 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_4geo
  *     def __dealloc__(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 169, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __Pyx_INCREF(((PyObject *)__pyx_v_distances));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_distances));
-  PyTuple_SET_ITEM(__pyx_t_6, 0, ((PyObject *)__pyx_v_distances));
+  PyTuple_SET_ITEM(__pyx_t_7, 0, ((PyObject *)__pyx_v_distances));
   __Pyx_INCREF(__pyx_v_best_source);
   __Pyx_GIVEREF(__pyx_v_best_source);
-  PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_v_best_source);
-  __pyx_r = __pyx_t_6;
-  __pyx_t_6 = 0;
+  PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_v_best_source);
+  __pyx_r = __pyx_t_7;
+  __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "pygeodesic/geodesic.pyx":125
- *         return path_length, numpy.array(path_points)
+  /* "pygeodesic/geodesic.pyx":142
+ *         return path_length, path_points
  * 
- *     def geodesicDistances(self, numpy.ndarray[numpy.int32_t, ndim=1] source_indices=None,             # <<<<<<<<<<<<<<
- *                           numpy.ndarray[numpy.int32_t, ndim=1] target_indices=None,
- *                           double max_distance = GEODESIC_INF):
+ *     def geodesicDistances(self, source_indices=None, target_indices=None, double max_distance = GEODESIC_INF):             # <<<<<<<<<<<<<<
+ *         """
+ *         Calculates the distance of each target vertex from the best (closest) source vertex
  */
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_17);
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
+  __Pyx_XDECREF(__pyx_t_10);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_distances.rcbuffer->pybuffer);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_source_indices.rcbuffer->pybuffer);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_target_indices.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
   __Pyx_AddTraceback("pygeodesic.geodesic.PyGeodesicAlgorithmExact.geodesicDistances", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_distances.rcbuffer->pybuffer);
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_source_indices.rcbuffer->pybuffer);
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_target_indices.rcbuffer->pybuffer);
   __pyx_L2:;
   __Pyx_XDECREF((PyObject *)__pyx_v_distances);
+  __Pyx_XDECREF(__pyx_v_checkIndicesWithinLimits);
+  __Pyx_XDECREF(__pyx_v_e);
   __Pyx_XDECREF(__pyx_v_best_source);
-  __Pyx_XDECREF((PyObject *)__pyx_v_source_indices);
+  __Pyx_XDECREF(__pyx_v_source_indices);
+  __Pyx_XDECREF(__pyx_v_target_indices);
+  __Pyx_DECREF(((PyObject *)__pyx_cur_scope));
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pygeodesic/geodesic.pyx":171
+/* "pygeodesic/geodesic.pyx":205
  *         return distances, best_source
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -3665,7 +4790,7 @@ static void __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_6__deallo
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "pygeodesic/geodesic.pyx":172
+  /* "pygeodesic/geodesic.pyx":206
  * 
  *     def __dealloc__(self):
  *         del self.algorithm             # <<<<<<<<<<<<<<
@@ -3674,7 +4799,7 @@ static void __pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_6__deallo
  */
   delete __pyx_v_self->algorithm;
 
-  /* "pygeodesic/geodesic.pyx":171
+  /* "pygeodesic/geodesic.pyx":205
  *         return distances, best_source
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -3720,7 +4845,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_8__r
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__7, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 2, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3776,7 +4901,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_10__
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_TypeError, __pyx_tuple__8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_Raise(__pyx_t_1, 0, 0, 0);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3799,7 +4924,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_24PyGeodesicAlgorithmExact_10__
   return __pyx_r;
 }
 
-/* "pygeodesic/geodesic.pyx":175
+/* "pygeodesic/geodesic.pyx":209
  * 
  * 
  * def read_mesh_from_file(filename):             # <<<<<<<<<<<<<<
@@ -3873,23 +4998,23 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("read_mesh_from_file", 0);
 
-  /* "pygeodesic/geodesic.pyx":183
+  /* "pygeodesic/geodesic.pyx":217
  *     """
  * 
  *     points = []; faces = []             # <<<<<<<<<<<<<<
  *     with open(filename,'r') as f:
  * 
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_points = __pyx_t_1;
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_faces = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "pygeodesic/geodesic.pyx":184
+  /* "pygeodesic/geodesic.pyx":218
  * 
  *     points = []; faces = []
  *     with open(filename,'r') as f:             # <<<<<<<<<<<<<<
@@ -3897,7 +5022,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
  *         # Read header line for number of points and faces
  */
   /*with:*/ {
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_INCREF(__pyx_v_filename);
     __Pyx_GIVEREF(__pyx_v_filename);
@@ -3905,12 +5030,12 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
     __Pyx_INCREF(__pyx_n_u_r);
     __Pyx_GIVEREF(__pyx_n_u_r);
     PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_n_u_r);
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 184, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_open, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_exit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 184, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_exit); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 218, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_enter); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 184, __pyx_L3_error)
+    __pyx_t_4 = __Pyx_PyObject_LookupSpecial(__pyx_t_2, __pyx_n_s_enter); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 218, __pyx_L3_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -3924,7 +5049,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
     }
     __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 184, __pyx_L3_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L3_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = __pyx_t_1;
@@ -3942,7 +5067,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
           __pyx_v_f = __pyx_t_4;
           __pyx_t_4 = 0;
 
-          /* "pygeodesic/geodesic.pyx":187
+          /* "pygeodesic/geodesic.pyx":221
  * 
  *         # Read header line for number of points and faces
  *         try:             # <<<<<<<<<<<<<<
@@ -3958,14 +5083,14 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __Pyx_XGOTREF(__pyx_t_11);
             /*try:*/ {
 
-              /* "pygeodesic/geodesic.pyx":188
+              /* "pygeodesic/geodesic.pyx":222
  *         # Read header line for number of points and faces
  *         try:
  *             vals = f.readline().strip().split(' ')             # <<<<<<<<<<<<<<
  *             vals = [int(v) for v in vals]
  *             numpoints, numfaces = vals
  */
-              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_readline); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L13_error)
+              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_readline); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_5);
               __pyx_t_12 = NULL;
               if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -3979,10 +5104,10 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               }
               __pyx_t_1 = (__pyx_t_12) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_12) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
               __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
-              if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L13_error)
+              if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_1);
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_strip); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L13_error)
+              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_strip); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_5);
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __pyx_t_1 = NULL;
@@ -3997,10 +5122,10 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               }
               __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
               __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-              if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 188, __pyx_L13_error)
+              if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 222, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_2);
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L13_error)
+              __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_split); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 222, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_5);
               __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
               __pyx_t_2 = NULL;
@@ -4013,15 +5138,15 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                   __Pyx_DECREF_SET(__pyx_t_5, function);
                 }
               }
-              __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_2, __pyx_kp_u__7) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_kp_u__7);
+              __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_2, __pyx_kp_u__9) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_kp_u__9);
               __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-              if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L13_error)
+              if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 222, __pyx_L13_error)
               __Pyx_GOTREF(__pyx_t_4);
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               __pyx_v_vals = __pyx_t_4;
               __pyx_t_4 = 0;
 
-              /* "pygeodesic/geodesic.pyx":189
+              /* "pygeodesic/geodesic.pyx":223
  *         try:
  *             vals = f.readline().strip().split(' ')
  *             vals = [int(v) for v in vals]             # <<<<<<<<<<<<<<
@@ -4029,32 +5154,32 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
  *             assert numpoints >= 3, "Number of points not >= 3"
  */
               { /* enter inner scope */
-                __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L21_error)
+                __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 223, __pyx_L21_error)
                 __Pyx_GOTREF(__pyx_t_4);
                 if (likely(PyList_CheckExact(__pyx_v_vals)) || PyTuple_CheckExact(__pyx_v_vals)) {
                   __pyx_t_5 = __pyx_v_vals; __Pyx_INCREF(__pyx_t_5); __pyx_t_13 = 0;
                   __pyx_t_14 = NULL;
                 } else {
-                  __pyx_t_13 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_vals); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L21_error)
+                  __pyx_t_13 = -1; __pyx_t_5 = PyObject_GetIter(__pyx_v_vals); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 223, __pyx_L21_error)
                   __Pyx_GOTREF(__pyx_t_5);
-                  __pyx_t_14 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 189, __pyx_L21_error)
+                  __pyx_t_14 = Py_TYPE(__pyx_t_5)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 223, __pyx_L21_error)
                 }
                 for (;;) {
                   if (likely(!__pyx_t_14)) {
                     if (likely(PyList_CheckExact(__pyx_t_5))) {
                       if (__pyx_t_13 >= PyList_GET_SIZE(__pyx_t_5)) break;
                       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                      __pyx_t_2 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_13); __Pyx_INCREF(__pyx_t_2); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 189, __pyx_L21_error)
+                      __pyx_t_2 = PyList_GET_ITEM(__pyx_t_5, __pyx_t_13); __Pyx_INCREF(__pyx_t_2); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 223, __pyx_L21_error)
                       #else
-                      __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L21_error)
+                      __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L21_error)
                       __Pyx_GOTREF(__pyx_t_2);
                       #endif
                     } else {
                       if (__pyx_t_13 >= PyTuple_GET_SIZE(__pyx_t_5)) break;
                       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                      __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_13); __Pyx_INCREF(__pyx_t_2); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 189, __pyx_L21_error)
+                      __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_5, __pyx_t_13); __Pyx_INCREF(__pyx_t_2); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 223, __pyx_L21_error)
                       #else
-                      __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L21_error)
+                      __pyx_t_2 = PySequence_ITEM(__pyx_t_5, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L21_error)
                       __Pyx_GOTREF(__pyx_t_2);
                       #endif
                     }
@@ -4064,7 +5189,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                       PyObject* exc_type = PyErr_Occurred();
                       if (exc_type) {
                         if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                        else __PYX_ERR(0, 189, __pyx_L21_error)
+                        else __PYX_ERR(0, 223, __pyx_L21_error)
                       }
                       break;
                     }
@@ -4072,9 +5197,9 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                   }
                   __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_v, __pyx_t_2);
                   __pyx_t_2 = 0;
-                  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_7genexpr__pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 189, __pyx_L21_error)
+                  __pyx_t_2 = __Pyx_PyNumber_Int(__pyx_7genexpr__pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L21_error)
                   __Pyx_GOTREF(__pyx_t_2);
-                  if (unlikely(__Pyx_ListComp_Append(__pyx_t_4, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 189, __pyx_L21_error)
+                  if (unlikely(__Pyx_ListComp_Append(__pyx_t_4, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 223, __pyx_L21_error)
                   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 }
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -4088,7 +5213,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               __Pyx_DECREF_SET(__pyx_v_vals, __pyx_t_4);
               __pyx_t_4 = 0;
 
-              /* "pygeodesic/geodesic.pyx":190
+              /* "pygeodesic/geodesic.pyx":224
  *             vals = f.readline().strip().split(' ')
  *             vals = [int(v) for v in vals]
  *             numpoints, numfaces = vals             # <<<<<<<<<<<<<<
@@ -4101,7 +5226,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 if (unlikely(size != 2)) {
                   if (size > 2) __Pyx_RaiseTooManyValuesError(2);
                   else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-                  __PYX_ERR(0, 190, __pyx_L13_error)
+                  __PYX_ERR(0, 224, __pyx_L13_error)
                 }
                 #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
                 __pyx_t_4 = PyList_GET_ITEM(sequence, 0); 
@@ -4109,9 +5234,9 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 __Pyx_INCREF(__pyx_t_4);
                 __Pyx_INCREF(__pyx_t_5);
                 #else
-                __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L13_error)
+                __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 224, __pyx_L13_error)
                 __Pyx_GOTREF(__pyx_t_4);
-                __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 190, __pyx_L13_error)
+                __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 224, __pyx_L13_error)
                 __Pyx_GOTREF(__pyx_t_5);
                 #endif
               }
@@ -4120,7 +5245,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               __pyx_v_numfaces = __pyx_t_5;
               __pyx_t_5 = 0;
 
-              /* "pygeodesic/geodesic.pyx":191
+              /* "pygeodesic/geodesic.pyx":225
  *             vals = [int(v) for v in vals]
  *             numpoints, numfaces = vals
  *             assert numpoints >= 3, "Number of points not >= 3"             # <<<<<<<<<<<<<<
@@ -4129,17 +5254,17 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
  */
               #ifndef CYTHON_WITHOUT_ASSERTIONS
               if (unlikely(!Py_OptimizeFlag)) {
-                __pyx_t_5 = PyObject_RichCompare(__pyx_v_numpoints, __pyx_int_3, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L13_error)
-                __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 191, __pyx_L13_error)
+                __pyx_t_5 = PyObject_RichCompare(__pyx_v_numpoints, __pyx_int_3, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 225, __pyx_L13_error)
+                __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_15 < 0)) __PYX_ERR(0, 225, __pyx_L13_error)
                 __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
                 if (unlikely(!__pyx_t_15)) {
                   PyErr_SetObject(PyExc_AssertionError, __pyx_kp_u_Number_of_points_not_3);
-                  __PYX_ERR(0, 191, __pyx_L13_error)
+                  __PYX_ERR(0, 225, __pyx_L13_error)
                 }
               }
               #endif
 
-              /* "pygeodesic/geodesic.pyx":187
+              /* "pygeodesic/geodesic.pyx":221
  * 
  *         # Read header line for number of points and faces
  *         try:             # <<<<<<<<<<<<<<
@@ -4158,7 +5283,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-            /* "pygeodesic/geodesic.pyx":192
+            /* "pygeodesic/geodesic.pyx":226
  *             numpoints, numfaces = vals
  *             assert numpoints >= 3, "Number of points not >= 3"
  *         except AssertionError as e:             # <<<<<<<<<<<<<<
@@ -4168,7 +5293,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __pyx_t_16 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_AssertionError);
             if (__pyx_t_16) {
               __Pyx_AddTraceback("pygeodesic.geodesic.read_mesh_from_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
-              if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_4, &__pyx_t_2) < 0) __PYX_ERR(0, 192, __pyx_L15_except_error)
+              if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_4, &__pyx_t_2) < 0) __PYX_ERR(0, 226, __pyx_L15_except_error)
               __Pyx_GOTREF(__pyx_t_5);
               __Pyx_GOTREF(__pyx_t_4);
               __Pyx_GOTREF(__pyx_t_2);
@@ -4176,24 +5301,24 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               __pyx_v_e = __pyx_t_4;
               /*try:*/ {
 
-                /* "pygeodesic/geodesic.pyx":193
+                /* "pygeodesic/geodesic.pyx":227
  *             assert numpoints >= 3, "Number of points not >= 3"
  *         except AssertionError as e:
  *             print(f'Error reading header: {e}')             # <<<<<<<<<<<<<<
  *             return
  *         except Exception as e:
  */
-                __pyx_t_1 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L30_error)
+                __pyx_t_1 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L30_error)
                 __Pyx_GOTREF(__pyx_t_1);
-                __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_header, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 193, __pyx_L30_error)
+                __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_header, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 227, __pyx_L30_error)
                 __Pyx_GOTREF(__pyx_t_12);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L30_error)
+                __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L30_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                /* "pygeodesic/geodesic.pyx":194
+                /* "pygeodesic/geodesic.pyx":228
  *         except AssertionError as e:
  *             print(f'Error reading header: {e}')
  *             return             # <<<<<<<<<<<<<<
@@ -4208,7 +5333,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 goto __pyx_L29_return;
               }
 
-              /* "pygeodesic/geodesic.pyx":192
+              /* "pygeodesic/geodesic.pyx":226
  *             numpoints, numfaces = vals
  *             assert numpoints >= 3, "Number of points not >= 3"
  *         except AssertionError as e:             # <<<<<<<<<<<<<<
@@ -4262,7 +5387,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               }
             }
 
-            /* "pygeodesic/geodesic.pyx":195
+            /* "pygeodesic/geodesic.pyx":229
  *             print(f'Error reading header: {e}')
  *             return
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -4272,7 +5397,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __pyx_t_17 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
             if (__pyx_t_17) {
               __Pyx_AddTraceback("pygeodesic.geodesic.read_mesh_from_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
-              if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_4, &__pyx_t_5) < 0) __PYX_ERR(0, 195, __pyx_L15_except_error)
+              if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_4, &__pyx_t_5) < 0) __PYX_ERR(0, 229, __pyx_L15_except_error)
               __Pyx_GOTREF(__pyx_t_2);
               __Pyx_GOTREF(__pyx_t_4);
               __Pyx_GOTREF(__pyx_t_5);
@@ -4280,24 +5405,24 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               __pyx_v_e = __pyx_t_4;
               /*try:*/ {
 
-                /* "pygeodesic/geodesic.pyx":196
+                /* "pygeodesic/geodesic.pyx":230
  *             return
  *         except Exception as e:
  *             print(f'Error reading header: {e}')             # <<<<<<<<<<<<<<
  *             return
  * 
  */
-                __pyx_t_1 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L41_error)
+                __pyx_t_1 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L41_error)
                 __Pyx_GOTREF(__pyx_t_1);
-                __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_header, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 196, __pyx_L41_error)
+                __pyx_t_12 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_header, __pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 230, __pyx_L41_error)
                 __Pyx_GOTREF(__pyx_t_12);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 196, __pyx_L41_error)
+                __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_12); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L41_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-                /* "pygeodesic/geodesic.pyx":197
+                /* "pygeodesic/geodesic.pyx":231
  *         except Exception as e:
  *             print(f'Error reading header: {e}')
  *             return             # <<<<<<<<<<<<<<
@@ -4312,7 +5437,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 goto __pyx_L40_return;
               }
 
-              /* "pygeodesic/geodesic.pyx":195
+              /* "pygeodesic/geodesic.pyx":229
  *             print(f'Error reading header: {e}')
  *             return
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -4368,7 +5493,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             goto __pyx_L15_except_error;
             __pyx_L15_except_error:;
 
-            /* "pygeodesic/geodesic.pyx":187
+            /* "pygeodesic/geodesic.pyx":221
  * 
  *         # Read header line for number of points and faces
  *         try:             # <<<<<<<<<<<<<<
@@ -4389,7 +5514,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __pyx_L18_try_end:;
           }
 
-          /* "pygeodesic/geodesic.pyx":200
+          /* "pygeodesic/geodesic.pyx":234
  * 
  *         # Read points
  *         try:             # <<<<<<<<<<<<<<
@@ -4405,22 +5530,22 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __Pyx_XGOTREF(__pyx_t_9);
             /*try:*/ {
 
-              /* "pygeodesic/geodesic.pyx":201
+              /* "pygeodesic/geodesic.pyx":235
  *         # Read points
  *         try:
  *             for i in range(numpoints):             # <<<<<<<<<<<<<<
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')
  *                 vals = [float(v) for v in vals]
  */
-              __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_numpoints); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 201, __pyx_L47_error)
+              __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_numpoints); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 235, __pyx_L47_error)
               __Pyx_GOTREF(__pyx_t_5);
               if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
                 __pyx_t_4 = __pyx_t_5; __Pyx_INCREF(__pyx_t_4); __pyx_t_13 = 0;
                 __pyx_t_14 = NULL;
               } else {
-                __pyx_t_13 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 201, __pyx_L47_error)
+                __pyx_t_13 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 235, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_4);
-                __pyx_t_14 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 201, __pyx_L47_error)
+                __pyx_t_14 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 235, __pyx_L47_error)
               }
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               for (;;) {
@@ -4428,17 +5553,17 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                   if (likely(PyList_CheckExact(__pyx_t_4))) {
                     if (__pyx_t_13 >= PyList_GET_SIZE(__pyx_t_4)) break;
                     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 201, __pyx_L47_error)
+                    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 235, __pyx_L47_error)
                     #else
-                    __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 201, __pyx_L47_error)
+                    __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 235, __pyx_L47_error)
                     __Pyx_GOTREF(__pyx_t_5);
                     #endif
                   } else {
                     if (__pyx_t_13 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
                     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                    __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 201, __pyx_L47_error)
+                    __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 235, __pyx_L47_error)
                     #else
-                    __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 201, __pyx_L47_error)
+                    __pyx_t_5 = PySequence_ITEM(__pyx_t_4, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 235, __pyx_L47_error)
                     __Pyx_GOTREF(__pyx_t_5);
                     #endif
                   }
@@ -4448,7 +5573,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                     PyObject* exc_type = PyErr_Occurred();
                     if (exc_type) {
                       if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                      else __PYX_ERR(0, 201, __pyx_L47_error)
+                      else __PYX_ERR(0, 235, __pyx_L47_error)
                     }
                     break;
                   }
@@ -4457,14 +5582,14 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "pygeodesic/geodesic.pyx":202
+                /* "pygeodesic/geodesic.pyx":236
  *         try:
  *             for i in range(numpoints):
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')             # <<<<<<<<<<<<<<
  *                 vals = [float(v) for v in vals]
  *                 points.append(vals)
  */
-                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_readline); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 202, __pyx_L47_error)
+                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_readline); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_12);
                 __pyx_t_26 = NULL;
                 if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
@@ -4478,10 +5603,10 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 }
                 __pyx_t_1 = (__pyx_t_26) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_26) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
                 __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
-                if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 202, __pyx_L47_error)
+                if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_strip); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 202, __pyx_L47_error)
+                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_strip); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_12);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __pyx_t_1 = NULL;
@@ -4496,16 +5621,16 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 }
                 __pyx_t_2 = (__pyx_t_1) ? __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_1) : __Pyx_PyObject_CallNoArg(__pyx_t_12);
                 __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-                if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 202, __pyx_L47_error)
+                if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_replace); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 202, __pyx_L47_error)
+                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_replace); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_12);
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-                __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 202, __pyx_L47_error)
+                __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_split); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 202, __pyx_L47_error)
+                __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_split); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_12);
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __pyx_t_2 = NULL;
@@ -4518,15 +5643,15 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                     __Pyx_DECREF_SET(__pyx_t_12, function);
                   }
                 }
-                __pyx_t_5 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_2, __pyx_kp_u__7) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_kp_u__7);
+                __pyx_t_5 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_2, __pyx_kp_u__9) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_kp_u__9);
                 __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-                if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 202, __pyx_L47_error)
+                if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 236, __pyx_L47_error)
                 __Pyx_GOTREF(__pyx_t_5);
                 __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
                 __Pyx_DECREF_SET(__pyx_v_vals, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "pygeodesic/geodesic.pyx":203
+                /* "pygeodesic/geodesic.pyx":237
  *             for i in range(numpoints):
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')
  *                 vals = [float(v) for v in vals]             # <<<<<<<<<<<<<<
@@ -4534,32 +5659,32 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
  *             points = numpy.array(points)
  */
                 { /* enter inner scope */
-                  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 203, __pyx_L57_error)
+                  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 237, __pyx_L57_error)
                   __Pyx_GOTREF(__pyx_t_5);
                   if (likely(PyList_CheckExact(__pyx_v_vals)) || PyTuple_CheckExact(__pyx_v_vals)) {
                     __pyx_t_12 = __pyx_v_vals; __Pyx_INCREF(__pyx_t_12); __pyx_t_27 = 0;
                     __pyx_t_28 = NULL;
                   } else {
-                    __pyx_t_27 = -1; __pyx_t_12 = PyObject_GetIter(__pyx_v_vals); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 203, __pyx_L57_error)
+                    __pyx_t_27 = -1; __pyx_t_12 = PyObject_GetIter(__pyx_v_vals); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 237, __pyx_L57_error)
                     __Pyx_GOTREF(__pyx_t_12);
-                    __pyx_t_28 = Py_TYPE(__pyx_t_12)->tp_iternext; if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 203, __pyx_L57_error)
+                    __pyx_t_28 = Py_TYPE(__pyx_t_12)->tp_iternext; if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 237, __pyx_L57_error)
                   }
                   for (;;) {
                     if (likely(!__pyx_t_28)) {
                       if (likely(PyList_CheckExact(__pyx_t_12))) {
                         if (__pyx_t_27 >= PyList_GET_SIZE(__pyx_t_12)) break;
                         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_12, __pyx_t_27); __Pyx_INCREF(__pyx_t_2); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 203, __pyx_L57_error)
+                        __pyx_t_2 = PyList_GET_ITEM(__pyx_t_12, __pyx_t_27); __Pyx_INCREF(__pyx_t_2); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 237, __pyx_L57_error)
                         #else
-                        __pyx_t_2 = PySequence_ITEM(__pyx_t_12, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L57_error)
+                        __pyx_t_2 = PySequence_ITEM(__pyx_t_12, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L57_error)
                         __Pyx_GOTREF(__pyx_t_2);
                         #endif
                       } else {
                         if (__pyx_t_27 >= PyTuple_GET_SIZE(__pyx_t_12)) break;
                         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_12, __pyx_t_27); __Pyx_INCREF(__pyx_t_2); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 203, __pyx_L57_error)
+                        __pyx_t_2 = PyTuple_GET_ITEM(__pyx_t_12, __pyx_t_27); __Pyx_INCREF(__pyx_t_2); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 237, __pyx_L57_error)
                         #else
-                        __pyx_t_2 = PySequence_ITEM(__pyx_t_12, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L57_error)
+                        __pyx_t_2 = PySequence_ITEM(__pyx_t_12, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L57_error)
                         __Pyx_GOTREF(__pyx_t_2);
                         #endif
                       }
@@ -4569,7 +5694,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                         PyObject* exc_type = PyErr_Occurred();
                         if (exc_type) {
                           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                          else __PYX_ERR(0, 203, __pyx_L57_error)
+                          else __PYX_ERR(0, 237, __pyx_L57_error)
                         }
                         break;
                       }
@@ -4577,9 +5702,9 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                     }
                     __Pyx_XDECREF_SET(__pyx_8genexpr1__pyx_v_v, __pyx_t_2);
                     __pyx_t_2 = 0;
-                    __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_8genexpr1__pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L57_error)
+                    __pyx_t_2 = __Pyx_PyNumber_Float(__pyx_8genexpr1__pyx_v_v); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 237, __pyx_L57_error)
                     __Pyx_GOTREF(__pyx_t_2);
-                    if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 203, __pyx_L57_error)
+                    if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 237, __pyx_L57_error)
                     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                   }
                   __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
@@ -4593,16 +5718,16 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 __Pyx_DECREF_SET(__pyx_v_vals, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "pygeodesic/geodesic.pyx":204
+                /* "pygeodesic/geodesic.pyx":238
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')
  *                 vals = [float(v) for v in vals]
  *                 points.append(vals)             # <<<<<<<<<<<<<<
  *             points = numpy.array(points)
  *         except Exception as e:
  */
-                __pyx_t_29 = __Pyx_PyObject_Append(__pyx_v_points, __pyx_v_vals); if (unlikely(__pyx_t_29 == ((int)-1))) __PYX_ERR(0, 204, __pyx_L47_error)
+                __pyx_t_29 = __Pyx_PyObject_Append(__pyx_v_points, __pyx_v_vals); if (unlikely(__pyx_t_29 == ((int)-1))) __PYX_ERR(0, 238, __pyx_L47_error)
 
-                /* "pygeodesic/geodesic.pyx":201
+                /* "pygeodesic/geodesic.pyx":235
  *         # Read points
  *         try:
  *             for i in range(numpoints):             # <<<<<<<<<<<<<<
@@ -4612,16 +5737,16 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               }
               __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-              /* "pygeodesic/geodesic.pyx":205
+              /* "pygeodesic/geodesic.pyx":239
  *                 vals = [float(v) for v in vals]
  *                 points.append(vals)
  *             points = numpy.array(points)             # <<<<<<<<<<<<<<
  *         except Exception as e:
  *             print(f'Error reading points: {e}')
  */
-              __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 205, __pyx_L47_error)
+              __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 239, __pyx_L47_error)
               __Pyx_GOTREF(__pyx_t_5);
-              __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 205, __pyx_L47_error)
+              __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 239, __pyx_L47_error)
               __Pyx_GOTREF(__pyx_t_12);
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               __pyx_t_5 = NULL;
@@ -4636,13 +5761,13 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               }
               __pyx_t_4 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_5, __pyx_v_points) : __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_v_points);
               __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-              if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 205, __pyx_L47_error)
+              if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L47_error)
               __Pyx_GOTREF(__pyx_t_4);
               __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
               __Pyx_DECREF_SET(__pyx_v_points, __pyx_t_4);
               __pyx_t_4 = 0;
 
-              /* "pygeodesic/geodesic.pyx":200
+              /* "pygeodesic/geodesic.pyx":234
  * 
  *         # Read points
  *         try:             # <<<<<<<<<<<<<<
@@ -4662,7 +5787,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-            /* "pygeodesic/geodesic.pyx":206
+            /* "pygeodesic/geodesic.pyx":240
  *                 points.append(vals)
  *             points = numpy.array(points)
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -4672,7 +5797,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __pyx_t_16 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
             if (__pyx_t_16) {
               __Pyx_AddTraceback("pygeodesic.geodesic.read_mesh_from_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
-              if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_12, &__pyx_t_5) < 0) __PYX_ERR(0, 206, __pyx_L49_except_error)
+              if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_12, &__pyx_t_5) < 0) __PYX_ERR(0, 240, __pyx_L49_except_error)
               __Pyx_GOTREF(__pyx_t_4);
               __Pyx_GOTREF(__pyx_t_12);
               __Pyx_GOTREF(__pyx_t_5);
@@ -4680,24 +5805,24 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               __pyx_v_e = __pyx_t_12;
               /*try:*/ {
 
-                /* "pygeodesic/geodesic.pyx":207
+                /* "pygeodesic/geodesic.pyx":241
  *             points = numpy.array(points)
  *         except Exception as e:
  *             print(f'Error reading points: {e}')             # <<<<<<<<<<<<<<
  *             return
  * 
  */
-                __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L66_error)
+                __pyx_t_2 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L66_error)
                 __Pyx_GOTREF(__pyx_t_2);
-                __pyx_t_1 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_points, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L66_error)
+                __pyx_t_1 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_points, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L66_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-                __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L66_error)
+                __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L66_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-                /* "pygeodesic/geodesic.pyx":208
+                /* "pygeodesic/geodesic.pyx":242
  *         except Exception as e:
  *             print(f'Error reading points: {e}')
  *             return             # <<<<<<<<<<<<<<
@@ -4712,7 +5837,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 goto __pyx_L65_return;
               }
 
-              /* "pygeodesic/geodesic.pyx":206
+              /* "pygeodesic/geodesic.pyx":240
  *                 points.append(vals)
  *             points = numpy.array(points)
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -4769,7 +5894,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             goto __pyx_L49_except_error;
             __pyx_L49_except_error:;
 
-            /* "pygeodesic/geodesic.pyx":200
+            /* "pygeodesic/geodesic.pyx":234
  * 
  *         # Read points
  *         try:             # <<<<<<<<<<<<<<
@@ -4790,7 +5915,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __pyx_L52_try_end:;
           }
 
-          /* "pygeodesic/geodesic.pyx":211
+          /* "pygeodesic/geodesic.pyx":245
  * 
  *         # Read faces
  *         try:             # <<<<<<<<<<<<<<
@@ -4806,22 +5931,22 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __Pyx_XGOTREF(__pyx_t_11);
             /*try:*/ {
 
-              /* "pygeodesic/geodesic.pyx":212
+              /* "pygeodesic/geodesic.pyx":246
  *         # Read faces
  *         try:
  *             for i in range(numfaces):             # <<<<<<<<<<<<<<
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')
  *                 vals = [int(v) for v in vals]
  */
-              __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_numfaces); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L72_error)
+              __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_numfaces); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 246, __pyx_L72_error)
               __Pyx_GOTREF(__pyx_t_5);
               if (likely(PyList_CheckExact(__pyx_t_5)) || PyTuple_CheckExact(__pyx_t_5)) {
                 __pyx_t_12 = __pyx_t_5; __Pyx_INCREF(__pyx_t_12); __pyx_t_13 = 0;
                 __pyx_t_14 = NULL;
               } else {
-                __pyx_t_13 = -1; __pyx_t_12 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 212, __pyx_L72_error)
+                __pyx_t_13 = -1; __pyx_t_12 = PyObject_GetIter(__pyx_t_5); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 246, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_12);
-                __pyx_t_14 = Py_TYPE(__pyx_t_12)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 212, __pyx_L72_error)
+                __pyx_t_14 = Py_TYPE(__pyx_t_12)->tp_iternext; if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 246, __pyx_L72_error)
               }
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               for (;;) {
@@ -4829,17 +5954,17 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                   if (likely(PyList_CheckExact(__pyx_t_12))) {
                     if (__pyx_t_13 >= PyList_GET_SIZE(__pyx_t_12)) break;
                     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_12, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 212, __pyx_L72_error)
+                    __pyx_t_5 = PyList_GET_ITEM(__pyx_t_12, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 246, __pyx_L72_error)
                     #else
-                    __pyx_t_5 = PySequence_ITEM(__pyx_t_12, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L72_error)
+                    __pyx_t_5 = PySequence_ITEM(__pyx_t_12, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 246, __pyx_L72_error)
                     __Pyx_GOTREF(__pyx_t_5);
                     #endif
                   } else {
                     if (__pyx_t_13 >= PyTuple_GET_SIZE(__pyx_t_12)) break;
                     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                    __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_12, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 212, __pyx_L72_error)
+                    __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_12, __pyx_t_13); __Pyx_INCREF(__pyx_t_5); __pyx_t_13++; if (unlikely(0 < 0)) __PYX_ERR(0, 246, __pyx_L72_error)
                     #else
-                    __pyx_t_5 = PySequence_ITEM(__pyx_t_12, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L72_error)
+                    __pyx_t_5 = PySequence_ITEM(__pyx_t_12, __pyx_t_13); __pyx_t_13++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 246, __pyx_L72_error)
                     __Pyx_GOTREF(__pyx_t_5);
                     #endif
                   }
@@ -4849,7 +5974,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                     PyObject* exc_type = PyErr_Occurred();
                     if (exc_type) {
                       if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                      else __PYX_ERR(0, 212, __pyx_L72_error)
+                      else __PYX_ERR(0, 246, __pyx_L72_error)
                     }
                     break;
                   }
@@ -4858,14 +5983,14 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "pygeodesic/geodesic.pyx":213
+                /* "pygeodesic/geodesic.pyx":247
  *         try:
  *             for i in range(numfaces):
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')             # <<<<<<<<<<<<<<
  *                 vals = [int(v) for v in vals]
  *                 faces.append(vals)
  */
-                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_readline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L72_error)
+                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_f, __pyx_n_s_readline); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __pyx_t_26 = NULL;
                 if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -4879,10 +6004,10 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 }
                 __pyx_t_2 = (__pyx_t_26) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_26) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
                 __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
-                if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L72_error)
+                if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_strip); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L72_error)
+                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_strip); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __pyx_t_2 = NULL;
@@ -4897,16 +6022,16 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 }
                 __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
                 __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-                if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 213, __pyx_L72_error)
+                if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_4);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L72_error)
+                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_replace); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-                __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__9, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 213, __pyx_L72_error)
+                __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_4);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L72_error)
+                __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_split); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_1);
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                 __pyx_t_4 = NULL;
@@ -4919,15 +6044,15 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                     __Pyx_DECREF_SET(__pyx_t_1, function);
                   }
                 }
-                __pyx_t_5 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_4, __pyx_kp_u__7) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_kp_u__7);
+                __pyx_t_5 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_4, __pyx_kp_u__9) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_kp_u__9);
                 __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-                if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 213, __pyx_L72_error)
+                if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 247, __pyx_L72_error)
                 __Pyx_GOTREF(__pyx_t_5);
                 __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
                 __Pyx_DECREF_SET(__pyx_v_vals, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "pygeodesic/geodesic.pyx":214
+                /* "pygeodesic/geodesic.pyx":248
  *             for i in range(numfaces):
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')
  *                 vals = [int(v) for v in vals]             # <<<<<<<<<<<<<<
@@ -4935,32 +6060,32 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
  *             faces = numpy.array(faces)
  */
                 { /* enter inner scope */
-                  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 214, __pyx_L82_error)
+                  __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 248, __pyx_L82_error)
                   __Pyx_GOTREF(__pyx_t_5);
                   if (likely(PyList_CheckExact(__pyx_v_vals)) || PyTuple_CheckExact(__pyx_v_vals)) {
                     __pyx_t_1 = __pyx_v_vals; __Pyx_INCREF(__pyx_t_1); __pyx_t_27 = 0;
                     __pyx_t_28 = NULL;
                   } else {
-                    __pyx_t_27 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_vals); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L82_error)
+                    __pyx_t_27 = -1; __pyx_t_1 = PyObject_GetIter(__pyx_v_vals); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 248, __pyx_L82_error)
                     __Pyx_GOTREF(__pyx_t_1);
-                    __pyx_t_28 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 214, __pyx_L82_error)
+                    __pyx_t_28 = Py_TYPE(__pyx_t_1)->tp_iternext; if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 248, __pyx_L82_error)
                   }
                   for (;;) {
                     if (likely(!__pyx_t_28)) {
                       if (likely(PyList_CheckExact(__pyx_t_1))) {
                         if (__pyx_t_27 >= PyList_GET_SIZE(__pyx_t_1)) break;
                         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_27); __Pyx_INCREF(__pyx_t_4); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 214, __pyx_L82_error)
+                        __pyx_t_4 = PyList_GET_ITEM(__pyx_t_1, __pyx_t_27); __Pyx_INCREF(__pyx_t_4); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 248, __pyx_L82_error)
                         #else
-                        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 214, __pyx_L82_error)
+                        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L82_error)
                         __Pyx_GOTREF(__pyx_t_4);
                         #endif
                       } else {
                         if (__pyx_t_27 >= PyTuple_GET_SIZE(__pyx_t_1)) break;
                         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-                        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_27); __Pyx_INCREF(__pyx_t_4); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 214, __pyx_L82_error)
+                        __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_1, __pyx_t_27); __Pyx_INCREF(__pyx_t_4); __pyx_t_27++; if (unlikely(0 < 0)) __PYX_ERR(0, 248, __pyx_L82_error)
                         #else
-                        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 214, __pyx_L82_error)
+                        __pyx_t_4 = PySequence_ITEM(__pyx_t_1, __pyx_t_27); __pyx_t_27++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L82_error)
                         __Pyx_GOTREF(__pyx_t_4);
                         #endif
                       }
@@ -4970,7 +6095,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                         PyObject* exc_type = PyErr_Occurred();
                         if (exc_type) {
                           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-                          else __PYX_ERR(0, 214, __pyx_L82_error)
+                          else __PYX_ERR(0, 248, __pyx_L82_error)
                         }
                         break;
                       }
@@ -4978,9 +6103,9 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                     }
                     __Pyx_XDECREF_SET(__pyx_8genexpr2__pyx_v_v, __pyx_t_4);
                     __pyx_t_4 = 0;
-                    __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_8genexpr2__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 214, __pyx_L82_error)
+                    __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_8genexpr2__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 248, __pyx_L82_error)
                     __Pyx_GOTREF(__pyx_t_4);
-                    if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 214, __pyx_L82_error)
+                    if (unlikely(__Pyx_ListComp_Append(__pyx_t_5, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 248, __pyx_L82_error)
                     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
                   }
                   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4994,16 +6119,16 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 __Pyx_DECREF_SET(__pyx_v_vals, __pyx_t_5);
                 __pyx_t_5 = 0;
 
-                /* "pygeodesic/geodesic.pyx":215
+                /* "pygeodesic/geodesic.pyx":249
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')
  *                 vals = [int(v) for v in vals]
  *                 faces.append(vals)             # <<<<<<<<<<<<<<
  *             faces = numpy.array(faces)
  *         except Exception as e:
  */
-                __pyx_t_29 = __Pyx_PyObject_Append(__pyx_v_faces, __pyx_v_vals); if (unlikely(__pyx_t_29 == ((int)-1))) __PYX_ERR(0, 215, __pyx_L72_error)
+                __pyx_t_29 = __Pyx_PyObject_Append(__pyx_v_faces, __pyx_v_vals); if (unlikely(__pyx_t_29 == ((int)-1))) __PYX_ERR(0, 249, __pyx_L72_error)
 
-                /* "pygeodesic/geodesic.pyx":212
+                /* "pygeodesic/geodesic.pyx":246
  *         # Read faces
  *         try:
  *             for i in range(numfaces):             # <<<<<<<<<<<<<<
@@ -5013,16 +6138,16 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               }
               __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-              /* "pygeodesic/geodesic.pyx":216
+              /* "pygeodesic/geodesic.pyx":250
  *                 vals = [int(v) for v in vals]
  *                 faces.append(vals)
  *             faces = numpy.array(faces)             # <<<<<<<<<<<<<<
  *         except Exception as e:
  *             print(f'Error reading faces: {e}')
  */
-              __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 216, __pyx_L72_error)
+              __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_numpy); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 250, __pyx_L72_error)
               __Pyx_GOTREF(__pyx_t_5);
-              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L72_error)
+              __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_array); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 250, __pyx_L72_error)
               __Pyx_GOTREF(__pyx_t_1);
               __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
               __pyx_t_5 = NULL;
@@ -5037,13 +6162,13 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               }
               __pyx_t_12 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_5, __pyx_v_faces) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_v_faces);
               __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-              if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 216, __pyx_L72_error)
+              if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 250, __pyx_L72_error)
               __Pyx_GOTREF(__pyx_t_12);
               __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
               __Pyx_DECREF_SET(__pyx_v_faces, __pyx_t_12);
               __pyx_t_12 = 0;
 
-              /* "pygeodesic/geodesic.pyx":211
+              /* "pygeodesic/geodesic.pyx":245
  * 
  *         # Read faces
  *         try:             # <<<<<<<<<<<<<<
@@ -5063,7 +6188,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
             __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-            /* "pygeodesic/geodesic.pyx":217
+            /* "pygeodesic/geodesic.pyx":251
  *                 faces.append(vals)
  *             faces = numpy.array(faces)
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -5073,7 +6198,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __pyx_t_17 = __Pyx_PyErr_ExceptionMatches(((PyObject *)(&((PyTypeObject*)PyExc_Exception)[0])));
             if (__pyx_t_17) {
               __Pyx_AddTraceback("pygeodesic.geodesic.read_mesh_from_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
-              if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_1, &__pyx_t_5) < 0) __PYX_ERR(0, 217, __pyx_L74_except_error)
+              if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_1, &__pyx_t_5) < 0) __PYX_ERR(0, 251, __pyx_L74_except_error)
               __Pyx_GOTREF(__pyx_t_12);
               __Pyx_GOTREF(__pyx_t_1);
               __Pyx_GOTREF(__pyx_t_5);
@@ -5081,24 +6206,24 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
               __pyx_v_e = __pyx_t_1;
               /*try:*/ {
 
-                /* "pygeodesic/geodesic.pyx":218
+                /* "pygeodesic/geodesic.pyx":252
  *             faces = numpy.array(faces)
  *         except Exception as e:
  *             print(f'Error reading faces: {e}')             # <<<<<<<<<<<<<<
  *             return
  * 
  */
-                __pyx_t_4 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 218, __pyx_L91_error)
+                __pyx_t_4 = __Pyx_PyObject_FormatSimple(__pyx_v_e, __pyx_empty_unicode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 252, __pyx_L91_error)
                 __Pyx_GOTREF(__pyx_t_4);
-                __pyx_t_2 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_faces, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L91_error)
+                __pyx_t_2 = __Pyx_PyUnicode_Concat(__pyx_kp_u_Error_reading_faces, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 252, __pyx_L91_error)
                 __Pyx_GOTREF(__pyx_t_2);
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-                __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 218, __pyx_L91_error)
+                __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 252, __pyx_L91_error)
                 __Pyx_GOTREF(__pyx_t_4);
                 __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
                 __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-                /* "pygeodesic/geodesic.pyx":219
+                /* "pygeodesic/geodesic.pyx":253
  *         except Exception as e:
  *             print(f'Error reading faces: {e}')
  *             return             # <<<<<<<<<<<<<<
@@ -5113,7 +6238,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
                 goto __pyx_L90_return;
               }
 
-              /* "pygeodesic/geodesic.pyx":217
+              /* "pygeodesic/geodesic.pyx":251
  *                 faces.append(vals)
  *             faces = numpy.array(faces)
  *         except Exception as e:             # <<<<<<<<<<<<<<
@@ -5170,7 +6295,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             goto __pyx_L74_except_error;
             __pyx_L74_except_error:;
 
-            /* "pygeodesic/geodesic.pyx":211
+            /* "pygeodesic/geodesic.pyx":245
  * 
  *         # Read faces
  *         try:             # <<<<<<<<<<<<<<
@@ -5191,7 +6316,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __pyx_L77_try_end:;
           }
 
-          /* "pygeodesic/geodesic.pyx":184
+          /* "pygeodesic/geodesic.pyx":218
  * 
  *     points = []; faces = []
  *     with open(filename,'r') as f:             # <<<<<<<<<<<<<<
@@ -5212,20 +6337,20 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         /*except:*/ {
           __Pyx_AddTraceback("pygeodesic.geodesic.read_mesh_from_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_1, &__pyx_t_12) < 0) __PYX_ERR(0, 184, __pyx_L9_except_error)
+          if (__Pyx_GetException(&__pyx_t_5, &__pyx_t_1, &__pyx_t_12) < 0) __PYX_ERR(0, 218, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_5);
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_GOTREF(__pyx_t_12);
-          __pyx_t_4 = PyTuple_Pack(3, __pyx_t_5, __pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 184, __pyx_L9_except_error)
+          __pyx_t_4 = PyTuple_Pack(3, __pyx_t_5, __pyx_t_1, __pyx_t_12); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 218, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_4);
           __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, NULL);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-          if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 184, __pyx_L9_except_error)
+          if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 218, __pyx_L9_except_error)
           __Pyx_GOTREF(__pyx_t_11);
           __pyx_t_15 = __Pyx_PyObject_IsTrue(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          if (__pyx_t_15 < 0) __PYX_ERR(0, 184, __pyx_L9_except_error)
+          if (__pyx_t_15 < 0) __PYX_ERR(0, 218, __pyx_L9_except_error)
           __pyx_t_32 = ((!(__pyx_t_15 != 0)) != 0);
           if (__pyx_t_32) {
             __Pyx_GIVEREF(__pyx_t_5);
@@ -5233,7 +6358,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
             __Pyx_XGIVEREF(__pyx_t_12);
             __Pyx_ErrRestoreWithState(__pyx_t_5, __pyx_t_1, __pyx_t_12);
             __pyx_t_5 = 0; __pyx_t_1 = 0; __pyx_t_12 = 0; 
-            __PYX_ERR(0, 184, __pyx_L9_except_error)
+            __PYX_ERR(0, 218, __pyx_L9_except_error)
           }
           __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
           __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -5263,9 +6388,9 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
     /*finally:*/ {
       /*normal exit:*/{
         if (__pyx_t_3) {
-          __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__10, NULL);
+          __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__12, NULL);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 184, __pyx_L1_error)
+          if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
         }
@@ -5275,9 +6400,9 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
         __pyx_t_8 = __pyx_r;
         __pyx_r = 0;
         if (__pyx_t_3) {
-          __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__10, NULL);
+          __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__12, NULL);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 184, __pyx_L1_error)
+          if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 218, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_7);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         }
@@ -5294,13 +6419,13 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
     __pyx_L100:;
   }
 
-  /* "pygeodesic/geodesic.pyx":221
+  /* "pygeodesic/geodesic.pyx":255
  *             return
  * 
  *     return points, faces             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_t_12 = PyTuple_New(2); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 255, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_INCREF(__pyx_v_points);
   __Pyx_GIVEREF(__pyx_v_points);
@@ -5312,7 +6437,7 @@ static PyObject *__pyx_pf_10pygeodesic_8geodesic_read_mesh_from_file(CYTHON_UNUS
   __pyx_t_12 = 0;
   goto __pyx_L0;
 
-  /* "pygeodesic/geodesic.pyx":175
+  /* "pygeodesic/geodesic.pyx":209
  * 
  * 
  * def read_mesh_from_file(filename):             # <<<<<<<<<<<<<<
@@ -5879,7 +7004,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 884, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 884, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6011,7 +7136,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 890, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 890, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6143,7 +7268,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  * 
  * cdef extern from *:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 896, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 896, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -6423,6 +7548,121 @@ static PyTypeObject __pyx_type_10pygeodesic_8geodesic___pyx_scope_struct__geodes
   #endif
 };
 
+static struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *__pyx_freelist_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances[8];
+static int __pyx_freecount_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances = 0;
+
+static PyObject *__pyx_tp_new_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  PyObject *o;
+  if (CYTHON_COMPILING_IN_CPYTHON && likely((__pyx_freecount_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances > 0) & (t->tp_basicsize == sizeof(struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances)))) {
+    o = (PyObject*)__pyx_freelist_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances[--__pyx_freecount_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances];
+    memset(o, 0, sizeof(struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances));
+    (void) PyObject_INIT(o, t);
+    PyObject_GC_Track(o);
+  } else {
+    o = (*t->tp_alloc)(t, 0);
+    if (unlikely(!o)) return 0;
+  }
+  return o;
+}
+
+static void __pyx_tp_dealloc_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances(PyObject *o) {
+  struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *p = (struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *)o;
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->__pyx_v_self);
+  if (CYTHON_COMPILING_IN_CPYTHON && ((__pyx_freecount_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances < 8) & (Py_TYPE(o)->tp_basicsize == sizeof(struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances)))) {
+    __pyx_freelist_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances[__pyx_freecount_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances++] = ((struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *)o);
+  } else {
+    (*Py_TYPE(o)->tp_free)(o);
+  }
+}
+
+static int __pyx_tp_traverse_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *p = (struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *)o;
+  if (p->__pyx_v_self) {
+    e = (*v)(((PyObject *)p->__pyx_v_self), a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *p = (struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances *)o;
+  tmp = ((PyObject*)p->__pyx_v_self);
+  p->__pyx_v_self = ((struct __pyx_obj_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyTypeObject __pyx_type_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "pygeodesic.geodesic.__pyx_scope_struct_1_geodesicDistances", /*tp_name*/
+  sizeof(struct __pyx_obj_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances, /*tp_dealloc*/
+  #if PY_VERSION_HEX < 0x030800b4
+  0, /*tp_print*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4
+  0, /*tp_vectorcall_offset*/
+  #endif
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances, /*tp_traverse*/
+  __pyx_tp_clear_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  0, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4 && PY_VERSION_HEX < 0x03090000
+  0, /*tp_print*/
+  #endif
+};
+
 static PyMethodDef __pyx_methods[] = {
   {0, 0, 0, 0}
 };
@@ -6470,18 +7710,24 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_AssertionError, __pyx_k_AssertionError, sizeof(__pyx_k_AssertionError), 0, 0, 1, 1},
+  {&__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac, __pyx_k_Error_in_PyGeodesicAlgorithmExac, sizeof(__pyx_k_Error_in_PyGeodesicAlgorithmExac), 0, 1, 0, 0},
+  {&__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac_2, __pyx_k_Error_in_PyGeodesicAlgorithmExac_2, sizeof(__pyx_k_Error_in_PyGeodesicAlgorithmExac_2), 0, 1, 0, 0},
+  {&__pyx_kp_u_Error_in_PyGeodesicAlgorithmExac_3, __pyx_k_Error_in_PyGeodesicAlgorithmExac_3, sizeof(__pyx_k_Error_in_PyGeodesicAlgorithmExac_3), 0, 1, 0, 0},
   {&__pyx_kp_u_Error_reading_faces, __pyx_k_Error_reading_faces, sizeof(__pyx_k_Error_reading_faces), 0, 1, 0, 0},
   {&__pyx_kp_u_Error_reading_header, __pyx_k_Error_reading_header, sizeof(__pyx_k_Error_reading_header), 0, 1, 0, 0},
   {&__pyx_kp_u_Error_reading_points, __pyx_k_Error_reading_points, sizeof(__pyx_k_Error_reading_points), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
   {&__pyx_kp_u_Number_of_points_not_3, __pyx_k_Number_of_points_not_3, sizeof(__pyx_k_Number_of_points_not_3), 0, 1, 0, 0},
   {&__pyx_n_s_PyGeodesicAlgorithmExact, __pyx_k_PyGeodesicAlgorithmExact, sizeof(__pyx_k_PyGeodesicAlgorithmExact), 0, 0, 1, 1},
+  {&__pyx_kp_u_PyGeodesicAlgorithmExact_class_w, __pyx_k_PyGeodesicAlgorithmExact_class_w, sizeof(__pyx_k_PyGeodesicAlgorithmExact_class_w), 0, 1, 0, 0},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
-  {&__pyx_kp_u__7, __pyx_k__7, sizeof(__pyx_k__7), 0, 1, 0, 0},
-  {&__pyx_kp_u__8, __pyx_k__8, sizeof(__pyx_k__8), 0, 1, 0, 0},
+  {&__pyx_kp_u__10, __pyx_k__10, sizeof(__pyx_k__10), 0, 1, 0, 0},
+  {&__pyx_kp_u__9, __pyx_k__9, sizeof(__pyx_k__9), 0, 1, 0, 0},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
-  {&__pyx_n_s_arange, __pyx_k_arange, sizeof(__pyx_k_arange), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
+  {&__pyx_n_s_asarray, __pyx_k_asarray, sizeof(__pyx_k_asarray), 0, 0, 1, 1},
+  {&__pyx_n_s_checkIndexWithinLimits, __pyx_k_checkIndexWithinLimits, sizeof(__pyx_k_checkIndexWithinLimits), 0, 0, 1, 1},
+  {&__pyx_n_s_checkIndicesWithinLimits, __pyx_k_checkIndicesWithinLimits, sizeof(__pyx_k_checkIndicesWithinLimits), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
   {&__pyx_n_s_e, __pyx_k_e, sizeof(__pyx_k_e), 0, 0, 1, 1},
@@ -6490,20 +7736,24 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_f, __pyx_k_f, sizeof(__pyx_k_f), 0, 0, 1, 1},
   {&__pyx_n_s_faces, __pyx_k_faces, sizeof(__pyx_k_faces), 0, 0, 1, 1},
   {&__pyx_n_s_faces_2, __pyx_k_faces_2, sizeof(__pyx_k_faces_2), 0, 0, 1, 1},
+  {&__pyx_kp_u_faces_array_has_incorrect_shape, __pyx_k_faces_array_has_incorrect_shape, sizeof(__pyx_k_faces_array_has_incorrect_shape), 0, 1, 0, 0},
   {&__pyx_n_s_filename, __pyx_k_filename, sizeof(__pyx_k_filename), 0, 0, 1, 1},
   {&__pyx_n_s_flatten, __pyx_k_flatten, sizeof(__pyx_k_flatten), 0, 0, 1, 1},
   {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
-  {&__pyx_n_s_geodesicDistance_locals_resetInd, __pyx_k_geodesicDistance_locals_resetInd, sizeof(__pyx_k_geodesicDistance_locals_resetInd), 0, 0, 1, 1},
+  {&__pyx_n_s_geodesicDistance_locals_checkInd, __pyx_k_geodesicDistance_locals_checkInd, sizeof(__pyx_k_geodesicDistance_locals_checkInd), 0, 0, 1, 1},
+  {&__pyx_n_s_geodesicDistances_locals_checkIn, __pyx_k_geodesicDistances_locals_checkIn, sizeof(__pyx_k_geodesicDistances_locals_checkIn), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
-  {&__pyx_n_s_indx, __pyx_k_indx, sizeof(__pyx_k_indx), 0, 0, 1, 1},
+  {&__pyx_n_s_index, __pyx_k_index, sizeof(__pyx_k_index), 0, 0, 1, 1},
+  {&__pyx_n_s_indices, __pyx_k_indices, sizeof(__pyx_k_indices), 0, 0, 1, 1},
   {&__pyx_n_s_inf, __pyx_k_inf, sizeof(__pyx_k_inf), 0, 0, 1, 1},
   {&__pyx_n_s_int32, __pyx_k_int32, sizeof(__pyx_k_int32), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
-  {&__pyx_n_s_maxIndex, __pyx_k_maxIndex, sizeof(__pyx_k_maxIndex), 0, 0, 1, 1},
+  {&__pyx_n_s_max, __pyx_k_max, sizeof(__pyx_k_max), 0, 0, 1, 1},
   {&__pyx_n_s_max_distance, __pyx_k_max_distance, sizeof(__pyx_k_max_distance), 0, 0, 1, 1},
-  {&__pyx_n_s_minIndex, __pyx_k_minIndex, sizeof(__pyx_k_minIndex), 0, 0, 1, 1},
+  {&__pyx_kp_u_mesh_vertices_are_not_numbered_s, __pyx_k_mesh_vertices_are_not_numbered_s, sizeof(__pyx_k_mesh_vertices_are_not_numbered_s), 0, 1, 0, 0},
+  {&__pyx_n_s_min, __pyx_k_min, sizeof(__pyx_k_min), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
   {&__pyx_n_s_numfaces, __pyx_k_numfaces, sizeof(__pyx_k_numfaces), 0, 0, 1, 1},
@@ -6514,6 +7764,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_open, __pyx_k_open, sizeof(__pyx_k_open), 0, 0, 1, 1},
   {&__pyx_n_s_points, __pyx_k_points, sizeof(__pyx_k_points), 0, 0, 1, 1},
   {&__pyx_n_s_points_2, __pyx_k_points_2, sizeof(__pyx_k_points_2), 0, 0, 1, 1},
+  {&__pyx_kp_u_points_array_has_incorrect_shap, __pyx_k_points_array_has_incorrect_shap, sizeof(__pyx_k_points_array_has_incorrect_shap), 0, 1, 0, 0},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_pygeodesic_geodesic, __pyx_k_pygeodesic_geodesic, sizeof(__pyx_k_pygeodesic_geodesic), 0, 0, 1, 1},
   {&__pyx_kp_s_pygeodesic_geodesic_pyx, __pyx_k_pygeodesic_geodesic_pyx, sizeof(__pyx_k_pygeodesic_geodesic_pyx), 0, 0, 1, 0},
@@ -6525,15 +7776,20 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
   {&__pyx_n_s_replace, __pyx_k_replace, sizeof(__pyx_k_replace), 0, 0, 1, 1},
-  {&__pyx_n_s_resetIndicesToWithinLimits, __pyx_k_resetIndicesToWithinLimits, sizeof(__pyx_k_resetIndicesToWithinLimits), 0, 0, 1, 1},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
+  {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
   {&__pyx_n_s_sourceIndex, __pyx_k_sourceIndex, sizeof(__pyx_k_sourceIndex), 0, 0, 1, 1},
+  {&__pyx_kp_u_sourceIndex_is_outside_limits_o, __pyx_k_sourceIndex_is_outside_limits_o, sizeof(__pyx_k_sourceIndex_is_outside_limits_o), 0, 1, 0, 0},
   {&__pyx_n_s_source_indices, __pyx_k_source_indices, sizeof(__pyx_k_source_indices), 0, 0, 1, 1},
+  {&__pyx_kp_u_source_indices_array_has_incorr, __pyx_k_source_indices_array_has_incorr, sizeof(__pyx_k_source_indices_array_has_incorr), 0, 1, 0, 0},
+  {&__pyx_kp_u_source_indices_array_outside_li, __pyx_k_source_indices_array_outside_li, sizeof(__pyx_k_source_indices_array_outside_li), 0, 1, 0, 0},
   {&__pyx_n_s_split, __pyx_k_split, sizeof(__pyx_k_split), 0, 0, 1, 1},
   {&__pyx_n_s_strip, __pyx_k_strip, sizeof(__pyx_k_strip), 0, 0, 1, 1},
   {&__pyx_n_s_targetIndex, __pyx_k_targetIndex, sizeof(__pyx_k_targetIndex), 0, 0, 1, 1},
+  {&__pyx_kp_u_targetIndex_is_outside_limits_o, __pyx_k_targetIndex_is_outside_limits_o, sizeof(__pyx_k_targetIndex_is_outside_limits_o), 0, 1, 0, 0},
   {&__pyx_n_s_target_indices, __pyx_k_target_indices, sizeof(__pyx_k_target_indices), 0, 0, 1, 1},
+  {&__pyx_kp_u_target_indices_array_outside_li, __pyx_k_target_indices_array_outside_li, sizeof(__pyx_k_target_indices_array_outside_li), 0, 1, 0, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_v, __pyx_k_v, sizeof(__pyx_k_v), 0, 0, 1, 1},
   {&__pyx_n_s_vals, __pyx_k_vals, sizeof(__pyx_k_vals), 0, 0, 1, 1},
@@ -6541,11 +7797,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 134, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
-  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 184, __pyx_L1_error)
-  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 192, __pyx_L1_error)
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 193, __pyx_L1_error)
+  __pyx_builtin_open = __Pyx_GetBuiltinName(__pyx_n_s_open); if (!__pyx_builtin_open) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 226, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(2, 884, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -6556,28 +7812,40 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pygeodesic/geodesic.pyx":103
+  /* "pygeodesic/geodesic.pyx":114
+ *         cdef vector[SurfacePoint] path
  * 
- *         # Reset source, target indices to within limits
- *         def resetIndicesToWithinLimits(int indx):             # <<<<<<<<<<<<<<
- *             cdef minIndex = 0
- *             cdef maxIndex = self.mesh.vertices().size()-1
+ *         def checkIndexWithinLimits(index):             # <<<<<<<<<<<<<<
+ *             return index >=0 and index <= self.mesh.vertices().size()-1
+ * 
  */
-  __pyx_tuple_ = PyTuple_Pack(4, __pyx_n_s_indx, __pyx_n_s_indx, __pyx_n_s_minIndex, __pyx_n_s_maxIndex); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_n_s_index); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 114, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygeodesic_geodesic_pyx, __pyx_n_s_resetIndicesToWithinLimits, 103, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygeodesic_geodesic_pyx, __pyx_n_s_checkIndexWithinLimits, 114, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 114, __pyx_L1_error)
 
-  /* "pygeodesic/geodesic.pyx":148
- *         # Setup sources. Defaults to single vertex with index = 0 if None provided
- *         if source_indices is None:
- *             source_indices = numpy.arange(0, dtype=numpy.int32)             # <<<<<<<<<<<<<<
- *         for i in source_indices:
- *             all_sources.push_back(SurfacePoint(&self.mesh.vertices()[i]))
+  /* "pygeodesic/geodesic.pyx":127
+ *         except Exception as e:
+ *             print(f'Error in PyGeodesicAlgorithmExact.geodesicDistance: {e}')
+ *             return None, None             # <<<<<<<<<<<<<<
+ * 
+ *         cdef SurfacePoint source = SurfacePoint(&self.mesh.vertices()[sourceIndex])
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_int_0); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 148, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
+  __pyx_tuple__3 = PyTuple_Pack(2, Py_None, Py_None); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__3);
+  __Pyx_GIVEREF(__pyx_tuple__3);
+
+  /* "pygeodesic/geodesic.pyx":161
+ *         cdef numpy.ndarray[numpy.float64_t, ndim=1] distances
+ * 
+ *         def checkIndicesWithinLimits(indices):             # <<<<<<<<<<<<<<
+ *             return indices.min() >=0 and indices.max() <= self.mesh.vertices().size()-1
+ * 
+ */
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_n_s_indices); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__5);
+  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygeodesic_geodesic_pyx, __pyx_n_s_checkIndicesWithinLimits, 161, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 161, __pyx_L1_error)
 
   /* "(tree fragment)":2
  * def __reduce_cython__(self):
@@ -6585,40 +7853,40 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 2, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__5);
-  __Pyx_GIVEREF(__pyx_tuple__5);
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 2, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__7);
+  __Pyx_GIVEREF(__pyx_tuple__7);
 
   /* "(tree fragment)":4
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")
  * def __setstate_cython__(self, __pyx_state):
  *     raise TypeError("no default __reduce__ due to non-trivial __cinit__")             # <<<<<<<<<<<<<<
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(1, 4, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
+  __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "pygeodesic/geodesic.pyx":202
+  /* "pygeodesic/geodesic.pyx":236
  *         try:
  *             for i in range(numpoints):
  *                 vals = f.readline().strip().replace('\t',' ').split(' ')             # <<<<<<<<<<<<<<
  *                 vals = [float(v) for v in vals]
  *                 points.append(vals)
  */
-  __pyx_tuple__9 = PyTuple_Pack(2, __pyx_kp_u__8, __pyx_kp_u__7); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 202, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_tuple__11 = PyTuple_Pack(2, __pyx_kp_u__10, __pyx_kp_u__9); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(0, 236, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "pygeodesic/geodesic.pyx":184
+  /* "pygeodesic/geodesic.pyx":218
  * 
  *     points = []; faces = []
  *     with open(filename,'r') as f:             # <<<<<<<<<<<<<<
  * 
  *         # Read header line for number of points and faces
  */
-  __pyx_tuple__10 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(0, 184, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_tuple__12 = PyTuple_Pack(3, Py_None, Py_None, Py_None); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(0, 218, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
 
   /* "../.mediapipe/lib/site-packages/numpy/__init__.pxd":884
  *         __pyx_import_array()
@@ -6627,9 +7895,9 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(2, 884, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(2, 884, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
 
   /* "../.mediapipe/lib/site-packages/numpy/__init__.pxd":890
  *         _import_umath()
@@ -6638,21 +7906,21 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(2, 890, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(2, 890, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
 
-  /* "pygeodesic/geodesic.pyx":175
+  /* "pygeodesic/geodesic.pyx":209
  * 
  * 
  * def read_mesh_from_file(filename):             # <<<<<<<<<<<<<<
  *     """
  *     Read mesh from example files
  */
-  __pyx_tuple__13 = PyTuple_Pack(12, __pyx_n_s_filename, __pyx_n_s_points_2, __pyx_n_s_faces_2, __pyx_n_s_f, __pyx_n_s_vals, __pyx_n_s_numpoints, __pyx_n_s_numfaces, __pyx_n_s_e, __pyx_n_s_i, __pyx_n_s_v, __pyx_n_s_v, __pyx_n_s_v); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 175, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(1, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygeodesic_geodesic_pyx, __pyx_n_s_read_mesh_from_file, 175, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(12, __pyx_n_s_filename, __pyx_n_s_points_2, __pyx_n_s_faces_2, __pyx_n_s_f, __pyx_n_s_vals, __pyx_n_s_numpoints, __pyx_n_s_numfaces, __pyx_n_s_e, __pyx_n_s_i, __pyx_n_s_v, __pyx_n_s_v, __pyx_n_s_v); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(1, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygeodesic_geodesic_pyx, __pyx_n_s_read_mesh_from_file, 209, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -6663,6 +7931,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_3 = PyInt_FromLong(3); if (unlikely(!__pyx_int_3)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -6718,7 +7987,7 @@ static int __Pyx_modinit_type_init_code(void) {
   if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyGeodesicAlgorithmExact, (PyObject *)&__pyx_type_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   __pyx_ptype_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact = &__pyx_type_10pygeodesic_8geodesic_PyGeodesicAlgorithmExact;
-  if (PyType_Ready(&__pyx_type_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance) < 0) __PYX_ERR(0, 97, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance.tp_print = 0;
   #endif
@@ -6726,6 +7995,14 @@ static int __Pyx_modinit_type_init_code(void) {
     __pyx_type_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance = &__pyx_type_10pygeodesic_8geodesic___pyx_scope_struct__geodesicDistance;
+  if (PyType_Ready(&__pyx_type_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances) < 0) __PYX_ERR(0, 142, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances.tp_dictoffset && __pyx_type_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
+  }
+  __pyx_ptype_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances = &__pyx_type_10pygeodesic_8geodesic___pyx_scope_struct_1_geodesicDistances;
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -7003,25 +8280,25 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_numpy, __pyx_t_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pygeodesic/geodesic.pyx":127
- *     def geodesicDistances(self, numpy.ndarray[numpy.int32_t, ndim=1] source_indices=None,
- *                           numpy.ndarray[numpy.int32_t, ndim=1] target_indices=None,
- *                           double max_distance = GEODESIC_INF):             # <<<<<<<<<<<<<<
+  /* "pygeodesic/geodesic.pyx":142
+ *         return path_length, path_points
  * 
+ *     def geodesicDistances(self, source_indices=None, target_indices=None, double max_distance = GEODESIC_INF):             # <<<<<<<<<<<<<<
  *         """
+ *         Calculates the distance of each target vertex from the best (closest) source vertex
  */
-  __pyx_k__3 = geodesic::GEODESIC_INF;
+  __pyx_k__4 = geodesic::GEODESIC_INF;
 
-  /* "pygeodesic/geodesic.pyx":175
+  /* "pygeodesic/geodesic.pyx":209
  * 
  * 
  * def read_mesh_from_file(filename):             # <<<<<<<<<<<<<<
  *     """
  *     Read mesh from example files
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_10pygeodesic_8geodesic_1read_mesh_from_file, NULL, __pyx_n_s_pygeodesic_geodesic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 175, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_10pygeodesic_8geodesic_1read_mesh_from_file, NULL, __pyx_n_s_pygeodesic_geodesic); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_read_mesh_from_file, __pyx_t_1) < 0) __PYX_ERR(0, 175, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_read_mesh_from_file, __pyx_t_1) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pygeodesic/geodesic.pyx":1
@@ -7254,589 +8531,243 @@ bad:
     return -1;
 }
 
-/* ArgTypeTest */
-static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
-{
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
+/* PyDictVersioning */
+#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
+}
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
+    PyObject **dictptr = NULL;
+    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
+    if (offset) {
+#if CYTHON_COMPILING_IN_CPYTHON
+        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
+#else
+        dictptr = _PyObject_GetDictPtr(obj);
+#endif
+    }
+    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
+}
+static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
         return 0;
-    }
-    else if (exact) {
-        #if PY_MAJOR_VERSION == 2
-        if ((type == &PyBaseString_Type) && likely(__Pyx_PyBaseString_CheckExact(obj))) return 1;
-        #endif
-    }
-    else {
-        if (likely(__Pyx_TypeCheck(obj, type))) return 1;
-    }
-    PyErr_Format(PyExc_TypeError,
-        "Argument '%.200s' has incorrect type (expected %.200s, got %.200s)",
-        name, type->tp_name, Py_TYPE(obj)->tp_name);
-    return 0;
+    return obj_dict_version == __Pyx_get_object_dict_version(obj);
 }
+#endif
 
-/* IsLittleEndian */
-static CYTHON_INLINE int __Pyx_Is_Little_Endian(void)
+/* GetModuleGlobalName */
+#if CYTHON_USE_DICT_VERSIONS
+static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value)
+#else
+static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
+#endif
 {
-  union {
-    uint32_t u32;
-    uint8_t u8[4];
-  } S;
-  S.u32 = 0x01020304;
-  return S.u8[0] == 4;
+    PyObject *result;
+#if !CYTHON_AVOID_BORROWED_REFS
+#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
+    result = _PyDict_GetItem_KnownHash(__pyx_d, name, ((PyASCIIObject *) name)->hash);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    } else if (unlikely(PyErr_Occurred())) {
+        return NULL;
+    }
+#else
+    result = PyDict_GetItem(__pyx_d, name);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    }
+#endif
+#else
+    result = PyObject_GetItem(__pyx_d, name);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    }
+    PyErr_Clear();
+#endif
+    return __Pyx_GetBuiltinName(name);
 }
 
-/* BufferFormatCheck */
-static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
-                              __Pyx_BufFmt_StackElem* stack,
-                              __Pyx_TypeInfo* type) {
-  stack[0].field = &ctx->root;
-  stack[0].parent_offset = 0;
-  ctx->root.type = type;
-  ctx->root.name = "buffer dtype";
-  ctx->root.offset = 0;
-  ctx->head = stack;
-  ctx->head->field = &ctx->root;
-  ctx->fmt_offset = 0;
-  ctx->head->parent_offset = 0;
-  ctx->new_packmode = '@';
-  ctx->enc_packmode = '@';
-  ctx->new_count = 1;
-  ctx->enc_count = 0;
-  ctx->enc_type = 0;
-  ctx->is_complex = 0;
-  ctx->is_valid_array = 0;
-  ctx->struct_alignment = 0;
-  while (type->typegroup == 'S') {
-    ++ctx->head;
-    ctx->head->field = type->fields;
-    ctx->head->parent_offset = 0;
-    type = type->fields->type;
-  }
-}
-static int __Pyx_BufFmt_ParseNumber(const char** ts) {
-    int count;
-    const char* t = *ts;
-    if (*t < '0' || *t > '9') {
-      return -1;
-    } else {
-        count = *t++ - '0';
-        while (*t >= '0' && *t <= '9') {
-            count *= 10;
-            count += *t++ - '0';
-        }
+/* PyObjectCall */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
     }
-    *ts = t;
-    return count;
+    return result;
 }
-static int __Pyx_BufFmt_ExpectNumber(const char **ts) {
-    int number = __Pyx_BufFmt_ParseNumber(ts);
-    if (number == -1)
-        PyErr_Format(PyExc_ValueError,\
-                     "Does not understand character buffer dtype format string ('%c')", **ts);
-    return number;
-}
-static void __Pyx_BufFmt_RaiseUnexpectedChar(char ch) {
-  PyErr_Format(PyExc_ValueError,
-               "Unexpected format string character: '%c'", ch);
-}
-static const char* __Pyx_BufFmt_DescribeTypeChar(char ch, int is_complex) {
-  switch (ch) {
-    case '?': return "'bool'";
-    case 'c': return "'char'";
-    case 'b': return "'signed char'";
-    case 'B': return "'unsigned char'";
-    case 'h': return "'short'";
-    case 'H': return "'unsigned short'";
-    case 'i': return "'int'";
-    case 'I': return "'unsigned int'";
-    case 'l': return "'long'";
-    case 'L': return "'unsigned long'";
-    case 'q': return "'long long'";
-    case 'Q': return "'unsigned long long'";
-    case 'f': return (is_complex ? "'complex float'" : "'float'");
-    case 'd': return (is_complex ? "'complex double'" : "'double'");
-    case 'g': return (is_complex ? "'complex long double'" : "'long double'");
-    case 'T': return "a struct";
-    case 'O': return "Python object";
-    case 'P': return "a pointer";
-    case 's': case 'p': return "a string";
-    case 0: return "end";
-    default: return "unparseable format string";
-  }
-}
-static size_t __Pyx_BufFmt_TypeCharToStandardSize(char ch, int is_complex) {
-  switch (ch) {
-    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return 2;
-    case 'i': case 'I': case 'l': case 'L': return 4;
-    case 'q': case 'Q': return 8;
-    case 'f': return (is_complex ? 8 : 4);
-    case 'd': return (is_complex ? 16 : 8);
-    case 'g': {
-      PyErr_SetString(PyExc_ValueError, "Python does not define a standard format string size for long double ('g')..");
-      return 0;
+#endif
+
+/* PyIntCompare */
+static CYTHON_INLINE PyObject* __Pyx_PyInt_EqObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED long inplace) {
+    if (op1 == op2) {
+        Py_RETURN_TRUE;
     }
-    case 'O': case 'P': return sizeof(void*);
-    default:
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long a = PyInt_AS_LONG(op1);
+        if (a == b) Py_RETURN_TRUE; else Py_RETURN_FALSE;
     }
-}
-static size_t __Pyx_BufFmt_TypeCharToNativeSize(char ch, int is_complex) {
-  switch (ch) {
-    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return sizeof(short);
-    case 'i': case 'I': return sizeof(int);
-    case 'l': case 'L': return sizeof(long);
-    #ifdef HAVE_LONG_LONG
-    case 'q': case 'Q': return sizeof(PY_LONG_LONG);
     #endif
-    case 'f': return sizeof(float) * (is_complex ? 2 : 1);
-    case 'd': return sizeof(double) * (is_complex ? 2 : 1);
-    case 'g': return sizeof(long double) * (is_complex ? 2 : 1);
-    case 'O': case 'P': return sizeof(void*);
-    default: {
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
-    }
-  }
-}
-typedef struct { char c; short x; } __Pyx_st_short;
-typedef struct { char c; int x; } __Pyx_st_int;
-typedef struct { char c; long x; } __Pyx_st_long;
-typedef struct { char c; float x; } __Pyx_st_float;
-typedef struct { char c; double x; } __Pyx_st_double;
-typedef struct { char c; long double x; } __Pyx_st_longdouble;
-typedef struct { char c; void *x; } __Pyx_st_void_p;
-#ifdef HAVE_LONG_LONG
-typedef struct { char c; PY_LONG_LONG x; } __Pyx_st_longlong;
+    #if CYTHON_USE_PYLONG_INTERNALS
+    if (likely(PyLong_CheckExact(op1))) {
+        int unequal;
+        unsigned long uintval;
+        Py_ssize_t size = Py_SIZE(op1);
+        const digit* digits = ((PyLongObject*)op1)->ob_digit;
+        if (intval == 0) {
+            if (size == 0) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+        } else if (intval < 0) {
+            if (size >= 0)
+                Py_RETURN_FALSE;
+            intval = -intval;
+            size = -size;
+        } else {
+            if (size <= 0)
+                Py_RETURN_FALSE;
+        }
+        uintval = (unsigned long) intval;
+#if PyLong_SHIFT * 4 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 4)) {
+            unequal = (size != 5) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[4] != ((uintval >> (4 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
 #endif
-static size_t __Pyx_BufFmt_TypeCharToAlignment(char ch, CYTHON_UNUSED int is_complex) {
-  switch (ch) {
-    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return sizeof(__Pyx_st_short) - sizeof(short);
-    case 'i': case 'I': return sizeof(__Pyx_st_int) - sizeof(int);
-    case 'l': case 'L': return sizeof(__Pyx_st_long) - sizeof(long);
-#ifdef HAVE_LONG_LONG
-    case 'q': case 'Q': return sizeof(__Pyx_st_longlong) - sizeof(PY_LONG_LONG);
+#if PyLong_SHIFT * 3 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 3)) {
+            unequal = (size != 4) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[3] != ((uintval >> (3 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
 #endif
-    case 'f': return sizeof(__Pyx_st_float) - sizeof(float);
-    case 'd': return sizeof(__Pyx_st_double) - sizeof(double);
-    case 'g': return sizeof(__Pyx_st_longdouble) - sizeof(long double);
-    case 'P': case 'O': return sizeof(__Pyx_st_void_p) - sizeof(void*);
-    default:
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
-    }
-}
-/* These are for computing the padding at the end of the struct to align
-   on the first member of the struct. This will probably the same as above,
-   but we don't have any guarantees.
- */
-typedef struct { short x; char c; } __Pyx_pad_short;
-typedef struct { int x; char c; } __Pyx_pad_int;
-typedef struct { long x; char c; } __Pyx_pad_long;
-typedef struct { float x; char c; } __Pyx_pad_float;
-typedef struct { double x; char c; } __Pyx_pad_double;
-typedef struct { long double x; char c; } __Pyx_pad_longdouble;
-typedef struct { void *x; char c; } __Pyx_pad_void_p;
-#ifdef HAVE_LONG_LONG
-typedef struct { PY_LONG_LONG x; char c; } __Pyx_pad_longlong;
+#if PyLong_SHIFT * 2 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 2)) {
+            unequal = (size != 3) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK)) | (digits[2] != ((uintval >> (2 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
 #endif
-static size_t __Pyx_BufFmt_TypeCharToPadding(char ch, CYTHON_UNUSED int is_complex) {
-  switch (ch) {
-    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
-    case 'h': case 'H': return sizeof(__Pyx_pad_short) - sizeof(short);
-    case 'i': case 'I': return sizeof(__Pyx_pad_int) - sizeof(int);
-    case 'l': case 'L': return sizeof(__Pyx_pad_long) - sizeof(long);
-#ifdef HAVE_LONG_LONG
-    case 'q': case 'Q': return sizeof(__Pyx_pad_longlong) - sizeof(PY_LONG_LONG);
+#if PyLong_SHIFT * 1 < SIZEOF_LONG*8
+        if (uintval >> (PyLong_SHIFT * 1)) {
+            unequal = (size != 2) || (digits[0] != (uintval & (unsigned long) PyLong_MASK))
+                 | (digits[1] != ((uintval >> (1 * PyLong_SHIFT)) & (unsigned long) PyLong_MASK));
+        } else
 #endif
-    case 'f': return sizeof(__Pyx_pad_float) - sizeof(float);
-    case 'd': return sizeof(__Pyx_pad_double) - sizeof(double);
-    case 'g': return sizeof(__Pyx_pad_longdouble) - sizeof(long double);
-    case 'P': case 'O': return sizeof(__Pyx_pad_void_p) - sizeof(void*);
-    default:
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
+            unequal = (size != 1) || (((unsigned long) digits[0]) != (uintval & (unsigned long) PyLong_MASK));
+        if (unequal == 0) Py_RETURN_TRUE; else Py_RETURN_FALSE;
     }
-}
-static char __Pyx_BufFmt_TypeCharToGroup(char ch, int is_complex) {
-  switch (ch) {
-    case 'c':
-        return 'H';
-    case 'b': case 'h': case 'i':
-    case 'l': case 'q': case 's': case 'p':
-        return 'I';
-    case '?': case 'B': case 'H': case 'I': case 'L': case 'Q':
-        return 'U';
-    case 'f': case 'd': case 'g':
-        return (is_complex ? 'C' : 'R');
-    case 'O':
-        return 'O';
-    case 'P':
-        return 'P';
-    default: {
-      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
-      return 0;
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+        double a = PyFloat_AS_DOUBLE(op1);
+        if ((double)a == (double)b) Py_RETURN_TRUE; else Py_RETURN_FALSE;
     }
-  }
-}
-static void __Pyx_BufFmt_RaiseExpected(__Pyx_BufFmt_Context* ctx) {
-  if (ctx->head == NULL || ctx->head->field == &ctx->root) {
-    const char* expected;
-    const char* quote;
-    if (ctx->head == NULL) {
-      expected = "end";
-      quote = "";
-    } else {
-      expected = ctx->head->field->type->name;
-      quote = "'";
-    }
-    PyErr_Format(PyExc_ValueError,
-                 "Buffer dtype mismatch, expected %s%s%s but got %s",
-                 quote, expected, quote,
-                 __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex));
-  } else {
-    __Pyx_StructField* field = ctx->head->field;
-    __Pyx_StructField* parent = (ctx->head - 1)->field;
-    PyErr_Format(PyExc_ValueError,
-                 "Buffer dtype mismatch, expected '%s' but got %s in '%s.%s'",
-                 field->type->name, __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex),
-                 parent->type->name, field->name);
-  }
-}
-static int __Pyx_BufFmt_ProcessTypeChunk(__Pyx_BufFmt_Context* ctx) {
-  char group;
-  size_t size, offset, arraysize = 1;
-  if (ctx->enc_type == 0) return 0;
-  if (ctx->head->field->type->arraysize[0]) {
-    int i, ndim = 0;
-    if (ctx->enc_type == 's' || ctx->enc_type == 'p') {
-        ctx->is_valid_array = ctx->head->field->type->ndim == 1;
-        ndim = 1;
-        if (ctx->enc_count != ctx->head->field->type->arraysize[0]) {
-            PyErr_Format(PyExc_ValueError,
-                         "Expected a dimension of size %zu, got %zu",
-                         ctx->head->field->type->arraysize[0], ctx->enc_count);
-            return -1;
-        }
-    }
-    if (!ctx->is_valid_array) {
-      PyErr_Format(PyExc_ValueError, "Expected %d dimensions, got %d",
-                   ctx->head->field->type->ndim, ndim);
-      return -1;
-    }
-    for (i = 0; i < ctx->head->field->type->ndim; i++) {
-      arraysize *= ctx->head->field->type->arraysize[i];
-    }
-    ctx->is_valid_array = 0;
-    ctx->enc_count = 1;
-  }
-  group = __Pyx_BufFmt_TypeCharToGroup(ctx->enc_type, ctx->is_complex);
-  do {
-    __Pyx_StructField* field = ctx->head->field;
-    __Pyx_TypeInfo* type = field->type;
-    if (ctx->enc_packmode == '@' || ctx->enc_packmode == '^') {
-      size = __Pyx_BufFmt_TypeCharToNativeSize(ctx->enc_type, ctx->is_complex);
-    } else {
-      size = __Pyx_BufFmt_TypeCharToStandardSize(ctx->enc_type, ctx->is_complex);
-    }
-    if (ctx->enc_packmode == '@') {
-      size_t align_at = __Pyx_BufFmt_TypeCharToAlignment(ctx->enc_type, ctx->is_complex);
-      size_t align_mod_offset;
-      if (align_at == 0) return -1;
-      align_mod_offset = ctx->fmt_offset % align_at;
-      if (align_mod_offset > 0) ctx->fmt_offset += align_at - align_mod_offset;
-      if (ctx->struct_alignment == 0)
-          ctx->struct_alignment = __Pyx_BufFmt_TypeCharToPadding(ctx->enc_type,
-                                                                 ctx->is_complex);
-    }
-    if (type->size != size || type->typegroup != group) {
-      if (type->typegroup == 'C' && type->fields != NULL) {
-        size_t parent_offset = ctx->head->parent_offset + field->offset;
-        ++ctx->head;
-        ctx->head->field = type->fields;
-        ctx->head->parent_offset = parent_offset;
-        continue;
-      }
-      if ((type->typegroup == 'H' || group == 'H') && type->size == size) {
-      } else {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return -1;
-      }
-    }
-    offset = ctx->head->parent_offset + field->offset;
-    if (ctx->fmt_offset != offset) {
-      PyErr_Format(PyExc_ValueError,
-                   "Buffer dtype mismatch; next field is at offset %" CYTHON_FORMAT_SSIZE_T "d but %" CYTHON_FORMAT_SSIZE_T "d expected",
-                   (Py_ssize_t)ctx->fmt_offset, (Py_ssize_t)offset);
-      return -1;
-    }
-    ctx->fmt_offset += size;
-    if (arraysize)
-      ctx->fmt_offset += (arraysize - 1) * size;
-    --ctx->enc_count;
-    while (1) {
-      if (field == &ctx->root) {
-        ctx->head = NULL;
-        if (ctx->enc_count != 0) {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return -1;
-        }
-        break;
-      }
-      ctx->head->field = ++field;
-      if (field->type == NULL) {
-        --ctx->head;
-        field = ctx->head->field;
-        continue;
-      } else if (field->type->typegroup == 'S') {
-        size_t parent_offset = ctx->head->parent_offset + field->offset;
-        if (field->type->fields->type == NULL) continue;
-        field = field->type->fields;
-        ++ctx->head;
-        ctx->head->field = field;
-        ctx->head->parent_offset = parent_offset;
-        break;
-      } else {
-        break;
-      }
-    }
-  } while (ctx->enc_count);
-  ctx->enc_type = 0;
-  ctx->is_complex = 0;
-  return 0;
-}
-static PyObject *
-__pyx_buffmt_parse_array(__Pyx_BufFmt_Context* ctx, const char** tsp)
-{
-    const char *ts = *tsp;
-    int i = 0, number, ndim;
-    ++ts;
-    if (ctx->new_count != 1) {
-        PyErr_SetString(PyExc_ValueError,
-                        "Cannot handle repeated arrays in format string");
-        return NULL;
-    }
-    if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-    ndim = ctx->head->field->type->ndim;
-    while (*ts && *ts != ')') {
-        switch (*ts) {
-            case ' ': case '\f': case '\r': case '\n': case '\t': case '\v':  continue;
-            default:  break;
-        }
-        number = __Pyx_BufFmt_ExpectNumber(&ts);
-        if (number == -1) return NULL;
-        if (i < ndim && (size_t) number != ctx->head->field->type->arraysize[i])
-            return PyErr_Format(PyExc_ValueError,
-                        "Expected a dimension of size %zu, got %d",
-                        ctx->head->field->type->arraysize[i], number);
-        if (*ts != ',' && *ts != ')')
-            return PyErr_Format(PyExc_ValueError,
-                                "Expected a comma in format string, got '%c'", *ts);
-        if (*ts == ',') ts++;
-        i++;
-    }
-    if (i != ndim)
-        return PyErr_Format(PyExc_ValueError, "Expected %d dimension(s), got %d",
-                            ctx->head->field->type->ndim, i);
-    if (!*ts) {
-        PyErr_SetString(PyExc_ValueError,
-                        "Unexpected end of format string, expected ')'");
-        return NULL;
-    }
-    ctx->is_valid_array = 1;
-    ctx->new_count = 1;
-    *tsp = ++ts;
-    return Py_None;
-}
-static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const char* ts) {
-  int got_Z = 0;
-  while (1) {
-    switch(*ts) {
-      case 0:
-        if (ctx->enc_type != 0 && ctx->head == NULL) {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return NULL;
-        }
-        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-        if (ctx->head != NULL) {
-          __Pyx_BufFmt_RaiseExpected(ctx);
-          return NULL;
-        }
-        return ts;
-      case ' ':
-      case '\r':
-      case '\n':
-        ++ts;
-        break;
-      case '<':
-        if (!__Pyx_Is_Little_Endian()) {
-          PyErr_SetString(PyExc_ValueError, "Little-endian buffer not supported on big-endian compiler");
-          return NULL;
-        }
-        ctx->new_packmode = '=';
-        ++ts;
-        break;
-      case '>':
-      case '!':
-        if (__Pyx_Is_Little_Endian()) {
-          PyErr_SetString(PyExc_ValueError, "Big-endian buffer not supported on little-endian compiler");
-          return NULL;
-        }
-        ctx->new_packmode = '=';
-        ++ts;
-        break;
-      case '=':
-      case '@':
-      case '^':
-        ctx->new_packmode = *ts++;
-        break;
-      case 'T':
-        {
-          const char* ts_after_sub;
-          size_t i, struct_count = ctx->new_count;
-          size_t struct_alignment = ctx->struct_alignment;
-          ctx->new_count = 1;
-          ++ts;
-          if (*ts != '{') {
-            PyErr_SetString(PyExc_ValueError, "Buffer acquisition: Expected '{' after 'T'");
-            return NULL;
-          }
-          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-          ctx->enc_type = 0;
-          ctx->enc_count = 0;
-          ctx->struct_alignment = 0;
-          ++ts;
-          ts_after_sub = ts;
-          for (i = 0; i != struct_count; ++i) {
-            ts_after_sub = __Pyx_BufFmt_CheckString(ctx, ts);
-            if (!ts_after_sub) return NULL;
-          }
-          ts = ts_after_sub;
-          if (struct_alignment) ctx->struct_alignment = struct_alignment;
-        }
-        break;
-      case '}':
-        {
-          size_t alignment = ctx->struct_alignment;
-          ++ts;
-          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-          ctx->enc_type = 0;
-          if (alignment && ctx->fmt_offset % alignment) {
-            ctx->fmt_offset += alignment - (ctx->fmt_offset % alignment);
-          }
-        }
-        return ts;
-      case 'x':
-        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-        ctx->fmt_offset += ctx->new_count;
-        ctx->new_count = 1;
-        ctx->enc_count = 0;
-        ctx->enc_type = 0;
-        ctx->enc_packmode = ctx->new_packmode;
-        ++ts;
-        break;
-      case 'Z':
-        got_Z = 1;
-        ++ts;
-        if (*ts != 'f' && *ts != 'd' && *ts != 'g') {
-          __Pyx_BufFmt_RaiseUnexpectedChar('Z');
-          return NULL;
-        }
-        CYTHON_FALLTHROUGH;
-      case '?': case 'c': case 'b': case 'B': case 'h': case 'H': case 'i': case 'I':
-      case 'l': case 'L': case 'q': case 'Q':
-      case 'f': case 'd': case 'g':
-      case 'O': case 'p':
-        if ((ctx->enc_type == *ts) && (got_Z == ctx->is_complex) &&
-            (ctx->enc_packmode == ctx->new_packmode) && (!ctx->is_valid_array)) {
-          ctx->enc_count += ctx->new_count;
-          ctx->new_count = 1;
-          got_Z = 0;
-          ++ts;
-          break;
-        }
-        CYTHON_FALLTHROUGH;
-      case 's':
-        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
-        ctx->enc_count = ctx->new_count;
-        ctx->enc_packmode = ctx->new_packmode;
-        ctx->enc_type = *ts;
-        ctx->is_complex = got_Z;
-        ++ts;
-        ctx->new_count = 1;
-        got_Z = 0;
-        break;
-      case ':':
-        ++ts;
-        while(*ts != ':') ++ts;
-        ++ts;
-        break;
-      case '(':
-        if (!__pyx_buffmt_parse_array(ctx, &ts)) return NULL;
-        break;
-      default:
-        {
-          int number = __Pyx_BufFmt_ExpectNumber(&ts);
-          if (number == -1) return NULL;
-          ctx->new_count = (size_t)number;
-        }
-    }
-  }
+    return (
+        PyObject_RichCompare(op1, op2, Py_EQ));
 }
 
-/* BufferGetAndValidate */
-  static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info) {
-  if (unlikely(info->buf == NULL)) return;
-  if (info->suboffsets == __Pyx_minusones) info->suboffsets = NULL;
-  __Pyx_ReleaseBuffer(info);
+/* GetItemInt */
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+    PyObject *r;
+    if (!j) return NULL;
+    r = PyObject_GetItem(o, j);
+    Py_DECREF(j);
+    return r;
 }
-static void __Pyx_ZeroBuffer(Py_buffer* buf) {
-  buf->buf = NULL;
-  buf->obj = NULL;
-  buf->strides = __Pyx_zeros;
-  buf->shape = __Pyx_zeros;
-  buf->suboffsets = __Pyx_minusones;
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyList_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyList_GET_SIZE(o)))) {
+        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
 }
-static int __Pyx__GetBufferAndValidate(
-        Py_buffer* buf, PyObject* obj,  __Pyx_TypeInfo* dtype, int flags,
-        int nd, int cast, __Pyx_BufFmt_StackElem* stack)
-{
-  buf->buf = NULL;
-  if (unlikely(__Pyx_GetBuffer(obj, buf, flags) == -1)) {
-    __Pyx_ZeroBuffer(buf);
-    return -1;
-  }
-  if (unlikely(buf->ndim != nd)) {
-    PyErr_Format(PyExc_ValueError,
-                 "Buffer has wrong number of dimensions (expected %d, got %d)",
-                 nd, buf->ndim);
-    goto fail;
-  }
-  if (!cast) {
-    __Pyx_BufFmt_Context ctx;
-    __Pyx_BufFmt_Init(&ctx, stack, dtype);
-    if (!__Pyx_BufFmt_CheckString(&ctx, buf->format)) goto fail;
-  }
-  if (unlikely((size_t)buf->itemsize != dtype->size)) {
-    PyErr_Format(PyExc_ValueError,
-      "Item size of buffer (%" CYTHON_FORMAT_SSIZE_T "d byte%s) does not match size of '%s' (%" CYTHON_FORMAT_SSIZE_T "d byte%s)",
-      buf->itemsize, (buf->itemsize > 1) ? "s" : "",
-      dtype->name, (Py_ssize_t)dtype->size, (dtype->size > 1) ? "s" : "");
-    goto fail;
-  }
-  if (buf->suboffsets == NULL) buf->suboffsets = __Pyx_minusones;
-  return 0;
-fail:;
-  __Pyx_SafeReleaseBuffer(buf);
-  return -1;
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
+                                                              CYTHON_NCP_UNUSED int wraparound,
+                                                              CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
+    Py_ssize_t wrapped_i = i;
+    if (wraparound & unlikely(i < 0)) {
+        wrapped_i += PyTuple_GET_SIZE(o);
+    }
+    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyTuple_GET_SIZE(o)))) {
+        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
+        Py_INCREF(r);
+        return r;
+    }
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+#else
+    return PySequence_GetItem(o, i);
+#endif
+}
+static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
+                                                     CYTHON_NCP_UNUSED int wraparound,
+                                                     CYTHON_NCP_UNUSED int boundscheck) {
+#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
+    if (is_list || PyList_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
+        if ((!boundscheck) || (likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o))))) {
+            PyObject *r = PyList_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    }
+    else if (PyTuple_CheckExact(o)) {
+        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
+        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyTuple_GET_SIZE(o)))) {
+            PyObject *r = PyTuple_GET_ITEM(o, n);
+            Py_INCREF(r);
+            return r;
+        }
+    } else {
+        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
+        if (likely(m && m->sq_item)) {
+            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
+                Py_ssize_t l = m->sq_length(o);
+                if (likely(l >= 0)) {
+                    i += l;
+                } else {
+                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
+                        return NULL;
+                    PyErr_Clear();
+                }
+            }
+            return m->sq_item(o, i);
+        }
+    }
+#else
+    if (is_list || PySequence_Check(o)) {
+        return PySequence_GetItem(o, i);
+    }
+#endif
+    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
 }
 
 /* PyFunctionFastCall */
-  #if CYTHON_FAST_PYCALL
+#if CYTHON_FAST_PYCALL
 static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
                                                PyObject *globals) {
     PyFrameObject *f;
@@ -7954,28 +8885,8 @@ done:
 #endif
 #endif
 
-/* PyObjectCall */
-  #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
 /* PyObjectCallMethO */
-  #if CYTHON_COMPILING_IN_CPYTHON
+#if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
     PyObject *self, *result;
     PyCFunction cfunc;
@@ -7995,7 +8906,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject
 #endif
 
 /* PyObjectCallNoArg */
-  #if CYTHON_COMPILING_IN_CPYTHON
+#if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(func)) {
@@ -8017,7 +8928,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 #endif
 
 /* PyCFunctionFastCall */
-  #if CYTHON_FAST_PYCCALL
+#if CYTHON_FAST_PYCCALL
 static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
     PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
     PyCFunction meth = PyCFunction_GET_FUNCTION(func);
@@ -8040,7 +8951,7 @@ static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, P
 #endif
 
 /* PyObjectCallOneArg */
-  #if CYTHON_COMPILING_IN_CPYTHON
+#if CYTHON_COMPILING_IN_CPYTHON
 static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
     PyObject *result;
     PyObject *args = PyTuple_New(1);
@@ -8079,8 +8990,287 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 }
 #endif
 
+/* PyIntBinop */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_SubtractObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, int inplace, int zerodivision_check) {
+    (void)inplace;
+    (void)zerodivision_check;
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long x;
+        long a = PyInt_AS_LONG(op1);
+            x = (long)((unsigned long)a - b);
+            if (likely((x^a) >= 0 || (x^~b) >= 0))
+                return PyInt_FromLong(x);
+            return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS
+    if (likely(PyLong_CheckExact(op1))) {
+        const long b = intval;
+        long a, x;
+#ifdef HAVE_LONG_LONG
+        const PY_LONG_LONG llb = intval;
+        PY_LONG_LONG lla, llx;
+#endif
+        const digit* digits = ((PyLongObject*)op1)->ob_digit;
+        const Py_ssize_t size = Py_SIZE(op1);
+        if (likely(__Pyx_sst_abs(size) <= 1)) {
+            a = likely(size) ? digits[0] : 0;
+            if (size == -1) a = -a;
+        } else {
+            switch (size) {
+                case -2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                default: return PyLong_Type.tp_as_number->nb_subtract(op1, op2);
+            }
+        }
+                x = a - b;
+            return PyLong_FromLong(x);
+#ifdef HAVE_LONG_LONG
+        long_long:
+                llx = lla - llb;
+            return PyLong_FromLongLong(llx);
+#endif
+        
+        
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+        double a = PyFloat_AS_DOUBLE(op1);
+            double result;
+            PyFPE_START_PROTECT("subtract", return NULL)
+            result = ((double)a) - (double)b;
+            PyFPE_END_PROTECT(result)
+            return PyFloat_FromDouble(result);
+    }
+    return (inplace ? PyNumber_InPlaceSubtract : PyNumber_Subtract)(op1, op2);
+}
+#endif
+
+/* GetTopmostException */
+#if CYTHON_USE_EXC_INFO_STACK
+static _PyErr_StackItem *
+__Pyx_PyErr_GetTopmostException(PyThreadState *tstate)
+{
+    _PyErr_StackItem *exc_info = tstate->exc_info;
+    while ((exc_info->exc_type == NULL || exc_info->exc_type == Py_None) &&
+           exc_info->previous_item != NULL)
+    {
+        exc_info = exc_info->previous_item;
+    }
+    return exc_info;
+}
+#endif
+
+/* SaveResetException */
+#if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    #if CYTHON_USE_EXC_INFO_STACK
+    _PyErr_StackItem *exc_info = __Pyx_PyErr_GetTopmostException(tstate);
+    *type = exc_info->exc_type;
+    *value = exc_info->exc_value;
+    *tb = exc_info->exc_traceback;
+    #else
+    *type = tstate->exc_type;
+    *value = tstate->exc_value;
+    *tb = tstate->exc_traceback;
+    #endif
+    Py_XINCREF(*type);
+    Py_XINCREF(*value);
+    Py_XINCREF(*tb);
+}
+static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    #if CYTHON_USE_EXC_INFO_STACK
+    _PyErr_StackItem *exc_info = tstate->exc_info;
+    tmp_type = exc_info->exc_type;
+    tmp_value = exc_info->exc_value;
+    tmp_tb = exc_info->exc_traceback;
+    exc_info->exc_type = type;
+    exc_info->exc_value = value;
+    exc_info->exc_traceback = tb;
+    #else
+    tmp_type = tstate->exc_type;
+    tmp_value = tstate->exc_value;
+    tmp_tb = tstate->exc_traceback;
+    tstate->exc_type = type;
+    tstate->exc_value = value;
+    tstate->exc_traceback = tb;
+    #endif
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+}
+#endif
+
+/* PyErrExceptionMatches */
+#if CYTHON_FAST_THREAD_STATE
+static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
+    Py_ssize_t i, n;
+    n = PyTuple_GET_SIZE(tuple);
+#if PY_MAJOR_VERSION >= 3
+    for (i=0; i<n; i++) {
+        if (exc_type == PyTuple_GET_ITEM(tuple, i)) return 1;
+    }
+#endif
+    for (i=0; i<n; i++) {
+        if (__Pyx_PyErr_GivenExceptionMatches(exc_type, PyTuple_GET_ITEM(tuple, i))) return 1;
+    }
+    return 0;
+}
+static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
+    PyObject *exc_type = tstate->curexc_type;
+    if (exc_type == err) return 1;
+    if (unlikely(!exc_type)) return 0;
+    if (unlikely(PyTuple_Check(err)))
+        return __Pyx_PyErr_ExceptionMatchesTuple(exc_type, err);
+    return __Pyx_PyErr_GivenExceptionMatches(exc_type, err);
+}
+#endif
+
+/* GetException */
+#if CYTHON_FAST_THREAD_STATE
+static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb)
+#else
+static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb)
+#endif
+{
+    PyObject *local_type, *local_value, *local_tb;
+#if CYTHON_FAST_THREAD_STATE
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    local_type = tstate->curexc_type;
+    local_value = tstate->curexc_value;
+    local_tb = tstate->curexc_traceback;
+    tstate->curexc_type = 0;
+    tstate->curexc_value = 0;
+    tstate->curexc_traceback = 0;
+#else
+    PyErr_Fetch(&local_type, &local_value, &local_tb);
+#endif
+    PyErr_NormalizeException(&local_type, &local_value, &local_tb);
+#if CYTHON_FAST_THREAD_STATE
+    if (unlikely(tstate->curexc_type))
+#else
+    if (unlikely(PyErr_Occurred()))
+#endif
+        goto bad;
+    #if PY_MAJOR_VERSION >= 3
+    if (local_tb) {
+        if (unlikely(PyException_SetTraceback(local_value, local_tb) < 0))
+            goto bad;
+    }
+    #endif
+    Py_XINCREF(local_tb);
+    Py_XINCREF(local_type);
+    Py_XINCREF(local_value);
+    *type = local_type;
+    *value = local_value;
+    *tb = local_tb;
+#if CYTHON_FAST_THREAD_STATE
+    #if CYTHON_USE_EXC_INFO_STACK
+    {
+        _PyErr_StackItem *exc_info = tstate->exc_info;
+        tmp_type = exc_info->exc_type;
+        tmp_value = exc_info->exc_value;
+        tmp_tb = exc_info->exc_traceback;
+        exc_info->exc_type = local_type;
+        exc_info->exc_value = local_value;
+        exc_info->exc_traceback = local_tb;
+    }
+    #else
+    tmp_type = tstate->exc_type;
+    tmp_value = tstate->exc_value;
+    tmp_tb = tstate->exc_traceback;
+    tstate->exc_type = local_type;
+    tstate->exc_value = local_value;
+    tstate->exc_traceback = local_tb;
+    #endif
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+#else
+    PyErr_SetExcInfo(local_type, local_value, local_tb);
+#endif
+    return 0;
+bad:
+    *type = 0;
+    *value = 0;
+    *tb = 0;
+    Py_XDECREF(local_type);
+    Py_XDECREF(local_value);
+    Py_XDECREF(local_tb);
+    return -1;
+}
+
 /* PyErrFetchRestore */
-  #if CYTHON_FAST_THREAD_STATE
+#if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
     PyObject *tmp_type, *tmp_value, *tmp_tb;
     tmp_type = tstate->curexc_type;
@@ -8103,13 +9293,48 @@ static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject 
 }
 #endif
 
+/* SwapException */
+#if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    #if CYTHON_USE_EXC_INFO_STACK
+    _PyErr_StackItem *exc_info = tstate->exc_info;
+    tmp_type = exc_info->exc_type;
+    tmp_value = exc_info->exc_value;
+    tmp_tb = exc_info->exc_traceback;
+    exc_info->exc_type = *type;
+    exc_info->exc_value = *value;
+    exc_info->exc_traceback = *tb;
+    #else
+    tmp_type = tstate->exc_type;
+    tmp_value = tstate->exc_value;
+    tmp_tb = tstate->exc_traceback;
+    tstate->exc_type = *type;
+    tstate->exc_value = *value;
+    tstate->exc_traceback = *tb;
+    #endif
+    *type = tmp_type;
+    *value = tmp_value;
+    *tb = tmp_tb;
+}
+#else
+static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    PyErr_GetExcInfo(&tmp_type, &tmp_value, &tmp_tb);
+    PyErr_SetExcInfo(*type, *value, *tb);
+    *type = tmp_type;
+    *value = tmp_value;
+    *tb = tmp_tb;
+}
+#endif
+
 /* None */
-  static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname) {
+static CYTHON_INLINE void __Pyx_RaiseClosureNameError(const char *varname) {
     PyErr_Format(PyExc_NameError, "free variable '%s' referenced before assignment in enclosing scope", varname);
 }
 
 /* FetchCommonType */
-  static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
     PyObject* fake_module;
     PyTypeObject* cached_type = NULL;
     fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
@@ -8148,7 +9373,7 @@ bad:
 }
 
 /* CythonFunctionShared */
-  #include <structmember.h>
+#include <structmember.h>
 static PyObject *
 __Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
 {
@@ -8752,7 +9977,7 @@ static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, Py
 }
 
 /* CythonFunction */
-  static PyObject *__Pyx_CyFunction_New(PyMethodDef *ml, int flags, PyObject* qualname,
+static PyObject *__Pyx_CyFunction_New(PyMethodDef *ml, int flags, PyObject* qualname,
                                       PyObject *closure, PyObject *module, PyObject* globals, PyObject* code) {
     PyObject *op = __Pyx_CyFunction_Init(
         PyObject_GC_New(__pyx_CyFunctionObject, __pyx_CyFunctionType),
@@ -8764,69 +9989,8 @@ static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, Py
     return op;
 }
 
-/* PyDictVersioning */
-  #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
-}
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
-    PyObject **dictptr = NULL;
-    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
-    if (offset) {
-#if CYTHON_COMPILING_IN_CPYTHON
-        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
-#else
-        dictptr = _PyObject_GetDictPtr(obj);
-#endif
-    }
-    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
-}
-static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
-        return 0;
-    return obj_dict_version == __Pyx_get_object_dict_version(obj);
-}
-#endif
-
-/* GetModuleGlobalName */
-  #if CYTHON_USE_DICT_VERSIONS
-static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value)
-#else
-static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
-#endif
-{
-    PyObject *result;
-#if !CYTHON_AVOID_BORROWED_REFS
-#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
-    result = _PyDict_GetItem_KnownHash(__pyx_d, name, ((PyASCIIObject *) name)->hash);
-    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
-    if (likely(result)) {
-        return __Pyx_NewRef(result);
-    } else if (unlikely(PyErr_Occurred())) {
-        return NULL;
-    }
-#else
-    result = PyDict_GetItem(__pyx_d, name);
-    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
-    if (likely(result)) {
-        return __Pyx_NewRef(result);
-    }
-#endif
-#else
-    result = PyObject_GetItem(__pyx_d, name);
-    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
-    if (likely(result)) {
-        return __Pyx_NewRef(result);
-    }
-    PyErr_Clear();
-#endif
-    return __Pyx_GetBuiltinName(name);
-}
-
 /* PyObjectCall2Args */
-  static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
     PyObject *args, *result = NULL;
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(function)) {
@@ -8854,8 +10018,135 @@ done:
     return result;
 }
 
+/* PyObjectGetMethod */
+static int __Pyx_PyObject_GetMethod(PyObject *obj, PyObject *name, PyObject **method) {
+    PyObject *attr;
+#if CYTHON_UNPACK_METHODS && CYTHON_COMPILING_IN_CPYTHON && CYTHON_USE_PYTYPE_LOOKUP
+    PyTypeObject *tp = Py_TYPE(obj);
+    PyObject *descr;
+    descrgetfunc f = NULL;
+    PyObject **dictptr, *dict;
+    int meth_found = 0;
+    assert (*method == NULL);
+    if (unlikely(tp->tp_getattro != PyObject_GenericGetAttr)) {
+        attr = __Pyx_PyObject_GetAttrStr(obj, name);
+        goto try_unpack;
+    }
+    if (unlikely(tp->tp_dict == NULL) && unlikely(PyType_Ready(tp) < 0)) {
+        return 0;
+    }
+    descr = _PyType_Lookup(tp, name);
+    if (likely(descr != NULL)) {
+        Py_INCREF(descr);
+#if PY_MAJOR_VERSION >= 3
+        #ifdef __Pyx_CyFunction_USED
+        if (likely(PyFunction_Check(descr) || (Py_TYPE(descr) == &PyMethodDescr_Type) || __Pyx_CyFunction_Check(descr)))
+        #else
+        if (likely(PyFunction_Check(descr) || (Py_TYPE(descr) == &PyMethodDescr_Type)))
+        #endif
+#else
+        #ifdef __Pyx_CyFunction_USED
+        if (likely(PyFunction_Check(descr) || __Pyx_CyFunction_Check(descr)))
+        #else
+        if (likely(PyFunction_Check(descr)))
+        #endif
+#endif
+        {
+            meth_found = 1;
+        } else {
+            f = Py_TYPE(descr)->tp_descr_get;
+            if (f != NULL && PyDescr_IsData(descr)) {
+                attr = f(descr, obj, (PyObject *)Py_TYPE(obj));
+                Py_DECREF(descr);
+                goto try_unpack;
+            }
+        }
+    }
+    dictptr = _PyObject_GetDictPtr(obj);
+    if (dictptr != NULL && (dict = *dictptr) != NULL) {
+        Py_INCREF(dict);
+        attr = __Pyx_PyDict_GetItemStr(dict, name);
+        if (attr != NULL) {
+            Py_INCREF(attr);
+            Py_DECREF(dict);
+            Py_XDECREF(descr);
+            goto try_unpack;
+        }
+        Py_DECREF(dict);
+    }
+    if (meth_found) {
+        *method = descr;
+        return 1;
+    }
+    if (f != NULL) {
+        attr = f(descr, obj, (PyObject *)Py_TYPE(obj));
+        Py_DECREF(descr);
+        goto try_unpack;
+    }
+    if (descr != NULL) {
+        *method = descr;
+        return 0;
+    }
+    PyErr_Format(PyExc_AttributeError,
+#if PY_MAJOR_VERSION >= 3
+                 "'%.50s' object has no attribute '%U'",
+                 tp->tp_name, name);
+#else
+                 "'%.50s' object has no attribute '%.400s'",
+                 tp->tp_name, PyString_AS_STRING(name));
+#endif
+    return 0;
+#else
+    attr = __Pyx_PyObject_GetAttrStr(obj, name);
+    goto try_unpack;
+#endif
+try_unpack:
+#if CYTHON_UNPACK_METHODS
+    if (likely(attr) && PyMethod_Check(attr) && likely(PyMethod_GET_SELF(attr) == obj)) {
+        PyObject *function = PyMethod_GET_FUNCTION(attr);
+        Py_INCREF(function);
+        Py_DECREF(attr);
+        *method = function;
+        return 1;
+    }
+#endif
+    *method = attr;
+    return 0;
+}
+
+/* PyObjectCallMethod1 */
+static PyObject* __Pyx__PyObject_CallMethod1(PyObject* method, PyObject* arg) {
+    PyObject *result = __Pyx_PyObject_CallOneArg(method, arg);
+    Py_DECREF(method);
+    return result;
+}
+static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
+    PyObject *method = NULL, *result;
+    int is_method = __Pyx_PyObject_GetMethod(obj, method_name, &method);
+    if (likely(is_method)) {
+        result = __Pyx_PyObject_Call2Args(method, obj, arg);
+        Py_DECREF(method);
+        return result;
+    }
+    if (unlikely(!method)) return NULL;
+    return __Pyx__PyObject_CallMethod1(method, arg);
+}
+
+/* append */
+static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
+    if (likely(PyList_CheckExact(L))) {
+        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
+    } else {
+        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
+        if (unlikely(!retval))
+            return -1;
+        Py_DECREF(retval);
+    }
+    return 0;
+}
+
 /* ExtTypeTest */
-  static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
     if (unlikely(!type)) {
         PyErr_SetString(PyExc_SystemError, "Missing type object");
         return 0;
@@ -8865,6 +10156,566 @@ done:
     PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
                  Py_TYPE(obj)->tp_name, type->tp_name);
     return 0;
+}
+
+/* IsLittleEndian */
+static CYTHON_INLINE int __Pyx_Is_Little_Endian(void)
+{
+  union {
+    uint32_t u32;
+    uint8_t u8[4];
+  } S;
+  S.u32 = 0x01020304;
+  return S.u8[0] == 4;
+}
+
+/* BufferFormatCheck */
+static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
+                              __Pyx_BufFmt_StackElem* stack,
+                              __Pyx_TypeInfo* type) {
+  stack[0].field = &ctx->root;
+  stack[0].parent_offset = 0;
+  ctx->root.type = type;
+  ctx->root.name = "buffer dtype";
+  ctx->root.offset = 0;
+  ctx->head = stack;
+  ctx->head->field = &ctx->root;
+  ctx->fmt_offset = 0;
+  ctx->head->parent_offset = 0;
+  ctx->new_packmode = '@';
+  ctx->enc_packmode = '@';
+  ctx->new_count = 1;
+  ctx->enc_count = 0;
+  ctx->enc_type = 0;
+  ctx->is_complex = 0;
+  ctx->is_valid_array = 0;
+  ctx->struct_alignment = 0;
+  while (type->typegroup == 'S') {
+    ++ctx->head;
+    ctx->head->field = type->fields;
+    ctx->head->parent_offset = 0;
+    type = type->fields->type;
+  }
+}
+static int __Pyx_BufFmt_ParseNumber(const char** ts) {
+    int count;
+    const char* t = *ts;
+    if (*t < '0' || *t > '9') {
+      return -1;
+    } else {
+        count = *t++ - '0';
+        while (*t >= '0' && *t <= '9') {
+            count *= 10;
+            count += *t++ - '0';
+        }
+    }
+    *ts = t;
+    return count;
+}
+static int __Pyx_BufFmt_ExpectNumber(const char **ts) {
+    int number = __Pyx_BufFmt_ParseNumber(ts);
+    if (number == -1)
+        PyErr_Format(PyExc_ValueError,\
+                     "Does not understand character buffer dtype format string ('%c')", **ts);
+    return number;
+}
+static void __Pyx_BufFmt_RaiseUnexpectedChar(char ch) {
+  PyErr_Format(PyExc_ValueError,
+               "Unexpected format string character: '%c'", ch);
+}
+static const char* __Pyx_BufFmt_DescribeTypeChar(char ch, int is_complex) {
+  switch (ch) {
+    case '?': return "'bool'";
+    case 'c': return "'char'";
+    case 'b': return "'signed char'";
+    case 'B': return "'unsigned char'";
+    case 'h': return "'short'";
+    case 'H': return "'unsigned short'";
+    case 'i': return "'int'";
+    case 'I': return "'unsigned int'";
+    case 'l': return "'long'";
+    case 'L': return "'unsigned long'";
+    case 'q': return "'long long'";
+    case 'Q': return "'unsigned long long'";
+    case 'f': return (is_complex ? "'complex float'" : "'float'");
+    case 'd': return (is_complex ? "'complex double'" : "'double'");
+    case 'g': return (is_complex ? "'complex long double'" : "'long double'");
+    case 'T': return "a struct";
+    case 'O': return "Python object";
+    case 'P': return "a pointer";
+    case 's': case 'p': return "a string";
+    case 0: return "end";
+    default: return "unparseable format string";
+  }
+}
+static size_t __Pyx_BufFmt_TypeCharToStandardSize(char ch, int is_complex) {
+  switch (ch) {
+    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return 2;
+    case 'i': case 'I': case 'l': case 'L': return 4;
+    case 'q': case 'Q': return 8;
+    case 'f': return (is_complex ? 8 : 4);
+    case 'd': return (is_complex ? 16 : 8);
+    case 'g': {
+      PyErr_SetString(PyExc_ValueError, "Python does not define a standard format string size for long double ('g')..");
+      return 0;
+    }
+    case 'O': case 'P': return sizeof(void*);
+    default:
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+}
+static size_t __Pyx_BufFmt_TypeCharToNativeSize(char ch, int is_complex) {
+  switch (ch) {
+    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return sizeof(short);
+    case 'i': case 'I': return sizeof(int);
+    case 'l': case 'L': return sizeof(long);
+    #ifdef HAVE_LONG_LONG
+    case 'q': case 'Q': return sizeof(PY_LONG_LONG);
+    #endif
+    case 'f': return sizeof(float) * (is_complex ? 2 : 1);
+    case 'd': return sizeof(double) * (is_complex ? 2 : 1);
+    case 'g': return sizeof(long double) * (is_complex ? 2 : 1);
+    case 'O': case 'P': return sizeof(void*);
+    default: {
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+  }
+}
+typedef struct { char c; short x; } __Pyx_st_short;
+typedef struct { char c; int x; } __Pyx_st_int;
+typedef struct { char c; long x; } __Pyx_st_long;
+typedef struct { char c; float x; } __Pyx_st_float;
+typedef struct { char c; double x; } __Pyx_st_double;
+typedef struct { char c; long double x; } __Pyx_st_longdouble;
+typedef struct { char c; void *x; } __Pyx_st_void_p;
+#ifdef HAVE_LONG_LONG
+typedef struct { char c; PY_LONG_LONG x; } __Pyx_st_longlong;
+#endif
+static size_t __Pyx_BufFmt_TypeCharToAlignment(char ch, CYTHON_UNUSED int is_complex) {
+  switch (ch) {
+    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return sizeof(__Pyx_st_short) - sizeof(short);
+    case 'i': case 'I': return sizeof(__Pyx_st_int) - sizeof(int);
+    case 'l': case 'L': return sizeof(__Pyx_st_long) - sizeof(long);
+#ifdef HAVE_LONG_LONG
+    case 'q': case 'Q': return sizeof(__Pyx_st_longlong) - sizeof(PY_LONG_LONG);
+#endif
+    case 'f': return sizeof(__Pyx_st_float) - sizeof(float);
+    case 'd': return sizeof(__Pyx_st_double) - sizeof(double);
+    case 'g': return sizeof(__Pyx_st_longdouble) - sizeof(long double);
+    case 'P': case 'O': return sizeof(__Pyx_st_void_p) - sizeof(void*);
+    default:
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+}
+/* These are for computing the padding at the end of the struct to align
+   on the first member of the struct. This will probably the same as above,
+   but we don't have any guarantees.
+ */
+typedef struct { short x; char c; } __Pyx_pad_short;
+typedef struct { int x; char c; } __Pyx_pad_int;
+typedef struct { long x; char c; } __Pyx_pad_long;
+typedef struct { float x; char c; } __Pyx_pad_float;
+typedef struct { double x; char c; } __Pyx_pad_double;
+typedef struct { long double x; char c; } __Pyx_pad_longdouble;
+typedef struct { void *x; char c; } __Pyx_pad_void_p;
+#ifdef HAVE_LONG_LONG
+typedef struct { PY_LONG_LONG x; char c; } __Pyx_pad_longlong;
+#endif
+static size_t __Pyx_BufFmt_TypeCharToPadding(char ch, CYTHON_UNUSED int is_complex) {
+  switch (ch) {
+    case '?': case 'c': case 'b': case 'B': case 's': case 'p': return 1;
+    case 'h': case 'H': return sizeof(__Pyx_pad_short) - sizeof(short);
+    case 'i': case 'I': return sizeof(__Pyx_pad_int) - sizeof(int);
+    case 'l': case 'L': return sizeof(__Pyx_pad_long) - sizeof(long);
+#ifdef HAVE_LONG_LONG
+    case 'q': case 'Q': return sizeof(__Pyx_pad_longlong) - sizeof(PY_LONG_LONG);
+#endif
+    case 'f': return sizeof(__Pyx_pad_float) - sizeof(float);
+    case 'd': return sizeof(__Pyx_pad_double) - sizeof(double);
+    case 'g': return sizeof(__Pyx_pad_longdouble) - sizeof(long double);
+    case 'P': case 'O': return sizeof(__Pyx_pad_void_p) - sizeof(void*);
+    default:
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+}
+static char __Pyx_BufFmt_TypeCharToGroup(char ch, int is_complex) {
+  switch (ch) {
+    case 'c':
+        return 'H';
+    case 'b': case 'h': case 'i':
+    case 'l': case 'q': case 's': case 'p':
+        return 'I';
+    case '?': case 'B': case 'H': case 'I': case 'L': case 'Q':
+        return 'U';
+    case 'f': case 'd': case 'g':
+        return (is_complex ? 'C' : 'R');
+    case 'O':
+        return 'O';
+    case 'P':
+        return 'P';
+    default: {
+      __Pyx_BufFmt_RaiseUnexpectedChar(ch);
+      return 0;
+    }
+  }
+}
+static void __Pyx_BufFmt_RaiseExpected(__Pyx_BufFmt_Context* ctx) {
+  if (ctx->head == NULL || ctx->head->field == &ctx->root) {
+    const char* expected;
+    const char* quote;
+    if (ctx->head == NULL) {
+      expected = "end";
+      quote = "";
+    } else {
+      expected = ctx->head->field->type->name;
+      quote = "'";
+    }
+    PyErr_Format(PyExc_ValueError,
+                 "Buffer dtype mismatch, expected %s%s%s but got %s",
+                 quote, expected, quote,
+                 __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex));
+  } else {
+    __Pyx_StructField* field = ctx->head->field;
+    __Pyx_StructField* parent = (ctx->head - 1)->field;
+    PyErr_Format(PyExc_ValueError,
+                 "Buffer dtype mismatch, expected '%s' but got %s in '%s.%s'",
+                 field->type->name, __Pyx_BufFmt_DescribeTypeChar(ctx->enc_type, ctx->is_complex),
+                 parent->type->name, field->name);
+  }
+}
+static int __Pyx_BufFmt_ProcessTypeChunk(__Pyx_BufFmt_Context* ctx) {
+  char group;
+  size_t size, offset, arraysize = 1;
+  if (ctx->enc_type == 0) return 0;
+  if (ctx->head->field->type->arraysize[0]) {
+    int i, ndim = 0;
+    if (ctx->enc_type == 's' || ctx->enc_type == 'p') {
+        ctx->is_valid_array = ctx->head->field->type->ndim == 1;
+        ndim = 1;
+        if (ctx->enc_count != ctx->head->field->type->arraysize[0]) {
+            PyErr_Format(PyExc_ValueError,
+                         "Expected a dimension of size %zu, got %zu",
+                         ctx->head->field->type->arraysize[0], ctx->enc_count);
+            return -1;
+        }
+    }
+    if (!ctx->is_valid_array) {
+      PyErr_Format(PyExc_ValueError, "Expected %d dimensions, got %d",
+                   ctx->head->field->type->ndim, ndim);
+      return -1;
+    }
+    for (i = 0; i < ctx->head->field->type->ndim; i++) {
+      arraysize *= ctx->head->field->type->arraysize[i];
+    }
+    ctx->is_valid_array = 0;
+    ctx->enc_count = 1;
+  }
+  group = __Pyx_BufFmt_TypeCharToGroup(ctx->enc_type, ctx->is_complex);
+  do {
+    __Pyx_StructField* field = ctx->head->field;
+    __Pyx_TypeInfo* type = field->type;
+    if (ctx->enc_packmode == '@' || ctx->enc_packmode == '^') {
+      size = __Pyx_BufFmt_TypeCharToNativeSize(ctx->enc_type, ctx->is_complex);
+    } else {
+      size = __Pyx_BufFmt_TypeCharToStandardSize(ctx->enc_type, ctx->is_complex);
+    }
+    if (ctx->enc_packmode == '@') {
+      size_t align_at = __Pyx_BufFmt_TypeCharToAlignment(ctx->enc_type, ctx->is_complex);
+      size_t align_mod_offset;
+      if (align_at == 0) return -1;
+      align_mod_offset = ctx->fmt_offset % align_at;
+      if (align_mod_offset > 0) ctx->fmt_offset += align_at - align_mod_offset;
+      if (ctx->struct_alignment == 0)
+          ctx->struct_alignment = __Pyx_BufFmt_TypeCharToPadding(ctx->enc_type,
+                                                                 ctx->is_complex);
+    }
+    if (type->size != size || type->typegroup != group) {
+      if (type->typegroup == 'C' && type->fields != NULL) {
+        size_t parent_offset = ctx->head->parent_offset + field->offset;
+        ++ctx->head;
+        ctx->head->field = type->fields;
+        ctx->head->parent_offset = parent_offset;
+        continue;
+      }
+      if ((type->typegroup == 'H' || group == 'H') && type->size == size) {
+      } else {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return -1;
+      }
+    }
+    offset = ctx->head->parent_offset + field->offset;
+    if (ctx->fmt_offset != offset) {
+      PyErr_Format(PyExc_ValueError,
+                   "Buffer dtype mismatch; next field is at offset %" CYTHON_FORMAT_SSIZE_T "d but %" CYTHON_FORMAT_SSIZE_T "d expected",
+                   (Py_ssize_t)ctx->fmt_offset, (Py_ssize_t)offset);
+      return -1;
+    }
+    ctx->fmt_offset += size;
+    if (arraysize)
+      ctx->fmt_offset += (arraysize - 1) * size;
+    --ctx->enc_count;
+    while (1) {
+      if (field == &ctx->root) {
+        ctx->head = NULL;
+        if (ctx->enc_count != 0) {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return -1;
+        }
+        break;
+      }
+      ctx->head->field = ++field;
+      if (field->type == NULL) {
+        --ctx->head;
+        field = ctx->head->field;
+        continue;
+      } else if (field->type->typegroup == 'S') {
+        size_t parent_offset = ctx->head->parent_offset + field->offset;
+        if (field->type->fields->type == NULL) continue;
+        field = field->type->fields;
+        ++ctx->head;
+        ctx->head->field = field;
+        ctx->head->parent_offset = parent_offset;
+        break;
+      } else {
+        break;
+      }
+    }
+  } while (ctx->enc_count);
+  ctx->enc_type = 0;
+  ctx->is_complex = 0;
+  return 0;
+}
+static PyObject *
+__pyx_buffmt_parse_array(__Pyx_BufFmt_Context* ctx, const char** tsp)
+{
+    const char *ts = *tsp;
+    int i = 0, number, ndim;
+    ++ts;
+    if (ctx->new_count != 1) {
+        PyErr_SetString(PyExc_ValueError,
+                        "Cannot handle repeated arrays in format string");
+        return NULL;
+    }
+    if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+    ndim = ctx->head->field->type->ndim;
+    while (*ts && *ts != ')') {
+        switch (*ts) {
+            case ' ': case '\f': case '\r': case '\n': case '\t': case '\v':  continue;
+            default:  break;
+        }
+        number = __Pyx_BufFmt_ExpectNumber(&ts);
+        if (number == -1) return NULL;
+        if (i < ndim && (size_t) number != ctx->head->field->type->arraysize[i])
+            return PyErr_Format(PyExc_ValueError,
+                        "Expected a dimension of size %zu, got %d",
+                        ctx->head->field->type->arraysize[i], number);
+        if (*ts != ',' && *ts != ')')
+            return PyErr_Format(PyExc_ValueError,
+                                "Expected a comma in format string, got '%c'", *ts);
+        if (*ts == ',') ts++;
+        i++;
+    }
+    if (i != ndim)
+        return PyErr_Format(PyExc_ValueError, "Expected %d dimension(s), got %d",
+                            ctx->head->field->type->ndim, i);
+    if (!*ts) {
+        PyErr_SetString(PyExc_ValueError,
+                        "Unexpected end of format string, expected ')'");
+        return NULL;
+    }
+    ctx->is_valid_array = 1;
+    ctx->new_count = 1;
+    *tsp = ++ts;
+    return Py_None;
+}
+static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const char* ts) {
+  int got_Z = 0;
+  while (1) {
+    switch(*ts) {
+      case 0:
+        if (ctx->enc_type != 0 && ctx->head == NULL) {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return NULL;
+        }
+        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+        if (ctx->head != NULL) {
+          __Pyx_BufFmt_RaiseExpected(ctx);
+          return NULL;
+        }
+        return ts;
+      case ' ':
+      case '\r':
+      case '\n':
+        ++ts;
+        break;
+      case '<':
+        if (!__Pyx_Is_Little_Endian()) {
+          PyErr_SetString(PyExc_ValueError, "Little-endian buffer not supported on big-endian compiler");
+          return NULL;
+        }
+        ctx->new_packmode = '=';
+        ++ts;
+        break;
+      case '>':
+      case '!':
+        if (__Pyx_Is_Little_Endian()) {
+          PyErr_SetString(PyExc_ValueError, "Big-endian buffer not supported on little-endian compiler");
+          return NULL;
+        }
+        ctx->new_packmode = '=';
+        ++ts;
+        break;
+      case '=':
+      case '@':
+      case '^':
+        ctx->new_packmode = *ts++;
+        break;
+      case 'T':
+        {
+          const char* ts_after_sub;
+          size_t i, struct_count = ctx->new_count;
+          size_t struct_alignment = ctx->struct_alignment;
+          ctx->new_count = 1;
+          ++ts;
+          if (*ts != '{') {
+            PyErr_SetString(PyExc_ValueError, "Buffer acquisition: Expected '{' after 'T'");
+            return NULL;
+          }
+          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+          ctx->enc_type = 0;
+          ctx->enc_count = 0;
+          ctx->struct_alignment = 0;
+          ++ts;
+          ts_after_sub = ts;
+          for (i = 0; i != struct_count; ++i) {
+            ts_after_sub = __Pyx_BufFmt_CheckString(ctx, ts);
+            if (!ts_after_sub) return NULL;
+          }
+          ts = ts_after_sub;
+          if (struct_alignment) ctx->struct_alignment = struct_alignment;
+        }
+        break;
+      case '}':
+        {
+          size_t alignment = ctx->struct_alignment;
+          ++ts;
+          if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+          ctx->enc_type = 0;
+          if (alignment && ctx->fmt_offset % alignment) {
+            ctx->fmt_offset += alignment - (ctx->fmt_offset % alignment);
+          }
+        }
+        return ts;
+      case 'x':
+        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+        ctx->fmt_offset += ctx->new_count;
+        ctx->new_count = 1;
+        ctx->enc_count = 0;
+        ctx->enc_type = 0;
+        ctx->enc_packmode = ctx->new_packmode;
+        ++ts;
+        break;
+      case 'Z':
+        got_Z = 1;
+        ++ts;
+        if (*ts != 'f' && *ts != 'd' && *ts != 'g') {
+          __Pyx_BufFmt_RaiseUnexpectedChar('Z');
+          return NULL;
+        }
+        CYTHON_FALLTHROUGH;
+      case '?': case 'c': case 'b': case 'B': case 'h': case 'H': case 'i': case 'I':
+      case 'l': case 'L': case 'q': case 'Q':
+      case 'f': case 'd': case 'g':
+      case 'O': case 'p':
+        if ((ctx->enc_type == *ts) && (got_Z == ctx->is_complex) &&
+            (ctx->enc_packmode == ctx->new_packmode) && (!ctx->is_valid_array)) {
+          ctx->enc_count += ctx->new_count;
+          ctx->new_count = 1;
+          got_Z = 0;
+          ++ts;
+          break;
+        }
+        CYTHON_FALLTHROUGH;
+      case 's':
+        if (__Pyx_BufFmt_ProcessTypeChunk(ctx) == -1) return NULL;
+        ctx->enc_count = ctx->new_count;
+        ctx->enc_packmode = ctx->new_packmode;
+        ctx->enc_type = *ts;
+        ctx->is_complex = got_Z;
+        ++ts;
+        ctx->new_count = 1;
+        got_Z = 0;
+        break;
+      case ':':
+        ++ts;
+        while(*ts != ':') ++ts;
+        ++ts;
+        break;
+      case '(':
+        if (!__pyx_buffmt_parse_array(ctx, &ts)) return NULL;
+        break;
+      default:
+        {
+          int number = __Pyx_BufFmt_ExpectNumber(&ts);
+          if (number == -1) return NULL;
+          ctx->new_count = (size_t)number;
+        }
+    }
+  }
+}
+
+/* BufferGetAndValidate */
+  static CYTHON_INLINE void __Pyx_SafeReleaseBuffer(Py_buffer* info) {
+  if (unlikely(info->buf == NULL)) return;
+  if (info->suboffsets == __Pyx_minusones) info->suboffsets = NULL;
+  __Pyx_ReleaseBuffer(info);
+}
+static void __Pyx_ZeroBuffer(Py_buffer* buf) {
+  buf->buf = NULL;
+  buf->obj = NULL;
+  buf->strides = __Pyx_zeros;
+  buf->shape = __Pyx_zeros;
+  buf->suboffsets = __Pyx_minusones;
+}
+static int __Pyx__GetBufferAndValidate(
+        Py_buffer* buf, PyObject* obj,  __Pyx_TypeInfo* dtype, int flags,
+        int nd, int cast, __Pyx_BufFmt_StackElem* stack)
+{
+  buf->buf = NULL;
+  if (unlikely(__Pyx_GetBuffer(obj, buf, flags) == -1)) {
+    __Pyx_ZeroBuffer(buf);
+    return -1;
+  }
+  if (unlikely(buf->ndim != nd)) {
+    PyErr_Format(PyExc_ValueError,
+                 "Buffer has wrong number of dimensions (expected %d, got %d)",
+                 nd, buf->ndim);
+    goto fail;
+  }
+  if (!cast) {
+    __Pyx_BufFmt_Context ctx;
+    __Pyx_BufFmt_Init(&ctx, stack, dtype);
+    if (!__Pyx_BufFmt_CheckString(&ctx, buf->format)) goto fail;
+  }
+  if (unlikely((size_t)buf->itemsize != dtype->size)) {
+    PyErr_Format(PyExc_ValueError,
+      "Item size of buffer (%" CYTHON_FORMAT_SSIZE_T "d byte%s) does not match size of '%s' (%" CYTHON_FORMAT_SSIZE_T "d byte%s)",
+      buf->itemsize, (buf->itemsize > 1) ? "s" : "",
+      dtype->name, (Py_ssize_t)dtype->size, (dtype->size > 1) ? "s" : "");
+    goto fail;
+  }
+  if (buf->suboffsets == NULL) buf->suboffsets = __Pyx_minusones;
+  return 0;
+fail:;
+  __Pyx_SafeReleaseBuffer(buf);
+  return -1;
 }
 
 /* BufferFallbackError */
@@ -9098,323 +10949,6 @@ bad:
     PyErr_Format(PyExc_ValueError,
                  "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
                  index, (index == 1) ? "" : "s");
-}
-
-/* GetTopmostException */
-  #if CYTHON_USE_EXC_INFO_STACK
-static _PyErr_StackItem *
-__Pyx_PyErr_GetTopmostException(PyThreadState *tstate)
-{
-    _PyErr_StackItem *exc_info = tstate->exc_info;
-    while ((exc_info->exc_type == NULL || exc_info->exc_type == Py_None) &&
-           exc_info->previous_item != NULL)
-    {
-        exc_info = exc_info->previous_item;
-    }
-    return exc_info;
-}
-#endif
-
-/* SaveResetException */
-  #if CYTHON_FAST_THREAD_STATE
-static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
-    #if CYTHON_USE_EXC_INFO_STACK
-    _PyErr_StackItem *exc_info = __Pyx_PyErr_GetTopmostException(tstate);
-    *type = exc_info->exc_type;
-    *value = exc_info->exc_value;
-    *tb = exc_info->exc_traceback;
-    #else
-    *type = tstate->exc_type;
-    *value = tstate->exc_value;
-    *tb = tstate->exc_traceback;
-    #endif
-    Py_XINCREF(*type);
-    Py_XINCREF(*value);
-    Py_XINCREF(*tb);
-}
-static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    #if CYTHON_USE_EXC_INFO_STACK
-    _PyErr_StackItem *exc_info = tstate->exc_info;
-    tmp_type = exc_info->exc_type;
-    tmp_value = exc_info->exc_value;
-    tmp_tb = exc_info->exc_traceback;
-    exc_info->exc_type = type;
-    exc_info->exc_value = value;
-    exc_info->exc_traceback = tb;
-    #else
-    tmp_type = tstate->exc_type;
-    tmp_value = tstate->exc_value;
-    tmp_tb = tstate->exc_traceback;
-    tstate->exc_type = type;
-    tstate->exc_value = value;
-    tstate->exc_traceback = tb;
-    #endif
-    Py_XDECREF(tmp_type);
-    Py_XDECREF(tmp_value);
-    Py_XDECREF(tmp_tb);
-}
-#endif
-
-/* PyErrExceptionMatches */
-  #if CYTHON_FAST_THREAD_STATE
-static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
-    Py_ssize_t i, n;
-    n = PyTuple_GET_SIZE(tuple);
-#if PY_MAJOR_VERSION >= 3
-    for (i=0; i<n; i++) {
-        if (exc_type == PyTuple_GET_ITEM(tuple, i)) return 1;
-    }
-#endif
-    for (i=0; i<n; i++) {
-        if (__Pyx_PyErr_GivenExceptionMatches(exc_type, PyTuple_GET_ITEM(tuple, i))) return 1;
-    }
-    return 0;
-}
-static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tstate, PyObject* err) {
-    PyObject *exc_type = tstate->curexc_type;
-    if (exc_type == err) return 1;
-    if (unlikely(!exc_type)) return 0;
-    if (unlikely(PyTuple_Check(err)))
-        return __Pyx_PyErr_ExceptionMatchesTuple(exc_type, err);
-    return __Pyx_PyErr_GivenExceptionMatches(exc_type, err);
-}
-#endif
-
-/* GetException */
-  #if CYTHON_FAST_THREAD_STATE
-static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb)
-#else
-static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb)
-#endif
-{
-    PyObject *local_type, *local_value, *local_tb;
-#if CYTHON_FAST_THREAD_STATE
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    local_type = tstate->curexc_type;
-    local_value = tstate->curexc_value;
-    local_tb = tstate->curexc_traceback;
-    tstate->curexc_type = 0;
-    tstate->curexc_value = 0;
-    tstate->curexc_traceback = 0;
-#else
-    PyErr_Fetch(&local_type, &local_value, &local_tb);
-#endif
-    PyErr_NormalizeException(&local_type, &local_value, &local_tb);
-#if CYTHON_FAST_THREAD_STATE
-    if (unlikely(tstate->curexc_type))
-#else
-    if (unlikely(PyErr_Occurred()))
-#endif
-        goto bad;
-    #if PY_MAJOR_VERSION >= 3
-    if (local_tb) {
-        if (unlikely(PyException_SetTraceback(local_value, local_tb) < 0))
-            goto bad;
-    }
-    #endif
-    Py_XINCREF(local_tb);
-    Py_XINCREF(local_type);
-    Py_XINCREF(local_value);
-    *type = local_type;
-    *value = local_value;
-    *tb = local_tb;
-#if CYTHON_FAST_THREAD_STATE
-    #if CYTHON_USE_EXC_INFO_STACK
-    {
-        _PyErr_StackItem *exc_info = tstate->exc_info;
-        tmp_type = exc_info->exc_type;
-        tmp_value = exc_info->exc_value;
-        tmp_tb = exc_info->exc_traceback;
-        exc_info->exc_type = local_type;
-        exc_info->exc_value = local_value;
-        exc_info->exc_traceback = local_tb;
-    }
-    #else
-    tmp_type = tstate->exc_type;
-    tmp_value = tstate->exc_value;
-    tmp_tb = tstate->exc_traceback;
-    tstate->exc_type = local_type;
-    tstate->exc_value = local_value;
-    tstate->exc_traceback = local_tb;
-    #endif
-    Py_XDECREF(tmp_type);
-    Py_XDECREF(tmp_value);
-    Py_XDECREF(tmp_tb);
-#else
-    PyErr_SetExcInfo(local_type, local_value, local_tb);
-#endif
-    return 0;
-bad:
-    *type = 0;
-    *value = 0;
-    *tb = 0;
-    Py_XDECREF(local_type);
-    Py_XDECREF(local_value);
-    Py_XDECREF(local_tb);
-    return -1;
-}
-
-/* SwapException */
-  #if CYTHON_FAST_THREAD_STATE
-static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    #if CYTHON_USE_EXC_INFO_STACK
-    _PyErr_StackItem *exc_info = tstate->exc_info;
-    tmp_type = exc_info->exc_type;
-    tmp_value = exc_info->exc_value;
-    tmp_tb = exc_info->exc_traceback;
-    exc_info->exc_type = *type;
-    exc_info->exc_value = *value;
-    exc_info->exc_traceback = *tb;
-    #else
-    tmp_type = tstate->exc_type;
-    tmp_value = tstate->exc_value;
-    tmp_tb = tstate->exc_traceback;
-    tstate->exc_type = *type;
-    tstate->exc_value = *value;
-    tstate->exc_traceback = *tb;
-    #endif
-    *type = tmp_type;
-    *value = tmp_value;
-    *tb = tmp_tb;
-}
-#else
-static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    PyErr_GetExcInfo(&tmp_type, &tmp_value, &tmp_tb);
-    PyErr_SetExcInfo(*type, *value, *tb);
-    *type = tmp_type;
-    *value = tmp_value;
-    *tb = tmp_tb;
-}
-#endif
-
-/* PyObjectGetMethod */
-  static int __Pyx_PyObject_GetMethod(PyObject *obj, PyObject *name, PyObject **method) {
-    PyObject *attr;
-#if CYTHON_UNPACK_METHODS && CYTHON_COMPILING_IN_CPYTHON && CYTHON_USE_PYTYPE_LOOKUP
-    PyTypeObject *tp = Py_TYPE(obj);
-    PyObject *descr;
-    descrgetfunc f = NULL;
-    PyObject **dictptr, *dict;
-    int meth_found = 0;
-    assert (*method == NULL);
-    if (unlikely(tp->tp_getattro != PyObject_GenericGetAttr)) {
-        attr = __Pyx_PyObject_GetAttrStr(obj, name);
-        goto try_unpack;
-    }
-    if (unlikely(tp->tp_dict == NULL) && unlikely(PyType_Ready(tp) < 0)) {
-        return 0;
-    }
-    descr = _PyType_Lookup(tp, name);
-    if (likely(descr != NULL)) {
-        Py_INCREF(descr);
-#if PY_MAJOR_VERSION >= 3
-        #ifdef __Pyx_CyFunction_USED
-        if (likely(PyFunction_Check(descr) || (Py_TYPE(descr) == &PyMethodDescr_Type) || __Pyx_CyFunction_Check(descr)))
-        #else
-        if (likely(PyFunction_Check(descr) || (Py_TYPE(descr) == &PyMethodDescr_Type)))
-        #endif
-#else
-        #ifdef __Pyx_CyFunction_USED
-        if (likely(PyFunction_Check(descr) || __Pyx_CyFunction_Check(descr)))
-        #else
-        if (likely(PyFunction_Check(descr)))
-        #endif
-#endif
-        {
-            meth_found = 1;
-        } else {
-            f = Py_TYPE(descr)->tp_descr_get;
-            if (f != NULL && PyDescr_IsData(descr)) {
-                attr = f(descr, obj, (PyObject *)Py_TYPE(obj));
-                Py_DECREF(descr);
-                goto try_unpack;
-            }
-        }
-    }
-    dictptr = _PyObject_GetDictPtr(obj);
-    if (dictptr != NULL && (dict = *dictptr) != NULL) {
-        Py_INCREF(dict);
-        attr = __Pyx_PyDict_GetItemStr(dict, name);
-        if (attr != NULL) {
-            Py_INCREF(attr);
-            Py_DECREF(dict);
-            Py_XDECREF(descr);
-            goto try_unpack;
-        }
-        Py_DECREF(dict);
-    }
-    if (meth_found) {
-        *method = descr;
-        return 1;
-    }
-    if (f != NULL) {
-        attr = f(descr, obj, (PyObject *)Py_TYPE(obj));
-        Py_DECREF(descr);
-        goto try_unpack;
-    }
-    if (descr != NULL) {
-        *method = descr;
-        return 0;
-    }
-    PyErr_Format(PyExc_AttributeError,
-#if PY_MAJOR_VERSION >= 3
-                 "'%.50s' object has no attribute '%U'",
-                 tp->tp_name, name);
-#else
-                 "'%.50s' object has no attribute '%.400s'",
-                 tp->tp_name, PyString_AS_STRING(name));
-#endif
-    return 0;
-#else
-    attr = __Pyx_PyObject_GetAttrStr(obj, name);
-    goto try_unpack;
-#endif
-try_unpack:
-#if CYTHON_UNPACK_METHODS
-    if (likely(attr) && PyMethod_Check(attr) && likely(PyMethod_GET_SELF(attr) == obj)) {
-        PyObject *function = PyMethod_GET_FUNCTION(attr);
-        Py_INCREF(function);
-        Py_DECREF(attr);
-        *method = function;
-        return 1;
-    }
-#endif
-    *method = attr;
-    return 0;
-}
-
-/* PyObjectCallMethod1 */
-  static PyObject* __Pyx__PyObject_CallMethod1(PyObject* method, PyObject* arg) {
-    PyObject *result = __Pyx_PyObject_CallOneArg(method, arg);
-    Py_DECREF(method);
-    return result;
-}
-static PyObject* __Pyx_PyObject_CallMethod1(PyObject* obj, PyObject* method_name, PyObject* arg) {
-    PyObject *method = NULL, *result;
-    int is_method = __Pyx_PyObject_GetMethod(obj, method_name, &method);
-    if (likely(is_method)) {
-        result = __Pyx_PyObject_Call2Args(method, obj, arg);
-        Py_DECREF(method);
-        return result;
-    }
-    if (unlikely(!method)) return NULL;
-    return __Pyx__PyObject_CallMethod1(method, arg);
-}
-
-/* append */
-  static CYTHON_INLINE int __Pyx_PyObject_Append(PyObject* L, PyObject* x) {
-    if (likely(PyList_CheckExact(L))) {
-        if (unlikely(__Pyx_PyList_Append(L, x) < 0)) return -1;
-    } else {
-        PyObject* retval = __Pyx_PyObject_CallMethod1(L, __pyx_n_s_append, x);
-        if (unlikely(!retval))
-            return -1;
-        Py_DECREF(retval);
-    }
-    return 0;
 }
 
 /* PyObject_GenericGetAttrNoDict */
@@ -10256,200 +11790,42 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
     #endif
 #endif
 
-/* CIntFromPy */
-  static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
+/* CIntToPy */
+  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
 #ifdef __Pyx_HAS_GCC_DIAGNOSTIC
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wconversion"
 #endif
-    const int neg_one = (int) -1, const_zero = (int) 0;
+    const long neg_one = (long) -1, const_zero = (long) 0;
 #ifdef __Pyx_HAS_GCC_DIAGNOSTIC
 #pragma GCC diagnostic pop
 #endif
     const int is_unsigned = neg_one > const_zero;
-#if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_Check(x))) {
-        if (sizeof(int) < sizeof(long)) {
-            __PYX_VERIFY_RETURN_INT(int, long, PyInt_AS_LONG(x))
-        } else {
-            long val = PyInt_AS_LONG(x);
-            if (is_unsigned && unlikely(val < 0)) {
-                goto raise_neg_overflow;
-            }
-            return (int) val;
-        }
-    } else
-#endif
-    if (likely(PyLong_Check(x))) {
-        if (is_unsigned) {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (int) 0;
-                case  1: __PYX_VERIFY_RETURN_INT(int, digit, digits[0])
-                case 2:
-                    if (8 * sizeof(int) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) >= 2 * PyLong_SHIFT) {
-                            return (int) (((((int)digits[1]) << PyLong_SHIFT) | (int)digits[0]));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(int) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) >= 3 * PyLong_SHIFT) {
-                            return (int) (((((((int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0]));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(int) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) >= 4 * PyLong_SHIFT) {
-                            return (int) (((((((((int)digits[3]) << PyLong_SHIFT) | (int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0]));
-                        }
-                    }
-                    break;
-            }
-#endif
-#if CYTHON_COMPILING_IN_CPYTHON
-            if (unlikely(Py_SIZE(x) < 0)) {
-                goto raise_neg_overflow;
-            }
-#else
-            {
-                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
-                if (unlikely(result < 0))
-                    return (int) -1;
-                if (unlikely(result == 1))
-                    goto raise_neg_overflow;
-            }
-#endif
-            if (sizeof(int) <= sizeof(unsigned long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(int, unsigned long, PyLong_AsUnsignedLong(x))
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
 #ifdef HAVE_LONG_LONG
-            } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(int, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
 #endif
-            }
-        } else {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (int) 0;
-                case -1: __PYX_VERIFY_RETURN_INT(int, sdigit, (sdigit) (-(sdigit)digits[0]))
-                case  1: __PYX_VERIFY_RETURN_INT(int,  digit, +digits[0])
-                case -2:
-                    if (8 * sizeof(int) - 1 > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) - 1 > 2 * PyLong_SHIFT) {
-                            return (int) (((int)-1)*(((((int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
-                        }
-                    }
-                    break;
-                case 2:
-                    if (8 * sizeof(int) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) - 1 > 2 * PyLong_SHIFT) {
-                            return (int) ((((((int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
-                        }
-                    }
-                    break;
-                case -3:
-                    if (8 * sizeof(int) - 1 > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) - 1 > 3 * PyLong_SHIFT) {
-                            return (int) (((int)-1)*(((((((int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(int) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) - 1 > 3 * PyLong_SHIFT) {
-                            return (int) ((((((((int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
-                        }
-                    }
-                    break;
-                case -4:
-                    if (8 * sizeof(int) - 1 > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) - 1 > 4 * PyLong_SHIFT) {
-                            return (int) (((int)-1)*(((((((((int)digits[3]) << PyLong_SHIFT) | (int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(int) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(int) - 1 > 4 * PyLong_SHIFT) {
-                            return (int) ((((((((((int)digits[3]) << PyLong_SHIFT) | (int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
-                        }
-                    }
-                    break;
-            }
-#endif
-            if (sizeof(int) <= sizeof(long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(int, long, PyLong_AsLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(int, PY_LONG_LONG, PyLong_AsLongLong(x))
-#endif
-            }
-        }
-        {
-#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
-            PyErr_SetString(PyExc_RuntimeError,
-                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
-#else
-            int val;
-            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
- #if PY_MAJOR_VERSION < 3
-            if (likely(v) && !PyLong_Check(v)) {
-                PyObject *tmp = v;
-                v = PyNumber_Long(tmp);
-                Py_DECREF(tmp);
-            }
- #endif
-            if (likely(v)) {
-                int one = 1; int is_little = (int)*(unsigned char *)&one;
-                unsigned char *bytes = (unsigned char *)&val;
-                int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                              bytes, sizeof(val),
-                                              is_little, !is_unsigned);
-                Py_DECREF(v);
-                if (likely(!ret))
-                    return val;
-            }
-#endif
-            return (int) -1;
         }
     } else {
-        int val;
-        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
-        if (!tmp) return (int) -1;
-        val = __Pyx_PyInt_As_int(tmp);
-        Py_DECREF(tmp);
-        return val;
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+#ifdef HAVE_LONG_LONG
+        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+#endif
+        }
     }
-raise_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "value too large to convert to int");
-    return (int) -1;
-raise_neg_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "can't convert negative value to int");
-    return (int) -1;
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
+                                     little, !is_unsigned);
+    }
 }
 
 /* CIntFromPy */
@@ -10648,42 +12024,200 @@ raise_neg_overflow:
     return (npy_int32) -1;
 }
 
-/* CIntToPy */
-  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+/* CIntFromPy */
+  static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *x) {
 #ifdef __Pyx_HAS_GCC_DIAGNOSTIC
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wconversion"
 #endif
-    const int neg_one = (int) -1, const_zero = (int) 0;
+    const size_t neg_one = (size_t) -1, const_zero = (size_t) 0;
 #ifdef __Pyx_HAS_GCC_DIAGNOSTIC
 #pragma GCC diagnostic pop
 #endif
     const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(size_t) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(size_t, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (size_t) val;
+        }
+    } else
 #endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (size_t) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(size_t, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 2 * PyLong_SHIFT) {
+                            return (size_t) (((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 3 * PyLong_SHIFT) {
+                            return (size_t) (((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 4 * PyLong_SHIFT) {
+                            return (size_t) (((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (size_t) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned long, PyLong_AsUnsignedLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(size_t) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+#endif
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (size_t) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(size_t, sdigit, (sdigit) (-(sdigit)digits[0]))
+                case  1: __PYX_VERIFY_RETURN_INT(size_t,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(size_t) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (size_t) ((((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (size_t) ((((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (size_t) ((((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, long, PyLong_AsLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(size_t) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, PY_LONG_LONG, PyLong_AsLongLong(x))
+#endif
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            size_t val;
+            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (size_t) -1;
         }
     } else {
-        if (sizeof(int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
+        size_t val;
+        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
+        if (!tmp) return (size_t) -1;
+        val = __Pyx_PyInt_As_size_t(tmp);
+        Py_DECREF(tmp);
+        return val;
     }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(int),
-                                     little, !is_unsigned);
-    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to size_t");
+    return (size_t) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to size_t");
+    return (size_t) -1;
 }
 
 /* CIntToPy */
@@ -10720,44 +12254,6 @@ raise_neg_overflow:
         int one = 1; int little = (int)*(unsigned char *)&one;
         unsigned char *bytes = (unsigned char *)&value;
         return _PyLong_FromByteArray(bytes, sizeof(unsigned int),
-                                     little, !is_unsigned);
-    }
-}
-
-/* CIntToPy */
-  static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wconversion"
-#endif
-    const long neg_one = (long) -1, const_zero = (long) 0;
-#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
-#pragma GCC diagnostic pop
-#endif
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(unsigned PY_LONG_LONG)) {
-            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
-#endif
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-#ifdef HAVE_LONG_LONG
-        } else if (sizeof(long) <= sizeof(PY_LONG_LONG)) {
-            return PyLong_FromLongLong((PY_LONG_LONG) value);
-#endif
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
                                      little, !is_unsigned);
     }
 }
@@ -10956,6 +12452,202 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to long");
     return (long) -1;
+}
+
+/* CIntFromPy */
+  static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#endif
+    const int neg_one = (int) -1, const_zero = (int) 0;
+#ifdef __Pyx_HAS_GCC_DIAGNOSTIC
+#pragma GCC diagnostic pop
+#endif
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(int) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(int, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (int) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (int) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(int, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(int) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) >= 2 * PyLong_SHIFT) {
+                            return (int) (((((int)digits[1]) << PyLong_SHIFT) | (int)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(int) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) >= 3 * PyLong_SHIFT) {
+                            return (int) (((((((int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(int) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) >= 4 * PyLong_SHIFT) {
+                            return (int) (((((((((int)digits[3]) << PyLong_SHIFT) | (int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (int) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(int) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(int, unsigned long, PyLong_AsUnsignedLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(int) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(int, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+#endif
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (int) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(int, sdigit, (sdigit) (-(sdigit)digits[0]))
+                case  1: __PYX_VERIFY_RETURN_INT(int,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(int) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) - 1 > 2 * PyLong_SHIFT) {
+                            return (int) (((int)-1)*(((((int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(int) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) - 1 > 2 * PyLong_SHIFT) {
+                            return (int) ((((((int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(int) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) - 1 > 3 * PyLong_SHIFT) {
+                            return (int) (((int)-1)*(((((((int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(int) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) - 1 > 3 * PyLong_SHIFT) {
+                            return (int) ((((((((int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(int) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) - 1 > 4 * PyLong_SHIFT) {
+                            return (int) (((int)-1)*(((((((((int)digits[3]) << PyLong_SHIFT) | (int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(int) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(int, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(int) - 1 > 4 * PyLong_SHIFT) {
+                            return (int) ((((((((((int)digits[3]) << PyLong_SHIFT) | (int)digits[2]) << PyLong_SHIFT) | (int)digits[1]) << PyLong_SHIFT) | (int)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(int) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(int, long, PyLong_AsLong(x))
+#ifdef HAVE_LONG_LONG
+            } else if (sizeof(int) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(int, PY_LONG_LONG, PyLong_AsLongLong(x))
+#endif
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            int val;
+            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (int) -1;
+        }
+    } else {
+        int val;
+        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
+        if (!tmp) return (int) -1;
+        val = __Pyx_PyInt_As_int(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to int");
+    return (int) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to int");
+    return (int) -1;
 }
 
 /* FastTypeChecks */
