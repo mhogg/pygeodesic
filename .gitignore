@@ -6,3 +6,5 @@ pygeodesic.egg-info/
 *.pyd
 *.bat
 pygeodesic.cpp
+*.so
+.venv
