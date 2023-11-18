@@ -2,7 +2,7 @@
 requires = [
     "setuptools>=42",
     "wheel>=0.33.0",
-    "cython==3.0.0a11",
+    "cython==3.0.5",
     "oldest-supported-numpy"
 ]
 
@@ -18,7 +18,7 @@ filterwarnings = [
 
 [tool.cibuildwheel]
 archs = ["auto64"]  # 64-bit only
-skip = "pp* *musllinux* cp36-*" # disable PyPy and musl-based wheels
+skip = "pp* *musllinux* cp36-* cp37-*" # disable PyPy and musl-based wheels
 test-requires = "pytest"
 test-command = "pytest {project}/tests"
 
