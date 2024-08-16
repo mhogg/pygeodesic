@@ -2,8 +2,8 @@
 requires = [
     "setuptools>=42",
     "wheel>=0.33.0",
-    "cython==3.0.5",
-    "oldest-supported-numpy"
+    "cython>=3.0.7",
+    "numpy>=2,<3",
 ]
 
 build-backend = "setuptools.build_meta"
@@ -18,11 +18,9 @@ filterwarnings = [
 
 [tool.cibuildwheel]
 archs = ["auto64"]  # 64-bit only
-skip = "pp* *musllinux* cp36-* cp37-*" # disable PyPy and musl-based wheels
+skip = "pp* *musllinux* cp38-* cp313-*" # Build CPython 3.9-3.12
 test-requires = "pytest"
 test-command = "pytest {project}/tests"
 
 [tool.cibuildwheel.macos]
-# https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
-archs = ["x86_64", "universal2"]
-test-skip = ["*_arm64", "*_universal2:arm64"]
+archs = ["native"]
