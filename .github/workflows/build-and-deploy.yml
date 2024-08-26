@@ -28,7 +28,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           path: ./wheelhouse/*.whl
-          name: pygeodesic-wheel-${{ matrix.os }}
+          name: pygeodesic-wheel-${{ matrix.os }}-${{ github.run_id }}
 
   build_sdist:
     name: Build source distribution
