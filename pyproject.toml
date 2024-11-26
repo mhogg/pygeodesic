@@ -18,7 +18,7 @@ filterwarnings = [
 
 [tool.cibuildwheel]
 archs = ["auto64"]  # 64-bit only
-skip = "pp* *musllinux* cp38-* cp313-*" # Build CPython 3.9-3.12
+skip = "pp* *musllinux* cp38-* cp314-*" # Build CPython 3.9-3.13
 test-requires = "pytest"
 test-command = "pytest {project}/tests"
 
